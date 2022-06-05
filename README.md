@@ -4,7 +4,7 @@
 ## Todos
 
 ### Must have
-1. Userflow erstellen
+~~1. Userflow erstellen~~
 2. Drucken
 3. Homeview
    1. zentrieren
