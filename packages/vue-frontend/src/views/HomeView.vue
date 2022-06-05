@@ -1,7 +1,7 @@
 <template>
   <div class="landing">
     <div class="landing__image-wrapper">
-      <img src="@/assets/boho_wedding.png" />
+      <img src="@/assets/boho_wedding.png" alt="event image"/>
     </div>
     <div class="landing__button-wrapper">
       <router-link class="button normalize" to="/countdown">
