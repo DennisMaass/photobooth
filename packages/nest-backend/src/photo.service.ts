@@ -9,7 +9,7 @@ export class PhotoService {
 
   async take(path): Promise<void> {
     if (this.mock) {
-      await fs.copyFile('./mock.png', path,()=>{});
+      fs.copyFileSync('./mock.png', path);
       return;
     }
     const takePhoto = `gphoto2 --capture-image-and-download --filename=${path}`;
