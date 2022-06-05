@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 const HomeView = () => import("@/views/HomeView.vue");
 const CountdownView = () => import("@/views/CountdownView.vue");
 const ResultView = () => import("@/views/ResultView.vue");
+const GalleryView = () => import("@/views/GalleryView.vue");
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,6 +25,11 @@ const router = createRouter({
       component: ResultView,
       name: "Result",
       props: true,
+    },
+    {
+      path: "/gallery",
+      component: GalleryView,
+      name: "Gallery"
     },
   ],
 });
