@@ -1,21 +1,26 @@
 import { Controller, Delete, Get, Post } from '@nestjs/common';
 import { PhotoService } from './photo.service';
+import { ConfigService } from '@nestjs/config';
 const sharp = require('sharp');
 
 @Controller()
 export class AppController {
-  constructor(private readonly photoService: PhotoService) {}
+  constructor(private readonly photoService: PhotoService,private configService: ConfigService) {}
 
   @Post()
   async takePhoto(): Promise<{ path:string }> {
-    const allPictures = this.photoService.getAll();
+    const eventName=this.configService.get<string>('EVENT_NAME');
     const timestamp = Date.now()
-    const newName = `D-R-Hochzeit_${timestamp}`
+    const newName = `${eventName}_${timestamp}`
     const path = `./photos/${newName}.jpg`;
 
     await this.photoService.take(path);
 
-    sharp(path).toFile(`./print/${newName}.webp`);
+    const pathToPrintFolder=this.configService.get<string>('PRINT_PATH');
+    sharp(path).toFile(`${pathToPrintFolder}/${newName}.webp`);
+
+    const pathToPreviewFolder=this.configService.get<string>('PREVIEW_PATH');
+    sharp(path).toFile(`${pathToPreviewFolder}/${newName}.webp`);
 
     return { path };
   }
