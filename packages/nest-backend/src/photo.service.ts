@@ -1,15 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { CommandService } from './command.service';
+import { ConfigService } from '@nestjs/config';
 const fs = require('fs');
 
 @Injectable()
 export class PhotoService {
-  private mock = true;
-  constructor(private readonly commandService: CommandService) {}
+  private mock = false;
+  constructor(private readonly commandService: CommandService, private configService: ConfigService) {
+    const mode = this.configService.get<string>('MODE');
+    this.mock = mode === "local"
+  }
 
   async take(path): Promise<void> {
     if (this.mock) {
-      fs.copyFileSync('./mock.png', path);
+      fs.copyFileSync('./assets/mock.png', path);
       return;
     }
     const takePhoto = `gphoto2 --capture-image-and-download --filename=${path}`;
