@@ -4,9 +4,14 @@ const fs = require('fs');
 
 @Injectable()
 export class PhotoService {
+  private mock = true;
   constructor(private readonly commandService: CommandService) {}
 
   async take(path): Promise<void> {
+    if (this.mock) {
+      await fs.copyFile('./test.png', path,()=>{});
+      return;
+    }
     const takePhoto = `gphoto2 --capture-image-and-download --filename=${path}`;
 
     await this.commandService.exec(takePhoto);
@@ -17,20 +22,15 @@ export class PhotoService {
   }
 
   // TODO:
-  get(): string{
-    return ""
-  }
+  delete(): void {}
 
-  // TODO:
-  delete():void{
-
-  }
-
-  print() {
+  async print(path):Promise<void>{
+    if (this.mock) {
+      console.log('print',path);
+      return
+    }
     const print = 'lp -o landscape -o fit-to-page %s';
 
-    this.commandService.exec(print);
-
-    return 'Hello World!';
+    await this.commandService.exec(print);
   }
 }
