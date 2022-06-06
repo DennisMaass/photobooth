@@ -24,16 +24,16 @@ import * as Joi from 'joi';
       envFilePath: ['.env.local'],
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'photos'),
-      serveRoot: '/photos',
+      rootPath: join(__dirname, '..', 'originals'),
+      serveRoot: '/originals',
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'preview'),
-      serveRoot: '/preview',
+      rootPath: join(__dirname, '..', 'previews'),
+      serveRoot: '/previews',
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'print'),
-      serveRoot: '/print',
+      rootPath: join(__dirname, '..', 'prints'),
+      serveRoot: '/prints',
     }),
   ],
   controllers: [AppController],

@@ -29,13 +29,12 @@ async function startCountDownTimer() {
   } else {
     remainingTime.value = "CHEESE";
     const photoInfo = await take();
-    const imageUrl=`http://localhost:3001/${photoInfo.id}`
 
     setTimeout(() => {
       remainingTime.value = "";
       router.push({
         name: "Result",
-        params: { imageUrl },
+        params: { imageId:photoInfo.id },
       });
     }, 1500);
   }

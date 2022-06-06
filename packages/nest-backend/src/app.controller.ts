@@ -14,26 +14,33 @@ export class AppController {
   async take(): Promise<{ id: string }> {
     const eventName = this.configService.get<string>('EVENT_NAME');
     const timestamp = Date.now();
-    const newName = `${eventName}_${timestamp}`;
+    const id = `${eventName}_${timestamp}`;
 
     const pathToOriginalsFolder = this.configService.get<string>('ORIGINAL_PATH');
-    const pathToOriginalPhoto = `${pathToOriginalsFolder}/${newName}.jpg`;
+    const originalName=`${id}.jpg`
+    const pathToOriginalPhoto = `${pathToOriginalsFolder}/${originalName}`;
     await this.photoService.take(pathToOriginalPhoto);
 
     const pathToPrintFolder = this.configService.get<string>('PRINT_PATH');
-    const pathToPrintPhoto = `${pathToPrintFolder}/${newName}.webp`;
+    const printName=`${id}.webp`
+    const pathToPrintPhoto = `${pathToPrintFolder}/${printName}`;
     sharp(pathToOriginalPhoto).resize({ width: 1920 }).toFile(pathToPrintPhoto);
 
     const pathToPreviewFolder = this.configService.get<string>('PREVIEW_PATH');
-    const pathToPreviewPhoto = `${pathToPreviewFolder}/${newName}.webp`;
+    const previewName=`${id}.webp`
+    const pathToPreviewPhoto = `${pathToPreviewFolder}/${previewName}`;
     await sharp(pathToOriginalPhoto).resize({ width: 500 }).toFile(pathToPreviewPhoto);
 
-    return { id: pathToPreviewPhoto };
+    return { id };
   }
 
   @Post('/print')
   async print(@Body('id') id: string): Promise<void> {
-    await this.photoService.print(id);
+    const pathToPrintFolder = this.configService.get<string>('PRINT_PATH');
+    const printName=`${id}.webp`
+    const pathToPrintPhoto = `${pathToPrintFolder}/${printName}`;
+
+    await this.photoService.print(pathToPrintPhoto);
   }
 
   @Get()

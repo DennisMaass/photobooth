@@ -27,26 +27,28 @@ import PrinterIcon from "@/components/icons/PrinterIcon.vue";
 import BinIcon from "@/components/icons/BinIcon.vue";
 import CameraIcon from "@/components/icons/CameraIcon.vue";
 import { usePhotos } from "@/composables/usePhotos";
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 
 const props = defineProps({
-  imageUrl: { type: String, required: true },
+  imageId: { type: String, required: true },
 });
 
 const { print, remove } = usePhotos();
 
 function handlePrint() {
-  print(props.imageUrl);
+  print(props.imageId);
+  router.push("/");
 }
 
+
+const router = useRouter()
 function handleRemove() {
-  remove(props.imageUrl);
+  remove(props.imageId);
+  router.push("/");
 }
 
-// const route = useRoute();
-// console.log("context", route);
-// const imageUrl = ref();
-// // console.log("imageUrl", imageUrl.value);
-// return { imageUrl };
+const imageUrl= computed(()=>`http://localhost:3001/previews/${props.imageId}.webp`)
 </script>
 
 <style>
