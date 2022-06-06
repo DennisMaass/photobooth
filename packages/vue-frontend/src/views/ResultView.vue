@@ -1,28 +1,34 @@
 <template>
   <div class="result">
-    <div class="result__content-wrapper">
-      <div class="result__back-wrapper">
-        <BaseButton to="/home" class="result__back">
-          <Icon icon="mdi:home" height="75%" color="white" />
-        </BaseButton>
-      </div>
       <div class="result__image-wrapper">
         <img class="result__photo" :src="imageUrl" alt="taken photo" />
       </div>
-      <div class="result__actions-wrapper">
-        <BaseButton>
-          <PrinterIcon @click="handlePrint" />
+      <ButtonBar class="result__actions-wrapper">
+        <div class="result__left-actions">
+        <BaseButton to="/home" class="result__back">
+          <Icon icon="mdi:home" height="75%" color="white" />
         </BaseButton>
-        <BaseButton @click="handleRemove">
-          <BinIcon />
+        </div>
+        <div class="result__middle-actions">
+          <BaseButton>
+            <PrinterIcon @click="handlePrint" />
+          </BaseButton>
+          <BaseButton @click="handleRemove">
+            <BinIcon />
+          </BaseButton>
+        </div>
+          <div class="result__right-actions">
+        <BaseButton to="/gallery" class="result__back">
+          <Icon icon="mdi:picture" height="75%" color="white" />
         </BaseButton>
-      </div>
-    </div>
+          </div>
+      </ButtonBar>
   </div>
 </template>
 
 <script lang="ts" setup>
 import BaseButton from "@/components/BaseButton.vue";
+import ButtonBar from "@/components/ButtonBar.vue";
 import PrinterIcon from "@/components/icons/PrinterIcon.vue";
 import BinIcon from "@/components/icons/BinIcon.vue";
 import { Icon } from "@iconify/vue";
@@ -52,43 +58,46 @@ const imageUrl = computed(
 );
 </script>
 
-<style>
+<style lang="scss">
 .result {
+  padding: 20px;
   height: 100vh;
+  max-height: 100vh;
   background-color: #b2c3b5;
-}
-.result__content-wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: calc(100% - 2rem);
-  padding: 1rem;
-}
 
-.result__back-wrapper {
-  display: flex;
-  justify-content: flex-end;
-}
+   >* + * {
+     margin-top: 3rem;
+   }
+  &__back-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
 
-.result__image-wrapper {
-  flex: 1;
-  padding: 3rem;
-}
+  &__image-wrapper {
+    flex: 1;
+    height: calc(100% - 2rem);
+  }
 
-.result__photo {
-  width: auto;
-  height: 100%;
-  aspect-ratio: 3/2;
-}
+  &__photo {
+    width: auto;
+    height: 100%;
+    aspect-ratio: 3/2;
+    object-fit: cover;
+  }
 
-.result__back {
-  margin: 1rem;
-}
+  &__actions-wrapper {
+    display: flex;
+    justify-content: center;
 
-.result__actions-wrapper {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-bottom: 1rem;
+    >* + * {
+      margin-left: 6rem;
+    }
+  }
+
+  &__middle-actions{
+    display: flex;
+  }
 }
 </style>

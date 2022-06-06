@@ -8,10 +8,7 @@ const props = defineProps({
 });
 
 const camera = ref<HTMLVideoElement | null>(null);
-const canvas = ref<HTMLCanvasElement | null>(null);
 const isLoading = ref(false);
-const isPhotoTaken = ref(false);
-const isShotingPhoto = ref(false);
 
 const { counterTime } = toRefs(props);
 const router = useRouter();
@@ -63,44 +60,6 @@ function initializeCamera() {
     });
 }
 
-async function takePhotoOld() {
-  if (!camera.value || !canvas.value) {
-    return;
-  }
-
-  const cameraSize = camera.value.getBoundingClientRect();
-
-  if (!isPhotoTaken.value) {
-    isShotingPhoto.value = true;
-
-    const FLASH_TIMEOUT = 100;
-
-    setTimeout(() => {
-      isShotingPhoto.value = false;
-    }, FLASH_TIMEOUT);
-  }
-
-  isPhotoTaken.value = !isPhotoTaken.value;
-
-  const context = canvas.value.getContext("2d");
-  if (!context) {
-    return;
-  }
-  //TODO improve
-  canvas.value!.style.width = `${cameraSize.width}px`;
-  canvas.value!.style.height = `${cameraSize.height}px`;
-
-  context.drawImage(
-    camera.value,
-    0,
-    0,
-    canvas.value.width,
-    canvas.value.height
-  );
-
-  closeCameraStream();
-}
-
 function closeCameraStream() {
   const mediaStream = camera.value?.srcObject as MediaStream;
   const camTracks = mediaStream.getTracks();
@@ -122,33 +81,27 @@ onBeforeUnmount(() => {
   <div class="countdown">
     <div class="countdown__media-wrapper">
       <video
-        v-show="!isPhotoTaken"
         ref="camera"
         autoplay
         class="countdown__video"
       ></video>
-      <canvas
-        v-show="isPhotoTaken"
-        ref="canvas"
-        class="countdown__canvas"
-      ></canvas>
     </div>
 
     <div v-if="!isLoading" class="countdown__time">
       {{ remainingTime }}
     </div>
-    <router-link to="/result" />
   </div>
 </template>
 
 <style lang="scss">
 .countdown {
   position: relative;
+    height: 100vh;
+    max-height: 100vh;
 
   &__media-wrapper {
     position: relative;
-    padding-bottom: 66.67%; //75% /* 4:3 */ // 56.25%; /* 16:9 */ Drucker: 2:3
-    height: 0;
+    height: 100%;
   }
 
   &__video {
@@ -157,12 +110,7 @@ onBeforeUnmount(() => {
     left: 0;
     width: 100%;
     height: 100%; //auto
-  }
-
-  &__canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
+    object-fit: cover;
   }
 
   &__time {

@@ -6,7 +6,9 @@
         src="@/assets/boho_frame_square.jpg"
         alt="event image"
       />
-      <div v-html="eventTitle" class="home__title"></div>
+      <HomeTitle>
+        <p v-html="eventTitle" class="home__title"></p>
+      </HomeTitle>
     </div>
     <div class="home__footer">
       <ButtonBar>
@@ -23,14 +25,19 @@ import BaseButton from "@/components/BaseButton.vue";
 import ButtonBar from "@/components/ButtonBar.vue";
 import CameraIcon from "@/components/icons/CameraIcon.vue";
 import { useRouter } from "vue-router";
-import BohoFrame from "@/components/BohoFrame.vue";
+import HomeTitle from "@/components/HomeTitle.vue";
 
 const router = useRouter();
 function handleClick() {
   router.push("/countdown");
 }
 
-const eventTitle = `<p>Dominique</br>&</br>Reinhard</p>`;
+const eventTitle = `
+      <span style="font-family: Rushtick">Dominique</span>
+      </br>
+      <span style="font-family: serif">&amp;</span>
+      </br>
+      <span style="font-family: Rushtick">Reinhard</span>`;
 </script>
 
 <style lang="scss">
