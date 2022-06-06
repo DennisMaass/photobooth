@@ -3,7 +3,7 @@
       <div class="result__image-wrapper">
         <img class="result__photo" :src="imageUrl" alt="taken photo" />
       </div>
-      <ButtonBar class="result__actions-wrapper">
+      <ButtonBar class="result__actions-wrapper" justify-content="space-between">
         <div class="result__left-actions">
         <BaseButton to="/home" class="result__back">
           <Icon icon="mdi:home" height="75%" color="white" />
@@ -15,6 +15,9 @@
           </BaseButton>
           <BaseButton @click="handleRemove">
             <BinIcon />
+          </BaseButton>
+          <BaseButton to="/countdown">
+            <CameraIcon />
           </BaseButton>
         </div>
           <div class="result__right-actions">
@@ -35,6 +38,7 @@ import { Icon } from "@iconify/vue";
 import { usePhotos } from "@/composables/usePhotos";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
+import CameraIcon from '@/components/icons/CameraIcon.vue';
 
 const props = defineProps({
   imageId: { type: String, required: true },
@@ -84,20 +88,12 @@ const imageUrl = computed(
     width: auto;
     height: 100%;
     aspect-ratio: 3/2;
-    object-fit: cover;
-  }
-
-  &__actions-wrapper {
-    display: flex;
-    justify-content: center;
-
-    >* + * {
-      margin-left: 6rem;
-    }
+    object-fit: contain;
   }
 
   &__middle-actions{
     display: flex;
+    gap: 3rem;
   }
 }
 </style>

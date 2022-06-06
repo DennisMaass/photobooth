@@ -4,11 +4,15 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+defineProps({
+  justifyContent:{type:String,default:"center"}
+})
+</script>
 
 <style lang="scss">
 .button-bar {
   display: flex;
-  justify-content: center;
+  justify-content: v-bind(justifyContent);
 }
 </style>

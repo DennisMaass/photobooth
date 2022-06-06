@@ -6,8 +6,8 @@
         src="@/assets/boho_frame_square.jpg"
         alt="event image"
       />
-      <HomeTitle>
-        <p v-html="eventTitle" class="home__title"></p>
+      <HomeTitle class="home__title">
+        <p v-html="eventTitle"></p>
       </HomeTitle>
     </div>
     <div class="home__footer">
@@ -53,12 +53,10 @@ const eventTitle = `
   }
 
   &__title {
-    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-family: "Rushtick", "sans-serif";
-    font-size: 40px;
+    position: absolute;
   }
 
   &__footer {

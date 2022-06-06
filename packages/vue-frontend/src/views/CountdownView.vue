@@ -2,6 +2,7 @@
 import { onBeforeUnmount, onMounted, ref, toRefs } from "vue";
 import { useRouter } from "vue-router";
 import { usePhotos } from "@/composables/usePhotos";
+import { useCamera } from '@/composables/useCamera';
 
 const props = defineProps({
   counterTime: { type: Number, default: 5 },
@@ -37,44 +38,21 @@ async function startCountDownTimer() {
   }
 }
 
-function initializeCamera() {
+
+const { stream } = useCamera()
+
+async function initializeCamera() {
   isLoading.value = true;
-
-  const constraints = {
-    audio: false,
-    video: true,
-  };
-
-  navigator.mediaDevices
-    .getUserMedia(constraints)
-    .then((stream) => {
-      isLoading.value = false;
-      camera.value!.srcObject = stream;
-      startCountDownTimer();
-    })
-    .catch(() => {
-      isLoading.value = false;
-      alert(
-        "Error occured. Your browser may not support opening a camera stream."
-      );
-    });
+  camera.value!.srcObject = stream.value
+  console.debug("[CountdownView][initializeCamera] camera srcObject",camera.value!.srcObject);
+  startCountDownTimer();
+  isLoading.value = false;
 }
 
-function closeCameraStream() {
-  const mediaStream = camera.value?.srcObject as MediaStream;
-  const camTracks = mediaStream.getTracks();
-  camTracks.forEach((track: MediaStreamTrack) => {
-    track.stop();
-  });
-}
-
-onMounted(() => {
+onMounted(()=>{
   initializeCamera();
-});
+})
 
-onBeforeUnmount(() => {
-  closeCameraStream();
-});
 </script>
 
 <template>
