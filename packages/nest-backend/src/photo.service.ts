@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CommandService } from './command.service';
 import { ConfigService } from '@nestjs/config';
-import { readdirSync, copyFileSync, promises} from "fs"
+import { readdirSync, copyFileSync, promises } from 'fs';
 
 @Injectable()
 export class PhotoService {
@@ -30,29 +30,29 @@ export class PhotoService {
   }
 
   async remove(id: string): Promise<void> {
-    const deleteRequests=[]
+    const deleteRequests = [];
 
-    const pathToOriginalsFolder = this.configService.get<string>('ORIGINAL_PATH');
-    const originalName=`${id}.jpg`
+    const pathToOriginalsFolder =
+      this.configService.get<string>('ORIGINAL_PATH');
+    const originalName = `${id}.jpg`;
     const pathToOriginalPhoto = `${pathToOriginalsFolder}/${originalName}`;
 
-    const request0=  promises.rm(pathToOriginalPhoto)
-    deleteRequests.push(request0)
+    const request0 = promises.rm(pathToOriginalPhoto);
+    deleteRequests.push(request0);
 
     const pathToPrintFolder = this.configService.get<string>('PRINT_PATH');
-    const printName=`${id}.webp`
+    const printName = `${id}.webp`;
     const pathToPrintPhoto = `${pathToPrintFolder}/${printName}`;
-    const request1=  promises.rm(pathToPrintPhoto)
-    deleteRequests.push(request1)
-
+    const request1 = promises.rm(pathToPrintPhoto);
+    deleteRequests.push(request1);
 
     const pathToPreviewFolder = this.configService.get<string>('PREVIEW_PATH');
-    const previewName=`${id}.webp`
+    const previewName = `${id}.webp`;
     const pathToPreviewPhoto = `${pathToPreviewFolder}/${previewName}`;
-    const request2= promises.rm(pathToPreviewPhoto)
-    deleteRequests.push(request2)
+    const request2 = promises.rm(pathToPreviewPhoto);
+    deleteRequests.push(request2);
 
-    await Promise.all(deleteRequests)
+    await Promise.all(deleteRequests);
   }
 
   async print(path): Promise<void> {

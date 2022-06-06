@@ -2,7 +2,7 @@
   <RouterLink v-if="to" class="base-button normalize" :to="to">
     <slot></slot>
   </RouterLink>
-  <button v-else class="base-button normalize" >
+  <button v-else class="base-button normalize">
     <slot></slot>
   </button>
 </template>

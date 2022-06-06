@@ -74,6 +74,7 @@ importers:
 
   packages/vue-frontend:
     specifiers:
+      '@iconify/vue': ^3.2.1
       '@rushstack/eslint-patch': ^1.1.0
       '@types/jsdom': ^16.2.14
       '@types/node': ^16.11.36
@@ -97,6 +98,7 @@ importers:
       vue-router: ^4.0.15
       vue-tsc: ^0.35.2
     dependencies:
+      '@iconify/vue': 3.2.1_vue@3.2.36
       pinia: 2.0.14_hxrfy3rdja4lhsamokddlc63fi
       vue: 3.2.36
       vue-router: 4.0.15_vue@3.2.36
@@ -574,6 +576,14 @@ packages:
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
+
+  /@iconify/vue/3.2.1_vue@3.2.36:
+    resolution: {integrity: sha512-c4R6ZgFo1JrJ8aPMMgOPgfU7lBswihMGR+yWe/P4ZukC3kTkeT4+lkt9Pc/itVFMkwva/S/7u9YofmYv57fnNQ==}
+    peerDependencies:
+      vue: 3.x
+    dependencies:
+      vue: 3.2.36
+    dev: false
 
   /@istanbuljs/load-nyc-config/1.1.0:
     resolution: {integrity: sha512-VjeHSlIzpv/NyD3N0YuHfXOPDIixcA1q2ZV98wsMqcYlPmv2n3Yb2lYP9XMElnaFVXg5A7YLTeLu6V84uQDjmQ==}

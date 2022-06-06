@@ -4,7 +4,7 @@ import { useRouter } from "vue-router";
 import { usePhotos } from "@/composables/usePhotos";
 
 const props = defineProps({
-  counterTime: { type: Number, default: 3 },
+  counterTime: { type: Number, default: 5 },
 });
 
 const camera = ref<HTMLVideoElement | null>(null);
@@ -34,7 +34,7 @@ async function startCountDownTimer() {
       remainingTime.value = "";
       router.push({
         name: "Result",
-        params: { imageId:photoInfo.id },
+        params: { imageId: photoInfo.id },
       });
     }, 1500);
   }

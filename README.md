@@ -1,6 +1,7 @@
 # photobooth
 - https://github.com/gonzalo/gphoto2-updater
-
+- https://icon-sets.iconify.design/
+- 
 ## Todos
 
 ### Must have

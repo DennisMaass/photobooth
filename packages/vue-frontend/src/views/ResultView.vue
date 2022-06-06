@@ -3,11 +3,11 @@
     <div class="result__content-wrapper">
       <div class="result__back-wrapper">
         <BaseButton to="/home" class="result__back">
-          <CameraIcon />
+          <Icon icon="mdi:home" height="75%" color="white" />
         </BaseButton>
       </div>
       <div class="result__image-wrapper">
-        <img class="result__photo" :src="imageUrl" alt="taken photo"/>
+        <img class="result__photo" :src="imageUrl" alt="taken photo" />
       </div>
       <div class="result__actions-wrapper">
         <BaseButton>
@@ -25,10 +25,10 @@
 import BaseButton from "@/components/BaseButton.vue";
 import PrinterIcon from "@/components/icons/PrinterIcon.vue";
 import BinIcon from "@/components/icons/BinIcon.vue";
-import CameraIcon from "@/components/icons/CameraIcon.vue";
+import { Icon } from "@iconify/vue";
 import { usePhotos } from "@/composables/usePhotos";
-import { computed } from 'vue';
-import { useRouter } from 'vue-router';
+import { computed } from "vue";
+import { useRouter } from "vue-router";
 
 const props = defineProps({
   imageId: { type: String, required: true },
@@ -41,14 +41,15 @@ function handlePrint() {
   router.push("/");
 }
 
-
-const router = useRouter()
+const router = useRouter();
 function handleRemove() {
   remove(props.imageId);
   router.push("/");
 }
 
-const imageUrl= computed(()=>`http://localhost:3001/previews/${props.imageId}.webp`)
+const imageUrl = computed(
+  () => `http://localhost:3001/previews/${props.imageId}.webp`
+);
 </script>
 
 <style>

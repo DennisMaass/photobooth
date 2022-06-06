@@ -13,3 +13,14 @@ body {
   text-align: inherit;
   cursor: pointer;
 }
+
+
+@font-face {
+  font-family: 'Rushtick';
+  src:  url('@/assets/fonts/webfonts_Rushtick/Rushtick.ttf.woff') format('woff'),
+  url('@/assets/fonts/webfonts_Rushtick/Rushtick.ttf.svg#Rushtick') format('svg'),
+  url('@/assets/fonts/webfonts_Rushtick/Rushtick.ttf.eot'),
+  url('@/assets/fonts/webfonts_Rushtick/Rushtick.eot?#iefix') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
