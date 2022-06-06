@@ -1,7 +1,7 @@
 #custom
-/print
-/photos
-/preview
+/prints
+/originals
+/previews
 
 # compiled output
 /dist

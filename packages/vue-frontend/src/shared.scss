@@ -13,22 +13,3 @@ body {
   text-align: inherit;
   cursor: pointer;
 }
-
-.button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 3.5rem;
-  width: 3.5rem;
-  border-radius: 50%;
-  background-color: hsl(30, 25%, 53%);
-  padding: 1rem;
-}
-.button:hover,
-.button:active {
-  background-color: hsl(30, 25%, 63%);
-}
-
-.button svg {
-  height: 75%; //100%
-}

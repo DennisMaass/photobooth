@@ -1,37 +1,53 @@
-import { Controller, Delete, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
 import { PhotoService } from './photo.service';
 import { ConfigService } from '@nestjs/config';
-const sharp = require('sharp');
+import * as sharp from 'sharp';
 
-@Controller()
+@Controller('photos')
 export class AppController {
-  constructor(private readonly photoService: PhotoService,private configService: ConfigService) {}
+  constructor(
+    private readonly photoService: PhotoService,
+    private configService: ConfigService,
+  ) {}
 
   @Post()
-  async takePhoto(): Promise<{ path:string }> {
-    const eventName=this.configService.get<string>('EVENT_NAME');
-    const timestamp = Date.now()
-    const newName = `${eventName}_${timestamp}`
-    const path = `./photos/${newName}.jpg`;
+  async take(): Promise<{ id: string }> {
+    const eventName = this.configService.get<string>('EVENT_NAME');
+    const timestamp = Date.now();
+    const newName = `${eventName}_${timestamp}`;
 
-    await this.photoService.take(path);
+    const pathToOriginalsFolder = this.configService.get<string>('ORIGINAL_PATH');
+    const pathToOriginalPhoto = `${pathToOriginalsFolder}/${newName}.jpg`;
+    await this.photoService.take(pathToOriginalPhoto);
 
-    const pathToPrintFolder=this.configService.get<string>('PRINT_PATH');
-    sharp(path).toFile(`${pathToPrintFolder}/${newName}.webp`);
+    const pathToPrintFolder = this.configService.get<string>('PRINT_PATH');
+    const pathToPrintPhoto = `${pathToPrintFolder}/${newName}.webp`;
+    sharp(pathToOriginalPhoto).resize({ width: 1920 }).toFile(pathToPrintPhoto);
 
-    const pathToPreviewFolder=this.configService.get<string>('PREVIEW_PATH');
-    sharp(path).toFile(`${pathToPreviewFolder}/${newName}.webp`);
+    const pathToPreviewFolder = this.configService.get<string>('PREVIEW_PATH');
+    const pathToPreviewPhoto = `${pathToPreviewFolder}/${newName}.webp`;
+    await sharp(pathToOriginalPhoto).resize({ width: 500 }).toFile(pathToPreviewPhoto);
 
-    return { path };
+    return { id: pathToPreviewPhoto };
+  }
+
+  @Post('/print')
+  async print(@Body('id') id: string): Promise<void> {
+    await this.photoService.print(id);
   }
 
   @Get()
-  getAllTakenPhotos(): [string] {
+  getAll(): { ids: string[] } {
     return this.photoService.getAll();
   }
 
   @Delete()
-  deletePhoto() {
+  remove(@Body('id') id: string) {
+    this.photoService.remove(id);
+  }
+
+  @Get('/last')
+  getLast() {
     // TODO:
   }
 }

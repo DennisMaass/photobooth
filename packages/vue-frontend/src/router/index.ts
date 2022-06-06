@@ -29,7 +29,7 @@ const router = createRouter({
     {
       path: "/gallery",
       component: GalleryView,
-      name: "Gallery"
+      name: "Gallery",
     },
   ],
 });

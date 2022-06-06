@@ -11,7 +11,7 @@ import * as Joi from 'joi';
   imports: [
     ConfigModule.forRoot({
       validationSchema: Joi.object({
-        MODE: Joi.string().valid('prod', 'local').default('local'),
+        STAGE: Joi.string().valid('prod', 'local').default('local'),
         EVENT_NAME: Joi.string(),
         PRINT_PATH: Joi.string().default('./print'),
         ORIGINAL_PATH: Joi.string().default('./photos'),
@@ -26,6 +26,14 @@ import * as Joi from 'joi';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'photos'),
       serveRoot: '/photos',
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'preview'),
+      serveRoot: '/preview',
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'print'),
+      serveRoot: '/print',
     }),
   ],
   controllers: [AppController],

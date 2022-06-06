@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { onMounted, ref, toRefs } from "vue";
+import { onBeforeUnmount, onMounted, ref, toRefs } from "vue";
 import { useRouter } from "vue-router";
+import { usePhotos } from "@/composables/usePhotos";
 
 const props = defineProps({
   counterTime: { type: Number, default: 3 },
@@ -17,6 +18,8 @@ const router = useRouter();
 
 const remainingTime = ref(counterTime.value);
 
+const { take } = usePhotos();
+
 async function startCountDownTimer() {
   if (remainingTime.value > 0) {
     setTimeout(() => {
@@ -25,15 +28,14 @@ async function startCountDownTimer() {
     }, 1000);
   } else {
     remainingTime.value = "CHEESE";
-    // takePhoto();
-    const pathToPhoto = await getLatestPhoto();
-    closeCameraStream();
+    const photoInfo = await take();
+    const imageUrl=`http://localhost:3001/${photoInfo.id}`
 
     setTimeout(() => {
       remainingTime.value = "";
       router.push({
         name: "Result",
-        params: { imageUrl: pathToPhoto },
+        params: { imageUrl },
       });
     }, 1500);
   }
@@ -62,7 +64,7 @@ function initializeCamera() {
     });
 }
 
-async function takePhoto() {
+async function takePhotoOld() {
   if (!camera.value || !canvas.value) {
     return;
   }
@@ -100,19 +102,6 @@ async function takePhoto() {
   closeCameraStream();
 }
 
-async function getLatestPhoto() {
-  const response = await fetch("http://localhost:3001/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const data = await response.json();
-  const pathToLatestImage = data.path;
-
-  return `http://localhost:3001/${pathToLatestImage}`;
-}
-
 function closeCameraStream() {
   const mediaStream = camera.value?.srcObject as MediaStream;
   const camTracks = mediaStream.getTracks();
@@ -123,6 +112,10 @@ function closeCameraStream() {
 
 onMounted(() => {
   initializeCamera();
+});
+
+onBeforeUnmount(() => {
+  closeCameraStream();
 });
 </script>
 

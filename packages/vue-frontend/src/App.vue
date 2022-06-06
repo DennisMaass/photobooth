@@ -1,12 +1,14 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>
-    <RouterView />
-  </div>
+  <RouterView />
 </template>
 
 <style>
+* {
+  box-sizing: border-box;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

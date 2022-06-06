@@ -18,10 +18,12 @@
 ### Nice to have
 1. Homeview
    1. touch soll in Countdown-View wechseln 
+   2. anmiation der svg
 2. Countdown-View
    1. schöner machen
 3. Result
    1. Noch 30 sekunden nichts tun autoamtisch zu Homeview
+   2. animierte 30sec am button
 4. bilder gallery 
 5. original-, druck- und vorschau bild speichern
 6. verschiedene collagen 

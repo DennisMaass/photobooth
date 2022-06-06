@@ -1,36 +1,54 @@
 <template>
-  <div class="landing">
-    <div class="landing__image-wrapper">
-      <img src="@/assets/boho_wedding.png" alt="event image"/>
-    </div>
-    <div class="landing__button-wrapper">
-      <router-link class="button normalize" to="/countdown">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
-          fill="#fff"
-        >
-          <!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-          <path
-            d="M194.6 32H317.4C338.1 32 356.4 45.22 362.9 64.82L373.3 96H448C483.3 96 512 124.7 512 160V416C512 451.3 483.3 480 448 480H64C28.65 480 0 451.3 0 416V160C0 124.7 28.65 96 64 96H138.7L149.1 64.82C155.6 45.22 173.9 32 194.6 32H194.6zM256 384C309 384 352 341 352 288C352 234.1 309 192 256 192C202.1 192 160 234.1 160 288C160 341 202.1 384 256 384z"
-          /></svg
-      ></router-link>
+  <div class="home" @click="handleClick">
+    <img class="image" src="@/assets/boho_wedding.png" alt="event image" />
+    <div class="home__footer">
+      <ButtonBar>
+        <BaseButton to="/countdown">
+          <CameraIcon />
+        </BaseButton>
+      </ButtonBar>
     </div>
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script setup>
+import BaseButton from "@/components/BaseButton.vue";
+import ButtonBar from "@/components/ButtonBar.vue";
+import CameraIcon from "@/components/icons/CameraIcon.vue";
+import { useRouter } from "vue-router";
 
-<style>
-.landing__image-wrapper {
-  display: flex;
-  justify-content: center;
-  height: 70vh;
-  margin-bottom: 3rem;
+const router = useRouter();
+function handleClick() {
+  router.push("/countdown");
 }
+</script>
 
-.landing__button-wrapper {
+<style lang="scss">
+.home {
+  padding: 20px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  max-height: 100vh;
+
+  > * + * {
+    margin-top: 3rem;
+  }
+
+  &__footer {
+    flex: 0;
+  }
+
+  .image {
+    height: calc(100% - 90px - 3rem);
+    object-fit: contain;
+  }
+
+  &__image-wrapper {
+    height: 100%;
+    flex: 1;
+    flex-shrink: 0;
+    display: flex;
+  }
 }
 </style>
