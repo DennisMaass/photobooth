@@ -13,9 +13,9 @@ import * as Joi from 'joi';
       validationSchema: Joi.object({
         STAGE: Joi.string().valid('prod', 'local').default('local'),
         EVENT_NAME: Joi.string(),
-        PRINT_PATH: Joi.string().default('./print'),
-        ORIGINAL_PATH: Joi.string().default('./photos'),
-        PREVIEW_PATH: Joi.string().default('./preview'),
+        PRINT_PATH: Joi.string().default('./prints'),
+        ORIGINAL_PATH: Joi.string().default('./originals'),
+        PREVIEW_PATH: Joi.string().default('./previews'),
       }),
       validationOptions: {
         allowUnknown: true,

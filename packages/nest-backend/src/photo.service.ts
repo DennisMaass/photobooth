@@ -25,7 +25,7 @@ export class PhotoService {
   }
 
   getAll(): { ids: string[] } {
-    const ids = readdirSync('./photos');
+    const ids = readdirSync('./originals');
     return { ids };
   }
 
