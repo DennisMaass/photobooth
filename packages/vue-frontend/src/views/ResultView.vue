@@ -93,7 +93,9 @@ const imageUrl = computed(
 
   &__middle-actions{
     display: flex;
-    gap: 3rem;
+    > * + * {
+      margin-left: 3rem;
+    }
   }
 }
 </style>

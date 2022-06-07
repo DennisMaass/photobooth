@@ -47,7 +47,7 @@ export class PhotoService {
     deleteRequests.push(request0);
 
     const pathToPrintFolder = this.configService.get<string>('PRINT_PATH');
-    const printName = `${id}.webp`;
+    const printName = `${id}.jpg`;
     const pathToPrintPhoto = `${pathToPrintFolder}/${printName}`;
     const request1 = promises.rm(pathToPrintPhoto);
     deleteRequests.push(request1);
