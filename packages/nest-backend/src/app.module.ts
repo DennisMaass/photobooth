@@ -27,7 +27,7 @@ import * as Joi from 'joi';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => [{
-        rootPath: join(__dirname, '..', configService.get<string>('ORIGINAL_PATH')),
+        rootPath: configService.get<string>('ORIGINAL_PATH'),
         serveRoot: '/originals',
       }]
     }),
@@ -35,7 +35,7 @@ import * as Joi from 'joi';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => [{
-        rootPath: join(__dirname, '..', configService.get<string>('PREVIEW_PATH')),
+        rootPath: configService.get<string>('PREVIEW_PATH'),
         serveRoot: '/previews',
       }]
     }),
@@ -43,7 +43,7 @@ import * as Joi from 'joi';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => [{
-        rootPath: join(__dirname, '..', configService.get<string>('PRINT_PATH')),
+        rootPath: configService.get<string>('PRINT_PATH'),
         serveRoot: '/prints',
       }]
     })
