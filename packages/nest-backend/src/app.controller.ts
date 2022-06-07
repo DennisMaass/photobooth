@@ -57,7 +57,7 @@ export class AppController {
     console.debug('[AppController][print] id',id)
 
     const pathToPrintFolder = this.configService.get<string>('PRINT_PATH');
-    const printName = `${id}.webp`;
+    const printName = `${id}.jpg`;
     const pathToPrintPhoto = `${pathToPrintFolder}/${printName}`;
 
     await this.photoService.print(pathToPrintPhoto);
