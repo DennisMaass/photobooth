@@ -2,6 +2,7 @@
 /prints
 /originals
 /previews
+/secrets
 
 # compiled output
 /dist

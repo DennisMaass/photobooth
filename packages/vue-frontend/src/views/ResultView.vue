@@ -58,7 +58,7 @@ function handleRemove() {
 }
 
 const imageUrl = computed(
-  () => `http://localhost:3001/previews/${props.imageId}.webp`
+  () => `${import.meta.env.VITE_BACKEND}/previews/${props.imageId}.webp`
 );
 </script>
 

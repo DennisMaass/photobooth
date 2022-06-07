@@ -6,7 +6,7 @@ type PhotoService = {
 };
 
 export function usePhotos(): PhotoService {
-  const BASE_URL = "http://localhost:3001/photos";
+  const BASE_URL = `${import.meta.env.VITE_BACKEND}/photos`;
 
   async function take(): Promise<{ id: string }> {
     const response = await fetch(`${BASE_URL}/`, {
