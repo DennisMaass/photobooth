@@ -15,10 +15,13 @@ export class PhotoService {
   }
 
   async take(path): Promise<void> {
+    console.debug('[PhotoService][take] path',path)
     if (this.mock) {
+      console.debug('[PhotoService][take] mock is active')
       copyFileSync('./assets/mock.png', path);
       return;
     }
+
     const takePhoto = `gphoto2 --capture-image-and-download --filename=${path}`;
 
     await this.commandService.exec(takePhoto);
@@ -27,10 +30,12 @@ export class PhotoService {
   getAll(): { ids: string[] } {
     const pathToOriginalsFolder =this.configService.get<string>('ORIGINAL_PATH');
     const ids = readdirSync(pathToOriginalsFolder);
+    console.debug('[PhotoService][getAll] ids',ids)
     return { ids };
   }
 
   async remove(id: string): Promise<void> {
+    console.debug('[PhotoService][remove] id',id)
     const deleteRequests = [];
 
     const pathToOriginalsFolder =
@@ -57,8 +62,9 @@ export class PhotoService {
   }
 
   async print(path): Promise<void> {
+    console.debug('[PhotoService][print] path',path)
     if (this.mock) {
-      console.debug('print', path);
+      console.debug('[PhotoService][print] mock is active')
       return;
     }
     const print = `lp -o landscape -o fit-to-page ${path}`;
