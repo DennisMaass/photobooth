@@ -24,6 +24,7 @@ import * as Joi from 'joi';
       envFilePath: [`.env.${process.env.NODE_ENV}.local`, '.env.local', `.env.${process.env.NODE_ENV}`, '.env'],
     }),
     ServeStaticModule.forRootAsync({
+      imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => [{
         rootPath: join(__dirname, '..', configService.get<string>('ORIGINAL_PATH')),
@@ -31,6 +32,7 @@ import * as Joi from 'joi';
       }]
     }),
     ServeStaticModule.forRootAsync({
+      imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => [{
         rootPath: join(__dirname, '..', configService.get<string>('PREVIEW_PATH')),
@@ -38,6 +40,7 @@ import * as Joi from 'joi';
       }]
     }),
     ServeStaticModule.forRootAsync({
+      imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => [{
         rootPath: join(__dirname, '..', configService.get<string>('PRINT_PATH')),
