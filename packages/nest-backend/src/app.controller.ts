@@ -43,7 +43,7 @@ export class AppController {
       const previewName = `${id}.webp`;
       const pathToPreviewPhoto = `${pathToPreviewFolder}/${previewName}`;
       await sharp(pathToOriginalPhoto)
-        .resize({ width: 1920  })
+        .resize({ width: 1180  })
         .toFile(pathToPreviewPhoto);
     } catch (error) {
       console.error('[AppController][take] error',error)
