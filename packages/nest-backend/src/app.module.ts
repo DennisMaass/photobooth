@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { PhotoService } from './photo.service';
 import { CommandService } from './command.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { join } from 'path';
 import * as Joi from 'joi';
 
@@ -23,18 +23,27 @@ import * as Joi from 'joi';
       },
       envFilePath: [`.env.${process.env.NODE_ENV}.local`, '.env.local', `.env.${process.env.NODE_ENV}`, '.env'],
     }),
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'originals'),
-      serveRoot: '/originals',
+    ServeStaticModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => [{
+        rootPath: join(__dirname, '..', configService.get<string>('ORIGINAL_PATH')),
+        serveRoot: '/originals',
+      }]
     }),
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'previews'),
-      serveRoot: '/previews',
+    ServeStaticModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => [{
+        rootPath: join(__dirname, '..', configService.get<string>('PREVIEW_PATH')),
+        serveRoot: '/previews',
+      }]
     }),
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'prints'),
-      serveRoot: '/prints',
-    }),
+    ServeStaticModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => [{
+        rootPath: join(__dirname, '..', configService.get<string>('PRINT_PATH')),
+        serveRoot: '/prints',
+      }]
+    })
   ],
   controllers: [AppController],
   providers: [PhotoService, CommandService],
