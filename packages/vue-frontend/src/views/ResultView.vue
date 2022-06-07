@@ -85,9 +85,8 @@ const imageUrl = computed(
   }
 
   &__photo {
-    width: auto;
-    height: 100%;
-    aspect-ratio: 3/2;
+    width: 100%;
+    height: auto;
     object-fit: contain;
   }
 
