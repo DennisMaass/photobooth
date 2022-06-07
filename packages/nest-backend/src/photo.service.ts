@@ -25,7 +25,8 @@ export class PhotoService {
   }
 
   getAll(): { ids: string[] } {
-    const ids = readdirSync('./originals');
+    const pathToOriginalsFolder =this.configService.get<string>('ORIGINAL_PATH');
+    const ids = readdirSync(pathToOriginalsFolder);
     return { ids };
   }
 
