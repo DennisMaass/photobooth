@@ -12,6 +12,8 @@ export class AppController {
 
   @Post()
   async take(): Promise<{ id: string }> {
+    console.debug('[AppController][take]')
+
     const eventName = this.configService.get<string>('EVENT_NAME');
     const timestamp = Date.now();
     const id = `${eventName}_${timestamp}`;
@@ -20,25 +22,40 @@ export class AppController {
       this.configService.get<string>('ORIGINAL_PATH');
     const originalName = `${id}.jpg`;
     const pathToOriginalPhoto = `${pathToOriginalsFolder}/${originalName}`;
-    await this.photoService.take(pathToOriginalPhoto);
+    try {
+      console.debug('[AppController][take] take pathToOriginalPhoto',pathToOriginalPhoto)
+      await this.photoService.take(pathToOriginalPhoto);
+    } catch (error) {
+      console.error('[AppController][take] error',error)
+    }
 
-    const pathToPrintFolder = this.configService.get<string>('PRINT_PATH');
-    const printName = `${id}.webp`;
-    const pathToPrintPhoto = `${pathToPrintFolder}/${printName}`;
-    sharp(pathToOriginalPhoto).resize({ width: 1920 }).toFile(pathToPrintPhoto);
+    try {
+      const pathToPrintFolder = this.configService.get<string>('PRINT_PATH');
+      const printName = `${id}.webp`;
+      const pathToPrintPhoto = `${pathToPrintFolder}/${printName}`;
+      sharp(pathToOriginalPhoto).resize({ width: 1920 }).toFile(pathToPrintPhoto);
+    } catch (error) {
+      console.error('[AppController][take] error',error)
+    }
 
-    const pathToPreviewFolder = this.configService.get<string>('PREVIEW_PATH');
-    const previewName = `${id}.webp`;
-    const pathToPreviewPhoto = `${pathToPreviewFolder}/${previewName}`;
-    await sharp(pathToOriginalPhoto)
-      .resize({ width: 500 })
-      .toFile(pathToPreviewPhoto);
+    try {
+      const pathToPreviewFolder = this.configService.get<string>('PREVIEW_PATH');
+      const previewName = `${id}.webp`;
+      const pathToPreviewPhoto = `${pathToPreviewFolder}/${previewName}`;
+      await sharp(pathToOriginalPhoto)
+        .resize({ width: 500 })
+        .toFile(pathToPreviewPhoto);
+    } catch (error) {
+      console.error('[AppController][take] error',error)
+    }
 
     return { id };
   }
 
   @Post('/print')
   async print(@Body('id') id: string): Promise<void> {
+    console.debug('[AppController][print] id',id)
+
     const pathToPrintFolder = this.configService.get<string>('PRINT_PATH');
     const printName = `${id}.webp`;
     const pathToPrintPhoto = `${pathToPrintFolder}/${printName}`;
@@ -48,16 +65,13 @@ export class AppController {
 
   @Get()
   getAll(): { ids: string[] } {
+    console.debug('[AppController][getAll]')
     return this.photoService.getAll();
   }
 
   @Delete()
   remove(@Body('id') id: string) {
+    console.debug('[AppController][remove] id',id)
     this.photoService.remove(id);
-  }
-
-  @Get('/last')
-  getLast() {
-    // TODO:
   }
 }
