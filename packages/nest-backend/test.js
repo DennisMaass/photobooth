@@ -3,6 +3,9 @@ const detectLibc = require('detect-libc');
 const env = process.env;
 
 function get () {
+
+  console.log("NODE_ENV",env.NODE_ENV);
+
   const arch = env.npm_config_arch || process.arch;
   console.log("arch",arch);
   const platform = env.npm_config_platform || process.platform;
