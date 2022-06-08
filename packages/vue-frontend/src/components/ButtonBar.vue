@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 defineProps({
-  justifyContent:{type:String,default:"center"}
-})
+  justifyContent: { type: String, default: "center" },
+});
 </script>
 
 <style lang="scss">

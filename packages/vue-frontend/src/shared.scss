@@ -16,6 +16,13 @@ body {
 
 
 @font-face {
+  font-family: 'MsMadi';
+  src:  url('@/assets/fonts/MsMadi-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'Rushtick';
   src:  url('@/assets/fonts/webfonts_Rushtick/Rushtick.ttf.woff') format('woff'),
         url('@/assets/fonts/webfonts_Rushtick/Rushtick.ttf.svg#Rushtick') format('svg'),

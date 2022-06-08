@@ -1,31 +1,26 @@
 <template>
   <div class="result">
-      <div class="result__image-wrapper">
-        <img class="result__photo" :src="imageUrl" alt="taken photo" />
-      </div>
-      <ButtonBar class="result__actions-wrapper" justify-content="space-between">
-        <div class="result__left-actions">
+    <div class="result__image-wrapper">
+      <img class="result__photo" :src="imageUrl" alt="taken photo" />
+    </div>
+    <ButtonBar class="result__actions-wrapper" justify-content="space-between">
+      <div class="result__left-actions"></div>
+      <div class="result__middle-actions">
         <BaseButton to="/" class="result__back">
-          <Icon icon="mdi:home" height="75%" color="white" />
+          <Icon icon="mdi:home" color="white" />
         </BaseButton>
-        </div>
-        <div class="result__middle-actions">
-          <BaseButton>
-            <PrinterIcon @click="handlePrint" />
-          </BaseButton>
-          <BaseButton @click="handleRemove">
-            <BinIcon />
-          </BaseButton>
-          <BaseButton to="/countdown">
-            <CameraIcon />
-          </BaseButton>
-        </div>
-          <div class="result__right-actions">
-        <BaseButton to="/gallery" class="result__back">
-          <Icon icon="mdi:picture" height="75%" color="white" />
+        <BaseButton>
+          <PrinterIcon @click="handlePrint" />
         </BaseButton>
-          </div>
-      </ButtonBar>
+        <BaseButton @click="handleRemove">
+          <BinIcon />
+        </BaseButton>
+        <BaseButton to="/countdown">
+          <CameraIcon />
+        </BaseButton>
+      </div>
+      <div class="result__right-actions"></div>
+    </ButtonBar>
   </div>
 </template>
 
@@ -38,7 +33,7 @@ import { Icon } from "@iconify/vue";
 import { usePhotos } from "@/composables/usePhotos";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
-import CameraIcon from '@/components/icons/CameraIcon.vue';
+import CameraIcon from "@/components/icons/CameraIcon.vue";
 
 const props = defineProps({
   imageId: { type: String, required: true },
@@ -67,13 +62,12 @@ const imageUrl = computed(
   padding: 20px;
   height: 100vh;
   max-height: 100vh;
-  background-color: #b2c3b5;
   display: flex;
   flex-direction: column;
 
-   >* + * {
-     margin-top: 3rem;
-   }
+  > * + * {
+    margin-top: 3rem;
+  }
   &__back-wrapper {
     display: flex;
     justify-content: flex-end;
@@ -90,7 +84,7 @@ const imageUrl = computed(
     object-fit: contain;
   }
 
-  &__middle-actions{
+  &__middle-actions {
     display: flex;
     > * + * {
       margin-left: 3rem;

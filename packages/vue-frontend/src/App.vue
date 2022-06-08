@@ -1,16 +1,13 @@
 <script setup lang="ts">
-import { useWakeLock } from '@vueuse/core'
-import { useCamera } from '@/composables/useCamera';
-import { onBeforeUnmount } from 'vue';
+import { useWakeLock } from "@vueuse/core";
 
-const { request } = useWakeLock()
+const { request } = useWakeLock();
 try {
-  request("screen")
-  console.debug('[App] wakelock requested')
-}catch(error){
-  console.error('[App] useWakeLock',error)
+  request("screen");
+  console.debug("[App] wakelock requested");
+} catch (error) {
+  console.error("[App] useWakeLock", error);
 }
-
 </script>
 
 <template>

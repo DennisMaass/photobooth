@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CommandService } from './command.service';
 import { ConfigService } from '@nestjs/config';
-import { readdirSync, copyFileSync, promises } from 'fs';
+import { readdirSync, copyFileSync, promises,existsSync } from 'fs';
 
 @Injectable()
 export class PhotoService {
@@ -46,21 +46,38 @@ export class PhotoService {
       this.configService.get<string>('ORIGINAL_PATH');
     const originalName = `${id}.jpg`;
     const pathToOriginalPhoto = `${pathToOriginalsFolder}/${originalName}`;
-
-    const request0 = promises.rm(pathToOriginalPhoto);
-    deleteRequests.push(request0);
+    try {
+      if (existsSync(pathToOriginalPhoto)){
+        const request0 = promises.rm(pathToOriginalPhoto);
+        deleteRequests.push(request0);
+      }
+    }catch (error) {
+      console.error(error)
+    }
 
     const pathToPrintFolder = this.configService.get<string>('PRINT_PATH');
     const printName = `${id}.jpg`;
     const pathToPrintPhoto = `${pathToPrintFolder}/${printName}`;
-    const request1 = promises.rm(pathToPrintPhoto);
-    deleteRequests.push(request1);
+    try{
+      if (existsSync(pathToPrintPhoto)) {
+        const request1 = promises.rm(pathToPrintPhoto);
+        deleteRequests.push(request1);
+      }
+    }catch (error) {
+      console.error(error)
+    }
 
     const pathToPreviewFolder = this.configService.get<string>('PREVIEW_PATH');
     const previewName = `${id}.webp`;
     const pathToPreviewPhoto = `${pathToPreviewFolder}/${previewName}`;
-    const request2 = promises.rm(pathToPreviewPhoto);
-    deleteRequests.push(request2);
+    try{
+      if (existsSync(pathToPreviewPhoto)) {
+        const request2 = promises.rm(pathToPreviewPhoto);
+        deleteRequests.push(request2);
+      }
+    }catch (error) {
+      console.error(error)
+    }
 
     await Promise.all(deleteRequests);
   }

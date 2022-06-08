@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import { onBeforeUnmount, onMounted, ref, toRefs, watch } from 'vue';
+import { onBeforeUnmount, onMounted, ref, toRefs, watch } from "vue";
 import { useRouter } from "vue-router";
 import { usePhotos } from "@/composables/usePhotos";
-import { useCamera } from '@/composables/useCamera';
+import { useCamera } from "@/composables/useCamera";
 
 const props = defineProps({
-  counterTime: { type: Number, default: 5 },
+  counterTime: { type: Number, default: 3 },
 });
 
-const camera = ref<HTMLVideoElement | null>(null);
+const videoTag = ref<HTMLVideoElement | null>(null);
 const isLoading = ref(false);
 
 const { counterTime } = toRefs(props);
@@ -17,58 +17,80 @@ const router = useRouter();
 const remainingTime = ref(counterTime.value);
 
 const { take } = usePhotos();
-
+let intervalId: number;
 async function startCountDownTimer() {
-  if (remainingTime.value > 0) {
-    setTimeout(() => {
-      remainingTime.value -= 1;
-      startCountDownTimer();
-    }, 1000);
-  } else {
-    remainingTime.value = "CHEESE";
-    const photoInfo = await take();
+  intervalId = setInterval(async () => {
+    remainingTime.value -= 1;
 
-    setTimeout(() => {
-      remainingTime.value = "";
-      router.push({
-        name: "Result",
-        params: { imageId: photoInfo.id },
-      });
-    }, 1500);
-  }
+    if (remainingTime.value === 0) {
+      clearInterval(intervalId);
+      remainingTime.value = "CHEESE";
+      try {
+        const photoInfo = await take();
+
+        router.push({
+          name: "Result",
+          params: { imageId: photoInfo.id },
+        });
+      } catch (error) {
+        console.error(error);
+        router.push("/");
+      }
+    }
+  }, 1000);
 }
 
-const { stream,start, stop } = useCamera()
- start()
+const { stream, start, stop } = useCamera();
+start();
 
-onMounted(()=>{
-  watch(()=>stream.value,()=>{
-    initializeCamera();
-  },{immediate:true})
-})
+const videoReady = ref(false);
+
+const handleVideoReady = () => {
+  videoReady.value = true;
+};
+onMounted(() => {
+  videoTag.value!.addEventListener("canplay", handleVideoReady);
+
+  watch(
+    () => stream.value,
+    (newVal) => {
+      if (!newVal) {
+        return;
+      }
+      initializeCamera();
+    },
+    { immediate: true }
+  );
+
+  watch(
+    () => videoReady.value,
+    (newVal) => {
+      if (!newVal) {
+        return;
+      }
+      startCountDownTimer();
+    },
+    { immediate: true }
+  );
+});
 
 onBeforeUnmount(() => {
-  stop()
+  stop();
+  videoTag.value!.removeEventListener("canplay", handleVideoReady);
 });
 
 async function initializeCamera() {
   isLoading.value = true;
-  camera.value!.srcObject = stream.value
-  console.debug("[CountdownView][initializeCamera] camera srcObject",camera.value!.srcObject);
-  startCountDownTimer();
+  videoTag.value!.srcObject = stream.value;
+
   isLoading.value = false;
 }
-
 </script>
 
 <template>
   <div class="countdown">
     <div class="countdown__media-wrapper">
-      <video
-        ref="camera"
-        autoplay
-        class="countdown__video"
-      ></video>
+      <video ref="videoTag" autoplay class="countdown__video"></video>
     </div>
 
     <div v-if="!isLoading" class="countdown__time">
@@ -80,8 +102,8 @@ async function initializeCamera() {
 <style lang="scss">
 .countdown {
   position: relative;
-    height: 100vh;
-    max-height: 100vh;
+  height: 100vh;
+  max-height: 100vh;
 
   &__media-wrapper {
     position: relative;

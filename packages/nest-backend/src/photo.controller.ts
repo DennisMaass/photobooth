@@ -33,12 +33,6 @@ export class PhotoController {
       await sharp(pathToOriginalPhoto)
         .resize({ width: 864  })
         .toFile(pathToPreviewPhoto);
-
-     /*
-      const pathToPrintFolder = this.configService.get<string>('PRINT_PATH');
-      const printName = `${id}.jpg`;
-      const pathToPrintPhoto = `${pathToPrintFolder}/${printName}`;
-      sharp(pathToOriginalPhoto).resize({ width: 432 }).toFile(pathToPrintPhoto);*/
     } catch (error) {
       console.error('[PhotoController][take] resize print',error)
     }
@@ -50,9 +44,14 @@ export class PhotoController {
   async print(@Body('id') id: string): Promise<void> {
     console.debug('[PhotoController][print] id',id)
 
+    const pathToOriginalsFolder = this.configService.get<string>('ORIGINAL_PATH');
+    const originalName = `${id}.jpg`;
+    const pathToOriginalPhoto = `${pathToOriginalsFolder}/${originalName}`;
+
     const pathToPrintFolder = this.configService.get<string>('PRINT_PATH');
     const printName = `${id}.jpg`;
     const pathToPrintPhoto = `${pathToPrintFolder}/${printName}`;
+    await sharp(pathToOriginalPhoto).resize({ width: 432 }).toFile(pathToPrintPhoto);
 
     await this.photoService.print(pathToPrintPhoto);
   }
