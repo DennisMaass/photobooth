@@ -31,13 +31,14 @@ export class PhotoController {
       const previewName = `${id}.webp`;
       const pathToPreviewPhoto = `${pathToPreviewFolder}/${previewName}`;
       await sharp(pathToOriginalPhoto)
-        .resize({ width: 432  })
+        .resize({ width: 864  })
         .toFile(pathToPreviewPhoto);
 
+     /*
       const pathToPrintFolder = this.configService.get<string>('PRINT_PATH');
       const printName = `${id}.jpg`;
       const pathToPrintPhoto = `${pathToPrintFolder}/${printName}`;
-      sharp(pathToOriginalPhoto).resize({ width: 432 }).toFile(pathToPrintPhoto);
+      sharp(pathToOriginalPhoto).resize({ width: 432 }).toFile(pathToPrintPhoto);*/
     } catch (error) {
       console.error('[PhotoController][take] resize print',error)
     }

@@ -4,7 +4,7 @@ import { ref } from 'vue';
 type CameraService = {
   stream: Ref<MediaStream | null>,
   start: () => Promise<MediaStream>;
-  stop: (stream:MediaStream) => void;
+  stop: () => void;
 };
 
 const stream = ref<MediaStream | null>(null)

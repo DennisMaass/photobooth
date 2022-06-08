@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onBeforeUnmount, onMounted, ref, toRefs } from "vue";
+import { onBeforeUnmount, onMounted, ref, toRefs, watch } from 'vue';
 import { useRouter } from "vue-router";
 import { usePhotos } from "@/composables/usePhotos";
 import { useCamera } from '@/composables/useCamera';
@@ -38,8 +38,18 @@ async function startCountDownTimer() {
   }
 }
 
+const { stream,start, stop } = useCamera()
+ start()
 
-const { stream } = useCamera()
+onMounted(()=>{
+  watch(()=>stream.value,()=>{
+    initializeCamera();
+  },{immediate:true})
+})
+
+onBeforeUnmount(() => {
+  stop()
+});
 
 async function initializeCamera() {
   isLoading.value = true;
@@ -48,10 +58,6 @@ async function initializeCamera() {
   startCountDownTimer();
   isLoading.value = false;
 }
-
-onMounted(()=>{
-  initializeCamera();
-})
 
 </script>
 

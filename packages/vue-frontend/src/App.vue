@@ -5,19 +5,11 @@ import { onBeforeUnmount } from 'vue';
 
 const { request } = useWakeLock()
 try {
-  request()
+  request("screen")
   console.debug('[App] wakelock requested')
 }catch(error){
   console.error('[App] useWakeLock',error)
 }
-
-
-const { start, stop } = useCamera()
-start()
-
-onBeforeUnmount(() => {
-  stop()
-});
 
 </script>
 
