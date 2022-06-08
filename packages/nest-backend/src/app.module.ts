@@ -4,7 +4,6 @@ import { PhotoService } from './photo.service';
 import { CommandService } from './command.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { join } from 'path';
 import * as Joi from 'joi';
 
 @Module({
