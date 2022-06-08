@@ -10,11 +10,11 @@ import * as Joi from 'joi';
   imports: [
     ConfigModule.forRoot({
       validationSchema: Joi.object({
-        STAGE: Joi.string().valid('prod', 'local').default('local'),
-        EVENT_NAME: Joi.string(),
-        PRINT_PATH: Joi.string().default('./prints'),
-        ORIGINAL_PATH: Joi.string().default('./originals'),
-        PREVIEW_PATH: Joi.string().default('./previews'),
+        STAGE: Joi.string().valid('prod', 'local').default('prod'),
+        EVENT_NAME: Joi.string().default('D-R-Hochzeit'),
+        PRINT_PATH: Joi.string().default('/media/pi/135A-E15F1/prints'),
+        ORIGINAL_PATH: Joi.string().default('/media/pi/135A-E15F1/originals'),
+        PREVIEW_PATH: Joi.string().default('/media/pi/135A-E15F1/previews'),
       }),
       validationOptions: {
         allowUnknown: true,
