@@ -1,11 +1,11 @@
 import { Controller, Get } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-@Controller()
-export class AppController {
+@Controller('settings')
+export class SettingsController {
   constructor(private configService: ConfigService) {}
 
-  @Get('/health')
+  @Get('/')
   getInfos(){
     return {
       stage: this.configService.get<string>('STAGE'),

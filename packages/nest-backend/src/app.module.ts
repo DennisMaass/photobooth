@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { PhotoService } from './photo.service';
 import { CommandService } from './command.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
+import { PhotoModule } from './photo.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -46,9 +46,10 @@ import * as Joi from 'joi';
         rootPath: configService.get<string>('PRINT_PATH'),
         serveRoot: '/prints',
       }]
-    })
+    }),
+    PhotoModule,
   ],
-  controllers: [AppController],
-  providers: [PhotoService, CommandService],
+  controllers:[AppController],
+  providers: [CommandService],
 })
 export class AppModule {}
