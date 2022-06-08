@@ -21,7 +21,7 @@ import * as Joi from 'joi';
         abortEarly: true,
       },
       ignoreEnvFile: process.env.NODE_ENV === 'production',
-      envFilePath: [`.env.${process.env.NODE_ENV}.local`,  `.env.${process.env.NODE_ENV}`, `.env.local`,`.env`],
+      envFilePath: [`.env.${process.env.NODE_ENV}.local`, `.env.local`, `.env.${process.env.NODE_ENV}`, `.env`],
     }),
     ServeStaticModule.forRootAsync({
       imports: [ConfigModule],
