@@ -24,7 +24,11 @@ export class PhotoService {
 
     const takePhoto = `gphoto2 --capture-image-and-download --filename=${path}`;
 
-    await this.commandService.exec(takePhoto);
+    try {
+      await this.commandService.exec(takePhoto);
+    }catch(error){
+      console.error('[PhotoService][take] error',error)
+    }
   }
 
   getAll(): { ids: string[] } {
@@ -69,6 +73,10 @@ export class PhotoService {
     }
     const print = `lp -o landscape -o fit-to-page ${path}`;
 
-    await this.commandService.exec(print);
+    try {
+     await this.commandService.exec(print);
+    }catch(error){
+      console.error('[PhotoService][take] error',error)
+    }
   }
 }
