@@ -10,17 +10,6 @@ export class PhotoController {
     private configService: ConfigService,
   ) {}
 
-  @Get('/infos')
-  getInfos(){
-    return {
-      stage: this.configService.get<string>('STAGE'),
-      eventName: this.configService.get<string>('EVENT_NAME'),
-      originalPath: this.configService.get<string>('ORIGINAL_PATH'),
-      printPath: this.configService.get<string>('PRINT_PATH'),
-      previewPath: this.configService.get<string>('PREVIEW_PATH'),
-    }
-  }
-
   @Post()
   async take(): Promise<{ id: string }> {
     console.debug('[PhotoController][take]')
