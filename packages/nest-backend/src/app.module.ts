@@ -20,7 +20,7 @@ import * as Joi from 'joi';
         allowUnknown: true,
         abortEarly: true,
       },
-      envFilePath: [`.env.${process.env.NODE_ENV}.local`, '.env.local', `.env.${process.env.NODE_ENV}`, '.env'],
+      envFilePath: [`${__dirname}/.env.${process.env.NODE_ENV}.local`, `${__dirname}/.env.local`, `${__dirname}/.env.${process.env.NODE_ENV}`, `${__dirname}/.env`],
     }),
     ServeStaticModule.forRootAsync({
       imports: [ConfigModule],
