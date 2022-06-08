@@ -5,7 +5,7 @@
       </div>
       <ButtonBar class="result__actions-wrapper" justify-content="space-between">
         <div class="result__left-actions">
-        <BaseButton to="/home" class="result__back">
+        <BaseButton to="/" class="result__back">
           <Icon icon="mdi:home" height="75%" color="white" />
         </BaseButton>
         </div>
@@ -85,8 +85,8 @@ const imageUrl = computed(
   }
 
   &__photo {
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: 100%;
     object-fit: contain;
   }
 

@@ -44,7 +44,7 @@ export class AppController {
       const pathToPrintFolder = this.configService.get<string>('PRINT_PATH');
       const printName = `${id}.jpg`;
       const pathToPrintPhoto = `${pathToPrintFolder}/${printName}`;
-      sharp(pathToOriginalPhoto).resize({ width: 500 }).toFile(pathToPrintPhoto);
+      sharp(pathToOriginalPhoto).resize({ width: 432 }).toFile(pathToPrintPhoto);
     } catch (error) {
       console.error('[AppController][take] error',error)
     }
@@ -54,7 +54,7 @@ export class AppController {
       const previewName = `${id}.webp`;
       const pathToPreviewPhoto = `${pathToPreviewFolder}/${previewName}`;
       await sharp(pathToOriginalPhoto)
-        .resize({ width: 1180  })
+        .resize({ width: 864  })
         .toFile(pathToPreviewPhoto);
     } catch (error) {
       console.error('[AppController][take] error',error)
