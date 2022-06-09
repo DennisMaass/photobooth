@@ -88,7 +88,7 @@ onBeforeUnmount(()=>{
 
   &__photo {
     width: auto;
-    height: 600px
+    height: 520px
   }
 }
 </style>

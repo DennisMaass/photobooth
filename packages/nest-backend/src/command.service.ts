@@ -7,10 +7,12 @@ export class CommandService {
     return new Promise((resolve, reject) => {
       exec(command, (error, stdout, stderr) => {
         if (error) {
-          reject();
+          console.error("[CommandService][exec]",error)
+          reject(error);
         }
         if (stderr) {
-          reject();
+          console.error("[CommandService][exec]",stderr)
+          reject(stderr);
         }
         resolve();
       });

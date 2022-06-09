@@ -47,8 +47,8 @@ onMounted(async ()=>{
   allIds.value = response.ids
 })
 
-const revertedAllIds= computed(()=>allIds.value.reverse())
-const allPhotos = computed(()=> revertedAllIds.value.map((id:string)=>`${import.meta.env.VITE_BACKEND}/previews/${id}.webp`))
+const revertedAllIds= computed(() => allIds.value?.reverse())
+const allPhotos = computed(() => revertedAllIds.value?.map((id:string)=>`${import.meta.env.VITE_BACKEND}/previews/${id}.webp`))
 
 let swiperInstance:any = ref(null)
 const onSwiper = (sw:any) => {
@@ -70,7 +70,7 @@ function handleRemove() {
 
 const activeIndex = ref(0)
 
-const activeId = computed(() => revertedAllIds.value[activeIndex.value])
+const activeId = computed(() => revertedAllIds.value && revertedAllIds.value[activeIndex.value])
 </script>
 
 <style lang="scss">
