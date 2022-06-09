@@ -1,20 +1,19 @@
 <template>
   <div class="result">
     <div class="result__image-wrapper">
-      <img class="result__photo" :src="imageUrl" alt="taken photo" />
+        <FramedImage first-name="Dominique" second-name="Reinhard" date="10.06.2022">
+          <img class="result__photo" :src="imageUrl" alt="taken photo" />
+        </FramedImage>
     </div>
-    <!--
-    <div class="result__image-wrapper">
-        <FramedImage first-name="Dominique" second-name="Reinhard" date="10.06.2022"/>
-    </div>
-    -->
     <ButtonBar justify-content="space-between">
-      <template #middle>
+      <template #left>
         <BaseButton to="/" class="result__back">
           <Icon icon="mdi:home" color="white" width="42px" height="42px" />
         </BaseButton>
+      </template>
+      <template #middle>
         <BaseButton @click="handlePrint" >
-          <PrinterIcon width="30px" height="30px"/>
+          <Icon icon="fluent:print-20-filled" color="white" width="42px" height="42px" />
         </BaseButton>
         <BaseButton @click="handleRemove">
           <BinIcon width="30px" height="30px"/>
@@ -35,7 +34,6 @@
 <script lang="ts" setup>
 import BaseButton from "@/components/BaseButton.vue";
 import ButtonBar from "@/components/ButtonBar.vue";
-import PrinterIcon from "@/components/icons/PrinterIcon.vue";
 import BinIcon from "@/components/icons/BinIcon.vue";
 import { Icon } from "@iconify/vue";
 import { usePhotos } from "@/composables/usePhotos";
@@ -63,14 +61,14 @@ const imageUrl = computed(
   () => `${import.meta.env.VITE_BACKEND}/previews/${props.imageId}.webp`
 );
 
-const timerID = setTimeout(()=>{
+/*const timerID = setTimeout(()=>{
   router.push("/");
 },60000)
 
 
 onBeforeUnmount(()=>{
   clearTimeout(timerID)
-})
+})*/
 </script>
 
 <style lang="scss">
@@ -92,12 +90,15 @@ onBeforeUnmount(()=>{
   &__image-wrapper {
     flex: 1;
     height: calc(100% - 2rem);
+
   }
 
   &__photo {
     width: auto;
     height: 100%;
     object-fit: contain;
+    max-height: calc(100% - 10rem);
+    aspect-ratio: 3/2;
   }
 }
 </style>

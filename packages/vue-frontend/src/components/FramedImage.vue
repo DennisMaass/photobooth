@@ -1,6 +1,6 @@
 <template>
   <div class="framed-image">
-    <img class="framed-image__image" src="http://placekitten.com/898/602" alt="taken photo">
+    <slot></slot>
     <div class="framed-image__sub-title">
       <div class="framed-image__name-wrapper">
         <span class="framed-image__name">{{ firstName }}</span>
@@ -24,9 +24,9 @@ const props = defineProps({
 <style lang="scss">
 .framed-image {
   position: relative;
-  aspect-ratio: 3/2;
   padding: 25px 25px 80px 25px;
   border: 1px solid;
+  height:100%;
 
   &__image {
     width: 100%;

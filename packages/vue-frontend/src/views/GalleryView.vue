@@ -20,7 +20,7 @@
             <Icon icon="mdi:home" color="white" width="42px" height="42px" />
             </BaseButton>
             <BaseButton @click="handlePrint" >
-              <PrinterIcon width="30px" height="30px"/>
+              <Icon icon="fluent:print-20-filled" color="white" width="42px" height="42px" />
             </BaseButton>
             <BaseButton @click="handleRemove">
               <BinIcon width="30px" height="30px"/>
@@ -34,7 +34,6 @@
 <script lang="ts" setup>
 import BaseButton from "@/components/BaseButton.vue";
 import ButtonBar from "@/components/ButtonBar.vue";
-import PrinterIcon from "@/components/icons/PrinterIcon.vue";
 import { Icon } from "@iconify/vue";
 import BinIcon from "@/components/icons/BinIcon.vue";
 import { computed, onMounted, ref } from 'vue';
