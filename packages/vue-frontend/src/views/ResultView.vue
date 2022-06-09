@@ -61,13 +61,13 @@ const imageUrl = computed(
   () => `${import.meta.env.VITE_BACKEND}/previews/${props.imageId}.webp`
 );
 
-/*const timerID = setTimeout(()=>{
+const timerID = setTimeout(()=>{
   router.push("/");
 },60000)
 
 onBeforeUnmount(()=>{
   clearTimeout(timerID)
-})*/
+})
 </script>
 
 <style lang="scss">
