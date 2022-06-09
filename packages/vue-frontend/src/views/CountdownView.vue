@@ -26,8 +26,9 @@ async function startCountDownTimer() {
       clearInterval(intervalId);
       remainingTime.value = "CHEESE";
       try {
-        const photoInfo = await take();
-
+        const takeRequest = take();
+        remainingTime.value = "Loading...";
+        const photoInfo= await takeRequest
         router.push({
           name: "Result",
           params: { imageId: photoInfo.id },
