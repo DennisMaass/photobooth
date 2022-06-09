@@ -65,7 +65,6 @@ const imageUrl = computed(
   router.push("/");
 },60000)
 
-
 onBeforeUnmount(()=>{
   clearTimeout(timerID)
 })*/
@@ -87,18 +86,9 @@ onBeforeUnmount(()=>{
     justify-content: flex-end;
   }
 
-  &__image-wrapper {
-    flex: 1;
-    height: calc(100% - 2rem);
-
-  }
-
   &__photo {
     width: auto;
-    height: 100%;
-    object-fit: contain;
-    max-height: calc(100% - 10rem);
-    aspect-ratio: 3/2;
+    height: 600px
   }
 }
 </style>

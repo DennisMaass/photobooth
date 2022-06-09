@@ -18,7 +18,7 @@ export class PhotoService {
     console.debug('[PhotoService][take] path',path)
     if (this.mock) {
       console.debug('[PhotoService][take] mock is active')
-      copyFileSync('./assets/mock.png', path);
+      copyFileSync('./assets/mock.webp', path);
       return;
     }
 
