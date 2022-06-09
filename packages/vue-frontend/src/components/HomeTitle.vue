@@ -33,6 +33,10 @@ onMounted(()=>{
 .home-title {
   font-family: "sans-serif";
   font-size: 40px;
-  letter-spacing:-4px
+  letter-spacing:-8px
+}
+
+.letter {
+  padding: 4px
 }
 </style>
