@@ -33,8 +33,13 @@ export class PhotoService {
 
   getAll(): { ids: string[] } {
     const pathToOriginalsFolder =this.configService.get<string>('ORIGINAL_PATH');
-    const ids = readdirSync(pathToOriginalsFolder);
+    const orignals = readdirSync(pathToOriginalsFolder);
+
+    const ids=orignals.map((original)=>{
+      return original.slice(0, -4);
+    })
     console.debug('[PhotoService][getAll] ids',ids)
+
     return { ids };
   }
 

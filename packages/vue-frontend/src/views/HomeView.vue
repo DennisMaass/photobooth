@@ -33,11 +33,32 @@ function handleClick() {
 }
 
 const eventTitle = `
-      <span style="font-family: Rushtick,sans-serif;font-size: 50px">Dominique</span>
+      <span class="ml3" style="font-family: Rushtick,sans-serif;font-size: 45px">
+        <span class='letter'>D</span>
+        <span class='letter'>o</span>
+        <span class='letter'>m</span>
+        <span class='letter'>i</span>
+        <span class='letter'>n</span>
+        <span class='letter'>i</span>
+        <span class='letter'>q</span>
+        <span class='letter'>u</span>
+        <span class='letter'>e</span>
+      </span>
       </br>
-      <span style="font-family: MsMadi,sans-serif;font-size: 36px;color:hsl(30, 25%, 53%);">&amp;</span>
+      <span class="ml3" style="font-family: MsMadi,sans-serif;font-size: 33px;color:hsl(30, 25%, 53%);">
+        <span class='letter'>&amp;</span>
+      </span>
       </br>
-      <span style="font-family: Rushtick,sans-serif;font-size: 50px">Reinhard</span>`;
+      <span class="ml3" style="font-family: Rushtick,sans-serif;font-size: 45px">
+        <span class='letter'>R</span>
+        <span class='letter'>e</span>
+        <span class='letter'>i</span>
+        <span class='letter'>n</span>
+        <span class='letter'>h</span>
+        <span class='letter'>a</span>
+        <span class='letter'>r</span>
+        <span class='letter'>d</span>
+      </span>`;
 </script>
 
 <style lang="scss">

@@ -7,19 +7,23 @@
       <div class="result__left-actions"></div>
       <div class="result__middle-actions">
         <BaseButton to="/" class="result__back">
-          <Icon icon="mdi:home" color="white" />
+          <Icon icon="mdi:home" color="white" width="42px" height="42px" />
         </BaseButton>
-        <BaseButton>
-          <PrinterIcon @click="handlePrint" />
+        <BaseButton @click="handlePrint" >
+          <PrinterIcon width="30px" height="30px"/>
         </BaseButton>
         <BaseButton @click="handleRemove">
-          <BinIcon />
+          <BinIcon width="30px" height="30px"/>
         </BaseButton>
         <BaseButton to="/countdown">
-          <CameraIcon />
+          <CameraIcon width="30px" height="30px"/>
         </BaseButton>
       </div>
-      <div class="result__right-actions"></div>
+      <div class="result__right-actions">
+        <BaseButton to="/gallery" class="result__back">
+          <Icon icon="mdi:picture" color="white" width="30px" height="30px"  />
+        </BaseButton>
+      </div>
     </ButtonBar>
   </div>
 </template>
@@ -31,7 +35,7 @@ import PrinterIcon from "@/components/icons/PrinterIcon.vue";
 import BinIcon from "@/components/icons/BinIcon.vue";
 import { Icon } from "@iconify/vue";
 import { usePhotos } from "@/composables/usePhotos";
-import { computed } from "vue";
+import { computed, onBeforeUnmount } from 'vue';
 import { useRouter } from "vue-router";
 import CameraIcon from "@/components/icons/CameraIcon.vue";
 
@@ -55,6 +59,15 @@ function handleRemove() {
 const imageUrl = computed(
   () => `${import.meta.env.VITE_BACKEND}/previews/${props.imageId}.webp`
 );
+
+const timerID = setTimeout(()=>{
+  router.push("/");
+},60000)
+
+
+onBeforeUnmount(()=>{
+  clearTimeout(timerID)
+})
 </script>
 
 <style lang="scss">

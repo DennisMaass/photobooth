@@ -78,6 +78,7 @@ importers:
     specifiers:
       '@iconify/vue': ^3.2.1
       '@rushstack/eslint-patch': ^1.1.0
+      '@types/animejs': ^3.1.4
       '@types/jsdom': ^16.2.14
       '@types/node': ^16.11.36
       '@vitejs/plugin-vue': ^2.3.3
@@ -86,6 +87,7 @@ importers:
       '@vue/test-utils': ^2.0.0
       '@vue/tsconfig': ^0.1.3
       '@vueuse/core': ^8.6.0
+      animejs: ^3.2.1
       eslint: ^8.5.0
       eslint-plugin-vue: ^8.2.0
       jsdom: ^19.0.0
@@ -103,7 +105,9 @@ importers:
       vue-tsc: ^0.35.2
     dependencies:
       '@iconify/vue': 3.2.1_vue@3.2.36
+      '@types/animejs': 3.1.4
       '@vueuse/core': 8.6.0_vue@3.2.36
+      animejs: 3.2.1
       pinia: 2.0.14_hxrfy3rdja4lhsamokddlc63fi
       vue: 3.2.36
       vue-router: 4.0.15_vue@3.2.36
@@ -2059,6 +2063,10 @@ packages:
     resolution: {integrity: sha512-eZxlbI8GZscaGS7kkc/trHTT5xgrjH3/1n2JDwusC9iahPKWMRvRjJSAN5mCXviuTGQ/lHnhvv8Q1YTpnfz9gA==}
     dev: true
 
+  /@types/animejs/3.1.4:
+    resolution: {integrity: sha512-WUjeFT2SXd6intfE6cg6eL1jk/JL88JqM2gC4WqO4iHLmbCvHUq6aoLK13lGpDWs4FtS2PHoYraJZ0dEx99Dyg==}
+    dev: false
+
   /@types/babel__core/7.1.19:
     resolution: {integrity: sha512-WEOTgRsbYkvA/KCsDwVEGkd7WAr1e3g31VHQ8zy5gul/V1qKullU/BU5I68X5v7V3GnB9eotmom4v5a5gjxorw==}
     dependencies:
@@ -2833,6 +2841,10 @@ packages:
       require-from-string: 2.0.2
       uri-js: 4.4.1
     dev: true
+
+  /animejs/3.2.1:
+    resolution: {integrity: sha512-sWno3ugFryK5nhiDm/2BKeFCpZv7vzerWUcUPyAZLDhMek3+S/p418ldZJbJXo5ZUOpfm2kP2XRO4NJcULMy9A==}
+    dev: false
 
   /ansi-colors/4.1.1:
     resolution: {integrity: sha512-JoX0apGbHaUJBNl6yF+p6JAFYZ666/hhCGKN5t9QFjbJQKUU/g8MNbFDbvfrgKXvI1QpZplPOnwIo99lX/AAmA==}

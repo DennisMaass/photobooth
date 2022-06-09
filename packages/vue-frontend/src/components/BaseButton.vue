@@ -28,9 +28,5 @@ defineProps({
   &:active {
     background-color: hsl(30, 25%, 63%);
   }
-
-  & svg {
-    height: 75%; //100%
-  }
 }
 </style>
