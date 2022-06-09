@@ -31,7 +31,7 @@ export class PhotoController {
       const previewName = `${id}.webp`;
       const pathToPreviewPhoto = `${pathToPreviewFolder}/${previewName}`;
       await sharp(pathToOriginalPhoto)
-        .resize({ width: 864  })
+        .resize({ width: 1728  })
         .toFile(pathToPreviewPhoto);
     } catch (error) {
       console.error('[PhotoController][take] resize print',error)
@@ -51,7 +51,7 @@ export class PhotoController {
     const pathToPrintFolder = this.configService.get<string>('PRINT_PATH');
     const printName = `${id}.jpg`;
     const pathToPrintPhoto = `${pathToPrintFolder}/${printName}`;
-    await sharp(pathToOriginalPhoto).resize({ width: 432 }).toFile(pathToPrintPhoto);
+    await sharp(pathToOriginalPhoto).resize({ width: 1728 }).toFile(pathToPrintPhoto);
 
     await this.photoService.print(pathToPrintPhoto);
   }

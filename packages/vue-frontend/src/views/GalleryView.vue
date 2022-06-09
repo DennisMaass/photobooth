@@ -22,9 +22,6 @@
             <BaseButton @click="handlePrint" >
               <Icon icon="fluent:print-20-filled" color="white" width="42px" height="42px" />
             </BaseButton>
-            <BaseButton @click="handleRemove">
-              <BinIcon width="30px" height="30px"/>
-            </BaseButton>
           </template>
       </ButtonBar>
     </div>
@@ -49,7 +46,7 @@ onMounted(async ()=>{
   allIds.value = await getAll()
 })
 
-const allPhotos = computed(()=> allIds.value?.ids.map((id:string)=>`${import.meta.env.VITE_BACKEND}/previews/${id}.webp`))
+const allPhotos = computed(()=> allIds.value?.ids.reverse().map((id:string)=>`${import.meta.env.VITE_BACKEND}/previews/${id}.webp`))
 
 
 let swiperInstance:any = ref(null)
@@ -74,9 +71,9 @@ function handleRemove() {
   remove(activeId.value);
 }
 
-const activeIndex= ref(0)
+const activeIndex = ref(0)
 
-const activeId=computed(()=>allIds.value.ids[activeIndex.value])
+const activeId = computed(()=>allIds.value.reverse().ids[activeIndex.value])
 </script>
 
 <style lang="scss">
