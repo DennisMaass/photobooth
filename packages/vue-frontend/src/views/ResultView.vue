@@ -3,6 +3,11 @@
     <div class="result__image-wrapper">
       <img class="result__photo" :src="imageUrl" alt="taken photo" />
     </div>
+    <!--
+    <div class="result__image-wrapper">
+        <FramedImage first-name="Dominique" second-name="Reinhard" date="10.06.2022"/>
+    </div>
+    -->
     <ButtonBar justify-content="space-between">
       <template #middle>
         <BaseButton to="/" class="result__back">
@@ -37,6 +42,7 @@ import { usePhotos } from "@/composables/usePhotos";
 import { computed, onBeforeUnmount } from 'vue';
 import { useRouter } from "vue-router";
 import CameraIcon from "@/components/icons/CameraIcon.vue";
+import FramedImage from '@/components/FramedImage.vue';
 
 const props = defineProps({
   imageId: { type: String, required: true },
