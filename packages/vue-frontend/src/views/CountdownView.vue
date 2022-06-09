@@ -24,7 +24,7 @@ async function startCountDownTimer() {
 
     if (remainingTime.value === 0) {
       clearInterval(intervalId);
-      remainingTime.value = "CHEESE";
+      remainingTime.value = "Cheeese";
       try {
         const takeRequest = take();
         remainingTime.value = "Loading...";
