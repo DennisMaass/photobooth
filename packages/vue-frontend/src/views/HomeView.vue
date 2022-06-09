@@ -12,9 +12,11 @@
     </div>
     <div class="home__footer">
       <ButtonBar>
-        <BaseButton to="/countdown">
-          <CameraIcon />
-        </BaseButton>
+        <template #middle>
+          <BaseButton to="/countdown">
+            <CameraIcon />
+          </BaseButton>
+        </template>
       </ButtonBar>
     </div>
   </div>

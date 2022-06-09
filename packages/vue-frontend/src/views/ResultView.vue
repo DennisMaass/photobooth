@@ -3,9 +3,8 @@
     <div class="result__image-wrapper">
       <img class="result__photo" :src="imageUrl" alt="taken photo" />
     </div>
-    <ButtonBar class="result__actions-wrapper" justify-content="space-between">
-      <div class="result__left-actions"></div>
-      <div class="result__middle-actions">
+    <ButtonBar justify-content="space-between">
+      <template #middle>
         <BaseButton to="/" class="result__back">
           <Icon icon="mdi:home" color="white" width="42px" height="42px" />
         </BaseButton>
@@ -18,12 +17,12 @@
         <BaseButton to="/countdown">
           <CameraIcon width="30px" height="30px"/>
         </BaseButton>
-      </div>
-      <div class="result__right-actions">
+      </template>
+      <template #right>
         <BaseButton to="/gallery" class="result__back">
           <Icon icon="mdi:picture" color="white" width="30px" height="30px"  />
         </BaseButton>
-      </div>
+      </template>
     </ButtonBar>
   </div>
 </template>
@@ -43,14 +42,12 @@ const props = defineProps({
   imageId: { type: String, required: true },
 });
 
+const router = useRouter();
 const { print, remove } = usePhotos();
-
 function handlePrint() {
   print(props.imageId);
   router.push("/");
 }
-
-const router = useRouter();
 function handleRemove() {
   remove(props.imageId);
   router.push("/");
@@ -95,13 +92,6 @@ onBeforeUnmount(()=>{
     width: auto;
     height: 100%;
     object-fit: contain;
-  }
-
-  &__middle-actions {
-    display: flex;
-    > * + * {
-      margin-left: 3rem;
-    }
   }
 }
 </style>

@@ -1,6 +1,14 @@
 <template>
   <div class="button-bar">
-    <slot></slot>
+    <div class="button-bar__left">
+     <slot name="left"></slot>
+    </div>
+    <div class="button-bar__middle">
+    <slot name="middle"></slot>
+    </div>
+      <div class="button-bar__right">
+    <slot name="right"></slot>
+      </div>
   </div>
 </template>
 
@@ -14,5 +22,18 @@ defineProps({
 .button-bar {
   display: flex;
   justify-content: v-bind(justifyContent);
+
+  &__left{
+
+  }
+  &__middle{
+    display: flex;
+    > * + * {
+      margin-left: 3rem;
+    }
+  }
+  &__right{
+
+  }
 }
 </style>
