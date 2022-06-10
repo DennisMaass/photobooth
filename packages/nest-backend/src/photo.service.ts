@@ -93,7 +93,7 @@ export class PhotoService {
       console.debug('[PhotoService][print] mock is active')
       return;
     }
-    const print = `lp -o landscape -o fit-to-page ${path}`;
+    const print = `lp -o landscape ${path}`;
 
     try {
      await this.commandService.exec(print);
