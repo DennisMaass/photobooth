@@ -53,7 +53,10 @@ export class PhotoController {
     const pathToPrintPhoto = `${pathToPrintFolder}/${printName}`;
     await sharp(pathToOriginalPhoto).resize({ width: 1728 }).toFile(pathToPrintPhoto);
 
-    await this.photoService.print(pathToPrintPhoto);
+    setTimeout(async ()=>{
+      await this.photoService.print(pathToPrintPhoto);
+    },2000)
+
   }
 
   @Get()
