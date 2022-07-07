@@ -22,6 +22,9 @@
             <BaseButton @click="handlePrint" >
               <Icon icon="fluent:print-20-filled" color="white" width="42px" height="42px" />
             </BaseButton>
+            <BaseButton @click="handleDownload" >
+              <Icon icon="ic:twotone-qr-code-2" color="white" width="42px" height="42px" />
+            </BaseButton>
           </template>
       </ButtonBar>
     </div>
@@ -31,8 +34,7 @@
 <script lang="ts" setup>
 import BaseButton from "@/components/BaseButton.vue";
 import ButtonBar from "@/components/ButtonBar.vue";
-import { Icon } from "@iconify/vue";
-import BinIcon from "@/components/icons/BinIcon.vue";
+import { Icon } from "@iconify/vue/dist/offline";
 import { computed, onMounted, ref } from 'vue';
 import { usePhotos } from '@/composables/usePhotos';
 import { Swiper, SwiperSlide } from 'swiper/vue';
@@ -66,6 +68,13 @@ function handlePrint() {
 }
 function handleRemove() {
   remove(activeId.value);
+}
+
+function handleDownload(){
+  router.push({
+    name: "Download",
+    params: { imageId: activeId.value, previewsView:"Gallery" },
+  });
 }
 
 const activeIndex = ref(0)

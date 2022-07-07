@@ -4,6 +4,7 @@ const HomeView = () => import("@/views/HomeView.vue");
 const CountdownView = () => import("@/views/CountdownView.vue");
 const ResultView = () => import("@/views/ResultView.vue");
 const GalleryView = () => import("@/views/GalleryView.vue");
+const DownloadView = () => import("@/views/DownloadView.vue");
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,6 +31,12 @@ const router = createRouter({
       path: "/gallery",
       component: GalleryView,
       name: "Gallery",
+    },
+    {
+      path: "/download",
+      component: DownloadView,
+      name: "Download",
+      props: true,
     },
   ],
 });

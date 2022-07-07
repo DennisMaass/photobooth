@@ -1,5 +1,5 @@
 <template>
-  <div class="home" @click="handleClick">
+  <div class="home" @click="handleClick" ref="homeComponent">
     <div class="home__image-wrapper">
       <img
         class="image"
@@ -22,29 +22,33 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import BaseButton from "@/components/BaseButton.vue";
 import ButtonBar from "@/components/ButtonBar.vue";
 import CameraIcon from "@/components/icons/CameraIcon.vue";
 import { useRouter } from "vue-router";
 import HomeTitle from "@/components/HomeTitle.vue";
+import { onLongPress, templateRef } from '@vueuse/core'
 
 const router = useRouter();
+
+const target = templateRef('homeComponent')
+onLongPress(target, onLongPressCallback, { delay: 2000 })
+function onLongPressCallback(){
+  router.push("/gallery");
+}
+
 function handleClick() {
   router.push("/countdown");
 }
 
 const eventTitle = `
       <span class="ml3" style="font-family: Rushtick,sans-serif;font-size: 45px">
-        <span class='letter'>D</span>
-        <span class='letter'>o</span>
-        <span class='letter'>m</span>
-        <span class='letter'>i</span>
-        <span class='letter'>n</span>
-        <span class='letter'>i</span>
-        <span class='letter'>q</span>
+        <span class='letter'>M</span>
         <span class='letter'>u</span>
-        <span class='letter'>e</span>
+        <span class='letter'>n</span>
+        <span class='letter'>j</span>
+        <span class='letter'>a</span>
       </span>
       </br>
       <span class="ml3" style="font-family: MsMadi,sans-serif;font-size: 33px;color:hsl(30, 25%, 53%);">
@@ -52,14 +56,9 @@ const eventTitle = `
       </span>
       </br>
       <span class="ml3" style="font-family: Rushtick,sans-serif;font-size: 45px">
-        <span class='letter'>R</span>
+        <span class='letter'>J</span>
+        <span class='letter'>o</span>
         <span class='letter'>e</span>
-        <span class='letter'>i</span>
-        <span class='letter'>n</span>
-        <span class='letter'>h</span>
-        <span class='letter'>a</span>
-        <span class='letter'>r</span>
-        <span class='letter'>d</span>
       </span>`;
 </script>
 

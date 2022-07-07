@@ -1,7 +1,7 @@
 <template>
   <div class="result">
     <div class="result__image-wrapper">
-        <FramedImage first-name="Dominique" second-name="Reinhard" date="10.06.2022">
+        <FramedImage first-name="Munja" second-name="Joe" date="09.07.2022">
           <img class="result__photo" :src="imageUrl" alt="taken photo" />
         </FramedImage>
     </div>
@@ -12,6 +12,9 @@
         </BaseButton>
       </template>
       <template #middle>
+        <BaseButton @click="handleDownload" >
+          <Icon icon="ic:twotone-qr-code-2" color="white" width="42px" height="42px" />
+        </BaseButton>
         <BaseButton @click="handlePrint" >
           <Icon icon="fluent:print-20-filled" color="white" width="42px" height="42px" />
         </BaseButton>
@@ -35,7 +38,7 @@
 import BaseButton from "@/components/BaseButton.vue";
 import ButtonBar from "@/components/ButtonBar.vue";
 import BinIcon from "@/components/icons/BinIcon.vue";
-import { Icon } from "@iconify/vue";
+import { Icon } from "@iconify/vue/dist/offline";
 import { usePhotos } from "@/composables/usePhotos";
 import { computed, onBeforeUnmount } from 'vue';
 import { useRouter } from "vue-router";
@@ -68,6 +71,13 @@ const timerID = setTimeout(()=>{
 onBeforeUnmount(()=>{
   clearTimeout(timerID)
 })
+
+function handleDownload(){
+  router.push({
+    name: "Download",
+    params: { imageId: props.imageId, previewsView:"Result" },
+  });
+}
 </script>
 
 <style lang="scss">
