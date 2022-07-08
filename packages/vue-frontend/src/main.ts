@@ -10,13 +10,13 @@ import homeIcon from '@iconify-icons/mdi/home';
 import arrowLeftIcon from '@iconify-icons/mdi/arrow-left-bold';
 import pictureIcon from '@iconify-icons/mdi/picture';
 import printIcon from '@iconify-icons/fluent/print-20-filled';
-import qrIcon from '@iconify-icons/ic/twotone-qr-code-2';
+import downloadIcon from  '@iconify-icons/mdi/tray-arrow-down';
 
 addIcon('mdi:home', homeIcon);
 addIcon('mdi:picture', pictureIcon);
 addIcon('mdi:arrow-left-bold', arrowLeftIcon);
 addIcon('fluent:print-20-filled', printIcon);
-addIcon('ic:twotone-qr-code-2', qrIcon);
+addIcon('mdi:tray-arrow-down', downloadIcon);
 
 
 const app = createApp(App);

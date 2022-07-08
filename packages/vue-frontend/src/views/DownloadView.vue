@@ -26,7 +26,7 @@
       <div>
         <img :src="imageQR" alt="qr-code" class="download__qr"/>
         <div>
-          <div>http://fotobox.local/download-picture/{{imageId}}</div>
+          <div>{{imageUrl}}</div>
         </div>
       </div>
 
@@ -74,10 +74,11 @@ const generateQR = async (text:String) => {
     console.error(err)
   }
 }
+
+const imageUrl = `http://fotobox.local/pd/${props.imageId}`
+
 onMounted(async ()=>{
   wifiQR.value = await generateQR("WIFI:T:WPA;S:raspi-webgui;P:ChangeMe;;")
-
-  const imageUrl = `http://fotobox.local/dp/${props.imageId}`
   imageQR.value= await generateQR(imageUrl)
 })
 

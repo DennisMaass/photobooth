@@ -12,3 +12,10 @@ async function bootstrap() {
   await app.listen(3001);
 }
 bootstrap();
+
+
+async function bootstrap2() {
+  const app = await NestFactory.create(AppModule, { cors: true });
+  await app.listen(3002);
+}
+bootstrap2();

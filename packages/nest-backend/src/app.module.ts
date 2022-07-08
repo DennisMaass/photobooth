@@ -11,7 +11,7 @@ import { AppController } from './app.controller';
     ConfigModule.forRoot({
       validationSchema: Joi.object({
         STAGE: Joi.string().valid('prod', 'local').default('prod'),
-        EVENT_NAME: Joi.string().default('D-R-Hochzeit'),
+        EVENT_NAME: Joi.string().default('MJ-Hochzeit'),
         PRINT_PATH: Joi.string().default('/media/pi/135A-E15F1/prints'),
         ORIGINAL_PATH: Joi.string().default('/media/pi/135A-E15F1/originals'),
         PREVIEW_PATH: Joi.string().default('/media/pi/135A-E15F1/previews'),

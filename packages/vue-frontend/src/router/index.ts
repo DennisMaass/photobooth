@@ -5,6 +5,7 @@ const CountdownView = () => import("@/views/CountdownView.vue");
 const ResultView = () => import("@/views/ResultView.vue");
 const GalleryView = () => import("@/views/GalleryView.vue");
 const DownloadView = () => import("@/views/DownloadView.vue");
+const PictureDownloadView = () => import("@/views/PictureDownloadView.vue");
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,6 +38,11 @@ const router = createRouter({
       component: DownloadView,
       name: "Download",
       props: true,
+    },
+    {
+      path: "/pd/:imageId",
+      component: PictureDownloadView,
+      name: "PictureDownload",
     },
   ],
 });

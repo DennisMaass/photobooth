@@ -23,7 +23,7 @@
               <Icon icon="fluent:print-20-filled" color="white" width="42px" height="42px" />
             </BaseButton>
             <BaseButton @click="handleDownload" >
-              <Icon icon="ic:twotone-qr-code-2" color="white" width="42px" height="42px" />
+              <Icon icon="mdi:tray-arrow-down" color="white" width="42px" height="42px" />
             </BaseButton>
           </template>
       </ButtonBar>
