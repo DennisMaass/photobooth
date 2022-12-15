@@ -47,6 +47,7 @@ const { fotoText, fotoTextFont } = useConfig();
     bottom: 8px;
     transform: translateX(-50%);
     font-size: 26px;
+    color: black;
   }
 
   &__name,
