@@ -1,48 +1,52 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-const HomeView = () => import("@/views/HomeView.vue");
-const CountdownView = () => import("@/views/CountdownView.vue");
-const ResultView = () => import("@/views/ResultView.vue");
-const GalleryView = () => import("@/views/GalleryView.vue");
-const DownloadView = () => import("@/views/DownloadView.vue");
-const PictureDownloadView = () => import("@/views/PictureDownloadView.vue");
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      name: "Home",
       path: "/home",
       alias: "/",
-      component: HomeView,
-      name: "Home",
+      component: () => import("@/views/HomeView.vue"),
     },
     {
-      path: "/countdown",
-      component: CountdownView,
       name: "Countdown",
-      props: true,
+      path: "/countdown",
+      component: () => import("@/views/CountdownView.vue"),
     },
     {
-      path: "/result",
-      component: ResultView,
       name: "Result",
+      path: "/result/:imageId",
+      component: () => import("@/views/ResultView.vue"),
       props: true,
     },
     {
-      path: "/gallery",
-      component: GalleryView,
       name: "Gallery",
+      path: "/gallery",
+      component: () => import("@/views/GalleryView.vue"),
     },
     {
-      path: "/download",
-      component: DownloadView,
       name: "Download",
+      path: "/download/:imageId",
+      component: () => import("@/views/DownloadView.vue"),
       props: true,
     },
     {
-      path: "/pd/:imageId",
-      component: PictureDownloadView,
       name: "PictureDownload",
+      path: "/pd/:imageId",
+      component: () => import("@/views/PictureDownloadView.vue"),
+    },
+    {
+      name: "Admin",
+      path: "/admin",
+
+      component: () => import("@/views/AdminView.vue"),
+    },
+    {
+      name: "Setup",
+      path: "/setup",
+
+      component: () => import("@/views/SetupView.vue"),
     },
   ],
 });

@@ -2,23 +2,29 @@
   <div class="framed-image">
     <slot></slot>
     <div class="framed-image__sub-title">
-      <div class="framed-image__name-wrapper">
-        <span class="framed-image__name">{{ firstName }}</span>
-        <span class="framed-image__separator">&amp;</span>
-        <span class="framed-image__name">{{ secondName }}</span>
+      <div class="framed-image__name-wrapper" style="">
+        <span v-if="fotoText">{{ fotoText }}</span>
+        <span v-if="firstName" class="framed-image__name">{{ firstName }}</span>
+        <span v-if="secondName" class="framed-image__separator">&amp;</span>
+        <span v-if="secondName" class="framed-image__name">{{
+          secondName
+        }}</span>
       </div>
-      <div class="framed-image__date">{{ date }}</div>
+      <div v-if="date" class="framed-image__date">{{ date }}</div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import useConfig from "@/composables/useConfigs";
 const props = defineProps({
   imageUrl: { type: String },
-  firstName: { type: String, required: true },
-  secondName: { type: String, required: true },
-  date: { type: String, required: true },
+  firstName: { type: String },
+  secondName: { type: String },
+  date: { type: String },
 });
+
+const { fotoText, fotoTextFont } = useConfig();
 </script>
 
 <style lang="scss">
@@ -26,7 +32,10 @@ const props = defineProps({
   position: relative;
   padding: 25px 25px 80px 25px;
   border: 1px solid;
-  height:100%;
+  height: 100%;
+  background-color: white;
+  font-family: v-bind(fotoTextFont);
+  display: inline-block;
 
   &__image {
     width: 100%;
@@ -40,7 +49,8 @@ const props = defineProps({
     font-size: 26px;
   }
 
-  &__name, &__date {
+  &__name,
+  &__date {
     font-family: Rushtick, sans-serif;
   }
 
@@ -52,7 +62,7 @@ const props = defineProps({
   &__separator {
     font-family: MsMadi, sans-serif;
     padding: 0 0.8ch;
-    color:hsl(30, 25%, 53%)
+    color: hsl(30, 25%, 53%);
   }
 }
 </style>

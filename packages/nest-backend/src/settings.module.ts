@@ -3,6 +3,6 @@ import { SettingsController } from './settings.controller';
 
 @Module({
   imports: [],
-  controllers:[SettingsController]
+  controllers: [SettingsController],
 })
 export class SettingsModule {}

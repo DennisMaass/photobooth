@@ -1,14 +1,34 @@
+<script setup lang="ts">
+import { useLocalStorage } from "@vueuse/core";
+import BaseButton from "@/components/BaseButton.vue";
+import ButtonBar from "@/components/ButtonBar.vue";
+import CameraIcon from "@/components/icons/CameraIcon.vue";
+import { useRouter } from "vue-router";
+import { onLongPress } from "@vueuse/core";
+import WeddingIntro from "@/components/WeddingIntro.vue";
+import ChristmasIntro from "@/components/ChristmasIntro.vue";
+import { ref } from "vue";
+
+const router = useRouter();
+
+const homeComponent = ref<HTMLElement | null>(null);
+onLongPress(homeComponent, onLongPressCallback, { delay: 2000 });
+function onLongPressCallback() {
+  router.push("/admin");
+}
+
+function handleClick() {
+  router.push("/countdown");
+}
+
+const topic = useLocalStorage("topic", "wedding");
+</script>
+
 <template>
   <div class="home" @click="handleClick" ref="homeComponent">
     <div class="home__image-wrapper">
-      <img
-        class="image"
-        src="@/assets/boho_frame_square.jpg"
-        alt="event image"
-      />
-      <HomeTitle class="home__title">
-        <p v-html="eventTitle"></p>
-      </HomeTitle>
+      <WeddingIntro v-if="topic === 'wedding'"></WeddingIntro>
+      <ChristmasIntro v-else-if="topic === 'christmas'"></ChristmasIntro>
     </div>
     <div class="home__footer">
       <ButtonBar>
@@ -21,47 +41,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import BaseButton from "@/components/BaseButton.vue";
-import ButtonBar from "@/components/ButtonBar.vue";
-import CameraIcon from "@/components/icons/CameraIcon.vue";
-import { useRouter } from "vue-router";
-import HomeTitle from "@/components/HomeTitle.vue";
-import { onLongPress, templateRef } from '@vueuse/core'
-
-const router = useRouter();
-
-const target = templateRef('homeComponent')
-onLongPress(target, onLongPressCallback, { delay: 2000 })
-function onLongPressCallback(){
-  router.push("/gallery");
-}
-
-function handleClick() {
-  router.push("/countdown");
-}
-
-const eventTitle = `
-      <span class="ml3" style="font-family: Rushtick,sans-serif;font-size: 45px">
-        <span class='letter'>M</span>
-        <span class='letter'>u</span>
-        <span class='letter'>n</span>
-        <span class='letter'>j</span>
-        <span class='letter'>a</span>
-      </span>
-      </br>
-      <span class="ml3" style="font-family: MsMadi,sans-serif;font-size: 33px;color:hsl(30, 25%, 53%);">
-        <span class='letter'>&amp;</span>
-      </span>
-      </br>
-      <span class="ml3" style="font-family: Rushtick,sans-serif;font-size: 45px">
-        <span class='letter'>J</span>
-        <span class='letter'>o</span>
-        <span class='letter'>e</span>
-      </span>`;
-</script>
-
 <style lang="scss">
 .home {
   padding: 20px;

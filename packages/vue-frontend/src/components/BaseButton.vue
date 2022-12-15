@@ -21,12 +21,12 @@ defineProps({
   height: 4.5rem;
   width: 4.5rem;
   border-radius: 50%;
-  background-color: hsl(30, 25%, 53%);
+  background-color: var(--base-button-background);
   padding: 1rem;
 
   &:hover,
   &:active {
-    background-color: hsl(30, 25%, 63%);
+    background-color: var(--base-button-background-active);
   }
 }
 </style>

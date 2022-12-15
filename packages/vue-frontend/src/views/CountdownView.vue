@@ -15,22 +15,24 @@ const { counterTime } = toRefs(props);
 const router = useRouter();
 
 const remainingTime = ref(counterTime.value);
+const text = ref("");
 
 const { take } = usePhotos();
+
 let intervalId: number;
 async function startCountDownTimer() {
-  intervalId = setInterval(async () => {
+  intervalId = window.setInterval(async () => {
     remainingTime.value -= 1;
 
     if (remainingTime.value === 0) {
       clearInterval(intervalId);
-      remainingTime.value = "Cheeese";
+      text.value = "Cheeese";
       try {
         const takeRequest = take();
-        setTimeout(()=>{
-          remainingTime.value = "Loading..."},
-          3000)
-        const photoInfo= await takeRequest
+        setTimeout(() => {
+          text.value = "Loading...";
+        }, 3000);
+        const photoInfo = await takeRequest;
         router.push({
           name: "Result",
           params: { imageId: photoInfo.id },
@@ -97,7 +99,8 @@ async function initializeCamera() {
     </div>
 
     <div v-if="!isLoading" class="countdown__time">
-      {{ remainingTime }}
+      <span v-if="remainingTime > 0">{{ remainingTime }}</span>
+      <span v-if="text">{{ text }}</span>
     </div>
   </div>
 </template>
