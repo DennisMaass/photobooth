@@ -4,7 +4,7 @@ import BaseButton from "@/components/BaseButton.vue";
 import ButtonBar from "@/components/ButtonBar.vue";
 import { onMounted, ref } from "vue";
 import QRCode from "qrcode";
-import { useRouter, useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 
 const wifiQR = ref();
 const imageQR = ref();
@@ -21,11 +21,13 @@ const generateQR = async (text: string) => {
   }
 };
 
-const imageUrl = `http://fotobox.local/pd/${props.imageId}`;
+//const imageUrl = `http://fotobox.local/pd/${props.imageId}`;
+const galleryUrl = `http://fotobox.local/gd`;
 
 onMounted(async () => {
   wifiQR.value = await generateQR("WIFI:T:WPA;S:raspi-webgui;P:ChangeMe;;");
-  imageQR.value = await generateQR(imageUrl);
+  //imageQR.value = await generateQR(imageUrl);
+  imageQR.value = await generateQR(galleryUrl);
 });
 
 const router = useRouter();
@@ -65,7 +67,7 @@ function handleBack() {
       <div>
         <img :src="imageQR" alt="qr-code" class="download__qr" />
         <div>
-          <div>{{ imageUrl }}</div>
+          <div>{{ galleryUrl }}</div>
         </div>
       </div>
 

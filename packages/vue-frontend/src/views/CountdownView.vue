@@ -5,7 +5,7 @@ import { usePhotos } from "@/composables/usePhotos";
 import { useCamera } from "@/composables/useCamera";
 
 const props = defineProps({
-  counterTime: { type: Number, default: 3 },
+  counterTime: { type: Number, default: 5 },
 });
 
 const videoTag = ref<HTMLVideoElement | null>(null);

@@ -1,14 +1,21 @@
 <script lang="ts" setup>
 import HomeTitle from "@/components/HomeTitle.vue";
-import useConfig from "@/composables/useConfigs";
+import useTheme from "@/composables/useTheme";
 
-const { brideFirstName, groomFirstName } = useConfig();
-
-const splittedBrideFirstName = brideFirstName.value.split("");
-const splittedGroomFirstName = groomFirstName.value.split("");
+const { people, wallpaperImage } = useTheme();
+if (people.value.length < 2) {
+  throw new Error("You need to have at least 2 people in the theme");
+}
+const firstPerson = people.value[0];
+const secondPerson = people.value[1];
+if (!firstPerson.firstName || !secondPerson.firstName) {
+  throw new Error("You need to have a first name for each person");
+}
+const splittedFirstName = firstPerson.firstName.split("");
+const splittedSecondName = secondPerson.firstName.split("");
 </script>
 <template>
-  <img class="image" src="@/assets/boho_frame_square.jpg" alt="event image" />
+  <img class="image" :src="'/wallpaper/' + wallpaperImage" alt="event image" />
   <HomeTitle class="home__title">
     <p>
       <span
@@ -17,7 +24,7 @@ const splittedGroomFirstName = groomFirstName.value.split("");
       >
         <span
           class="letter"
-          v-for="(letter, index) in splittedBrideFirstName"
+          v-for="(letter, index) in splittedFirstName"
           :key="index"
         >
           {{ letter }}
@@ -41,7 +48,7 @@ const splittedGroomFirstName = groomFirstName.value.split("");
       >
         <span
           class="letter"
-          v-for="(letter, index) in splittedGroomFirstName"
+          v-for="(letter, index) in splittedSecondName"
           :key="index"
         >
           {{ letter }}

@@ -1,11 +1,12 @@
 <template>
   <div class="gallery">
-    <div class="gallery__slider">
+    <div class="gallery__slider" v-if="initialSlide">
       <swiper
         :slides-per-view="1"
         :space-between="10"
         @swiper="onSwiper"
         @activeIndexChange="onIndexChanged"
+        :initial-slide="initialSlide"
       >
         <swiper-slide v-for="photo in allPhotos">
           <img class="gallery__image" :src="photo" alt="" loading="lazy" />
@@ -49,19 +50,23 @@ import { usePhotos } from "@/composables/usePhotos";
 import { Swiper, SwiperSlide } from "swiper/vue";
 
 import "swiper/css";
-import { useRouter } from "vue-router";
-import useConfig from "@/composables/useConfigs";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
-const allIds = ref();
+import { useRouter } from "vue-router";
+import useAppData from "@/composables/useAppData";
+
+const allIds = ref<string[]>([]);
 onMounted(async () => {
   const { getAll } = usePhotos();
   const response = await getAll();
   allIds.value = response.ids;
 });
 
-const revertedAllIds = computed(() => allIds.value?.reverse());
+const initialSlide = computed(() => allIds.value?.length);
+
 const allPhotos = computed(() =>
-  revertedAllIds.value?.map(
+  allIds.value?.map(
     (id: string) => `${import.meta.env.VITE_BACKEND}/previews/${id}.webp`
   )
 );
@@ -72,17 +77,16 @@ const onSwiper = (sw: any) => {
 };
 
 const onIndexChanged = () => {
+  if (!swiperInstance.value) {
+    return;
+  }
   activeIndex.value = swiperInstance.value.activeIndex;
 };
 
 const router = useRouter();
-const { print, remove } = usePhotos();
+const { print } = usePhotos();
 function handlePrint() {
   print(activeId.value);
-}
-
-function handleRemove() {
-  remove(activeId.value);
 }
 
 function handleDownload() {
@@ -93,13 +97,13 @@ function handleDownload() {
   });
 }
 
-const activeIndex = ref(0);
+const activeIndex = ref(initialSlide.value);
 
 const activeId = computed(
-  () => revertedAllIds.value && revertedAllIds.value[activeIndex.value]
+  () => allIds.value && activeIndex.value && allIds.value[activeIndex.value]
 );
 
-const { enabledPrinter } = useConfig();
+const { enabledPrinter } = useAppData();
 </script>
 
 <style lang="scss">

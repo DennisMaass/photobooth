@@ -1,62 +1,20 @@
 <script setup lang="ts">
-import { useCssVar, useWakeLock } from "@vueuse/core";
-import { onMounted, ref, watch } from "vue";
-import useConfigs from "./composables/useConfigs";
+import useAppData from "./composables/useAppData";
+import useNavigation from "./composables/useNavigation";
+import useTheme from "./composables/useTheme";
 
-const {
-  wakelockActive,
-  init,
-  baseButtonBackground,
-  baseButtonBackgroundActive,
-} = useConfigs();
+const { init: initApp } = useAppData();
+initApp();
 
-const { isActive, request } = useWakeLock();
+const { init: initTheme } = useTheme();
+initTheme();
 
-init();
-watch(
-  isActive,
-  (newVal) => {
-    wakelockActive.value = newVal;
-  },
-  { immediate: true }
-);
-
-onMounted(async () => {
-  try {
-    await request("screen");
-    console.debug("[App] wakelock requested");
-  } catch (error) {
-    console.error("[App] useWakeLock", error);
-  }
-});
-
-//TODO make it reactive
-const body = document.querySelector("body");
-const el = ref(body);
-
-const baseButtonBackgroundCSS = useCssVar("--base-button-background", el);
-watch(
-  baseButtonBackground,
-  (newVal) => {
-    baseButtonBackgroundCSS.value = newVal;
-  },
-  { immediate: true }
-);
-
-const baseButtonBackgroundActiveCSS = useCssVar(
-  "--base-button-background-active",
-  el
-);
-watch(
-  baseButtonBackgroundActive,
-  (newVal) => {
-    baseButtonBackgroundActiveCSS.value = newVal;
-  },
-  { immediate: true }
-);
+const { init: initNavigation } = useNavigation();
+initNavigation();
 </script>
 
 <template>
+  <div id="theme-animation-layer" class="theme-animation-layer"></div>
   <RouterView />
 </template>
 
@@ -67,6 +25,16 @@ watch(
 
 :root[data-theme="light"] {
   color-scheme: light;
+}
+
+.theme-animation-layer {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
 }
 
 * {
@@ -80,15 +48,10 @@ watch(
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   height: 100vh;
-  background-color: black;
+  background-color: var(--background-color);
 }
 
 h1 {
   margin: 0;
-}
-
-@font-face {
-  font-family: "Fira Sans";
-  src: url(@/assets/fonts/FiraSans-Bold.ttf);
 }
 </style>

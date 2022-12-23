@@ -37,10 +37,19 @@ const router = createRouter({
       component: () => import("@/views/PictureDownloadView.vue"),
     },
     {
+      name: "GalleryDownload",
+      path: "/gd/",
+      component: () => import("@/views/GalleryDownloadView.vue"),
+    },
+    {
       name: "Admin",
       path: "/admin",
-
       component: () => import("@/views/AdminView.vue"),
+    },
+    {
+      name: "Config",
+      path: "/config",
+      component: () => import("@/views/ConfigView.vue"),
     },
     {
       name: "Setup",

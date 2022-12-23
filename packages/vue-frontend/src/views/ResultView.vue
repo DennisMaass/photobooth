@@ -8,7 +8,8 @@ import { computed, onBeforeUnmount } from "vue";
 import { useRouter } from "vue-router";
 import CameraIcon from "@/components/icons/CameraIcon.vue";
 import FramedImage from "@/components/FramedImage.vue";
-import useConfig from "@/composables/useConfigs";
+import useConfig from "@/composables/useAppData";
+import useTheme from "@/composables/useTheme";
 
 const props = defineProps({
   imageId: { type: String, required: true },
@@ -45,17 +46,14 @@ function handleDownload() {
   });
 }
 
-const { topic, enabledPrinter } = useConfig();
+const { enabledPrinter } = useConfig();
+const { topic } = useTheme();
 </script>
 
 <template>
   <div class="result">
     <div class="result__image-wrapper">
-      <FramedImage
-        :first-name="topic === 'wedding' ? 'Dominique' : ''"
-        :second-name="topic === 'wedding' ? 'Reinhard' : ''"
-        :date="topic === 'wedding' ? '13.08.2022' : ''"
-      >
+      <FramedImage :date="topic === 'wedding' ? '13.08.2022' : ''">
         <img class="result__photo" :src="imageUrl" alt="taken photo" />
       </FramedImage>
     </div>

@@ -1,94 +1,77 @@
 <script lang="ts" setup>
+import { ref } from "vue";
 import BaseButton from "@/components/BaseButton.vue";
-import useConfigs from "../composables/useConfigs";
+import useAppData from "../composables/useAppData";
+import useTheme from "../composables/useTheme";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import ColorInput from "vue-color-input";
 
 const {
-  version,
-  topic,
-  brideFirstName,
-  groomFirstName,
-  wakelockActive,
-  personFirstName,
-  textColor,
-  fotoText,
-  enabledPrinter,
-  personLastName,
-  companyName,
-  baseButtonBackgroundActive,
-  backgroundColor,
-  baseButtonBackground,
+  people,
+  company,
+  wallpaper,
+  wallpaperImage,
   headerColor,
-} = useConfigs();
+  fotoTextFont,
+  fotoText,
+  backgroundColor,
+  textColor,
+  topic,
+  baseButtonBackground,
+  baseButtonBackgroundActive,
+  addEmptyPerson,
+  removeLastPerson,
+} = useTheme();
+
+const { version, width, height, enabledPrinter, wakelockActive } = useAppData();
 </script>
 <template>
-  <h1>Settings</h1>
+  <h1>Admin</h1>
   <div>
-    <h2>Topic</h2>
+    <h2>Thema</h2>
     <input type="radio" id="wedding" value="wedding" v-model="topic" />
-    <label for="wedding">Wedding</label>
+    <label for="wedding">Hochzeit</label>
 
     <input type="radio" id="birthday" value="birthday" v-model="topic" />
-    <label for="birthday">Birthday</label>
+    <label for="birthday">Geburstag</label>
 
     <input type="radio" id="christmas" value="christmas" v-model="topic" />
-    <label for="christmas">Christmas</label>
+    <label for="christmas">Weihnachten</label>
+
+    <input
+      type="radio"
+      id="new-years-eve"
+      value="new-years-eve"
+      v-model="topic"
+    />
+    <label for="new-years-eve">Silvester</label>
   </div>
   <div>
-    <h2>Topic customizations</h2>
-    <div v-if="topic === 'wedding'">
-      <div>
-        <h3>Bride</h3>
-        <label for="brideFirstName">first name</label>
-        <input
-          type="text"
-          placeholder="Bride first name"
-          v-model="brideFirstName"
-        />
-      </div>
+    <h2>Daten</h2>
+    <h3>People</h3>
+    <div v-for="(person, index) of people" :key="index">
+      <label>first name</label>
+      <input type="text" placeholder="first name" v-model="person.firstName" />
+      <label>last name</label>
+      <input type="text" placeholder="last name" v-model="person.lastName" />
+    </div>
+    <button @click="addEmptyPerson">+</button>
+    <button @click="removeLastPerson">-</button>
+    <h3>Company</h3>
+    <div>
+      <label>name</label>
+      <input type="text" placeholder="company" v-model="company" />
+    </div>
+  </div>
 
-      <div>
-        <h3>Groom</h3>
-        <label for="groomFirstName">first name</label>
-        <input
-          type="text"
-          placeholder="Groom first name"
-          v-model="groomFirstName"
-        />
-      </div>
-    </div>
-    <div v-else-if="topic === 'birthday'">
-      <div>
-        <h3>Person</h3>
-        <label for="personFirstName">first name</label>
-        <input
-          type="text"
-          placeholder="Person first name"
-          v-model="personFirstName"
-        />
-        <label for="personLastName">last name</label>
-        <input
-          type="text"
-          placeholder="Person last name"
-          v-model="personLastName"
-        />
-      </div>
-    </div>
-    <div v-else-if="topic === 'christmas'">
-      <div>
-        <h3>Company</h3>
-        <div>
-          <label for="personFirstName">name</label>
-          <input type="text" placeholder="Company name" v-model="companyName" />
-        </div>
-        <div>
-          <label for="fototext">fototext</label>
-          <input type="text" placeholder="fototext" v-model="fotoText" />
-        </div>
-      </div>
-    </div>
+  <div>
+    <h2>wallpaper</h2>
+    <label for="wallpaper">wallpaper</label>
+    <input type="checkbox" v-model="wallpaper" />
+
+    <label>wallpaperImage</label>
+    <input type="text" v-model="wallpaperImage" />
   </div>
 
   <div>
@@ -132,4 +115,5 @@ const {
 
   <div>wakelock: {{ wakelockActive }}</div>
   <div>version: {{ version }}</div>
+  <div>window size: {{ width }} x {{ height }}</div>
 </template>

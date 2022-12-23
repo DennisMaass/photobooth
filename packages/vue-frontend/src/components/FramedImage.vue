@@ -4,10 +4,13 @@
     <div class="framed-image__sub-title">
       <div class="framed-image__name-wrapper" style="">
         <span v-if="fotoText">{{ fotoText }}</span>
-        <span v-if="firstName" class="framed-image__name">{{ firstName }}</span>
-        <span v-if="secondName" class="framed-image__separator">&amp;</span>
-        <span v-if="secondName" class="framed-image__name">{{
-          secondName
+        <span v-if="birthdayfirstName">{{ birthdayfirstName }}</span>
+        <span v-if="brideFirstName" class="framed-image__name">{{
+          brideFirstName
+        }}</span>
+        <span v-if="groomFirstName" class="framed-image__separator">&amp;</span>
+        <span v-if="groomFirstName" class="framed-image__name">{{
+          groomFirstName
         }}</span>
       </div>
       <div v-if="date" class="framed-image__date">{{ date }}</div>
@@ -16,15 +19,18 @@
 </template>
 
 <script lang="ts" setup>
-import useConfig from "@/composables/useConfigs";
+import useConfig from "@/composables/useAppData";
 const props = defineProps({
-  imageUrl: { type: String },
-  firstName: { type: String },
-  secondName: { type: String },
   date: { type: String },
 });
 
-const { fotoText, fotoTextFont } = useConfig();
+const {
+  fotoText,
+  fotoTextFont,
+  brideFirstName,
+  groomFirstName,
+  birthdayfirstName,
+} = useConfig();
 </script>
 
 <style lang="scss">
@@ -47,7 +53,6 @@ const { fotoText, fotoTextFont } = useConfig();
     bottom: 8px;
     transform: translateX(-50%);
     font-size: 26px;
-    color: black;
   }
 
   &__name,
