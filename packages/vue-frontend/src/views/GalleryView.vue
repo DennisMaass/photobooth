@@ -54,9 +54,7 @@ function handleDownload() {
 
 const activeIndex = ref(initialSlide.value);
 
-const activeId = computed(
-  () => allIds.value && activeIndex.value && allIds.value[activeIndex.value]
-);
+const activeId = computed(() => allIds.value[activeIndex.value]);
 
 const { enabledPrinter } = useAppData();
 </script>

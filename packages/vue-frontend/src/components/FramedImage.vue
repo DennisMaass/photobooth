@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, computed } from "vue";
+import { computed } from "vue";
 import useTheme from "@/composables/useTheme";
 
 const props = defineProps({
