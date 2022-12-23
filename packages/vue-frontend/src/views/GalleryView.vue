@@ -1,46 +1,3 @@
-<template>
-  <div class="gallery">
-    <div class="gallery__slider" v-if="initialSlide">
-      <swiper
-        :slides-per-view="1"
-        :space-between="10"
-        @swiper="onSwiper"
-        @activeIndexChange="onIndexChanged"
-        :initial-slide="initialSlide"
-      >
-        <swiper-slide v-for="photo in allPhotos">
-          <img class="gallery__image" :src="photo" alt="" loading="lazy" />
-        </swiper-slide>
-      </swiper>
-    </div>
-    <div class="gallery__footer">
-      <ButtonBar justify-content="space-between">
-        <template #middle>
-          <BaseButton to="/">
-            <Icon icon="mdi:home" color="white" width="42px" height="42px" />
-          </BaseButton>
-          <BaseButton v-if="enabledPrinter" @click="handlePrint">
-            <Icon
-              icon="fluent:print-20-filled"
-              color="white"
-              width="42px"
-              height="42px"
-            />
-          </BaseButton>
-          <BaseButton @click="handleDownload">
-            <Icon
-              icon="mdi:tray-arrow-down"
-              color="white"
-              width="42px"
-              height="42px"
-            />
-          </BaseButton>
-        </template>
-      </ButtonBar>
-    </div>
-  </div>
-</template>
-
 <script lang="ts" setup>
 import BaseButton from "@/components/BaseButton.vue";
 import ButtonBar from "@/components/ButtonBar.vue";
@@ -50,8 +7,6 @@ import { usePhotos } from "@/composables/usePhotos";
 import { Swiper, SwiperSlide } from "swiper/vue";
 
 import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 
 import { useRouter } from "vue-router";
 import useAppData from "@/composables/useAppData";
@@ -106,6 +61,48 @@ const activeId = computed(
 const { enabledPrinter } = useAppData();
 </script>
 
+<template>
+  <div class="gallery">
+    <div class="gallery__slider" v-if="initialSlide">
+      <swiper
+        :slides-per-view="1"
+        :space-between="10"
+        @swiper="onSwiper"
+        @activeIndexChange="onIndexChanged"
+        :initial-slide="initialSlide"
+      >
+        <swiper-slide v-for="photo in allPhotos">
+          <img class="gallery__image" :src="photo" alt="" loading="lazy" />
+        </swiper-slide>
+      </swiper>
+    </div>
+    <div class="gallery__footer">
+      <ButtonBar justify-content="space-between">
+        <template #middle>
+          <BaseButton to="/">
+            <Icon icon="mdi:home" color="white" width="42px" height="42px" />
+          </BaseButton>
+          <BaseButton v-if="enabledPrinter" @click="handlePrint">
+            <Icon
+              icon="fluent:print-20-filled"
+              color="white"
+              width="42px"
+              height="42px"
+            />
+          </BaseButton>
+          <BaseButton @click="handleDownload">
+            <Icon
+              icon="mdi:tray-arrow-down"
+              color="white"
+              width="42px"
+              height="42px"
+            />
+          </BaseButton>
+        </template>
+      </ButtonBar>
+    </div>
+  </div>
+</template>
 <style lang="scss">
 .gallery {
   display: flex;

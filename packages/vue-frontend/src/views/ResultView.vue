@@ -47,13 +47,15 @@ function handleDownload() {
 }
 
 const { enabledPrinter } = useConfig();
-const { topic } = useTheme();
+const { selectedTheme } = useTheme();
 </script>
 
 <template>
   <div class="result">
     <div class="result__image-wrapper">
-      <FramedImage :date="topic === 'wedding' ? '13.08.2022' : ''">
+      <FramedImage
+        :date="selectedTheme.topic === 'wedding' ? '13.08.2022' : ''"
+      >
         <img class="result__photo" :src="imageUrl" alt="taken photo" />
       </FramedImage>
     </div>
@@ -89,7 +91,7 @@ const { topic } = useTheme();
       </template>
       <template #right>
         <BaseButton to="/gallery" class="result__back">
-          <Icon icon="mdi:picture" color="white" width="30px" height="30px" />
+          <Icon icon="mdi:image" color="white" width="30px" height="30px" />
         </BaseButton>
       </template>
     </ButtonBar>

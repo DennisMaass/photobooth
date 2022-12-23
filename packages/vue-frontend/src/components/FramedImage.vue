@@ -3,15 +3,7 @@
     <slot></slot>
     <div class="framed-image__sub-title">
       <div class="framed-image__name-wrapper" style="">
-        <span v-if="fotoText">{{ fotoText }}</span>
-        <span v-if="birthdayfirstName">{{ birthdayfirstName }}</span>
-        <span v-if="brideFirstName" class="framed-image__name">{{
-          brideFirstName
-        }}</span>
-        <span v-if="groomFirstName" class="framed-image__separator">&amp;</span>
-        <span v-if="groomFirstName" class="framed-image__name">{{
-          groomFirstName
-        }}</span>
+        <span v-if="selectedTheme.fotoText">{{ selectedTheme.fotoText }}</span>
       </div>
       <div v-if="date" class="framed-image__date">{{ date }}</div>
     </div>
@@ -19,18 +11,15 @@
 </template>
 
 <script lang="ts" setup>
-import useConfig from "@/composables/useAppData";
+import { defineProps, computed } from "vue";
+import useTheme from "@/composables/useTheme";
+
 const props = defineProps({
   date: { type: String },
 });
 
-const {
-  fotoText,
-  fotoTextFont,
-  brideFirstName,
-  groomFirstName,
-  birthdayfirstName,
-} = useConfig();
+const { selectedTheme } = useTheme();
+const fotoTextFont = computed(() => selectedTheme.value.fotoTextFont);
 </script>
 
 <style lang="scss">

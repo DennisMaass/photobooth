@@ -6,11 +6,7 @@
       <swiper
         :slidesPerView="'auto'"
         :centeredSlides="true"
-        :spaceBetween="30"
-        :modules="modules"
-        :pagination="{
-          clickable: true,
-        }"
+        :spaceBetween="10"
         @swiper="onSwiper"
         :initial-slide="initialSlide"
       >
@@ -26,11 +22,8 @@
 import { computed, onMounted, ref } from "vue";
 import { usePhotos } from "@/composables/usePhotos";
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { Pagination } from "swiper";
 
 import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 
 const allIds = ref<string[]>([]);
 onMounted(async () => {
@@ -52,8 +45,6 @@ let swiperInstance: any = ref(null);
 const onSwiper = (sw: any) => {
   swiperInstance.value = sw;
 };
-
-const modules = [Pagination];
 </script>
 
 <style lang="scss">
@@ -77,7 +68,7 @@ const modules = [Pagination];
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 60%;
+    width: 80%;
   }
   &__image {
     display: block;

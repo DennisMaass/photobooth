@@ -8,6 +8,7 @@ export class SettingsController {
   @Get('/')
   getInfos() {
     return {
+      printerEnabled: false,
       stage: this.configService.get<string>('STAGE'),
       eventName: this.configService.get<string>('EVENT_NAME'),
       originalPath: this.configService.get<string>('ORIGINAL_PATH'),

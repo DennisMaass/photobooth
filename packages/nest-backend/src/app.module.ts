@@ -5,7 +5,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
 import { PhotoModule } from './photo.module';
 import { AppController } from './app.controller';
-import { CustomizationsModule } from './customizations.module';
+import { ThemesModule } from './themes.module';
 
 @Module({
   imports: [
@@ -16,6 +16,7 @@ import { CustomizationsModule } from './customizations.module';
         PRINT_PATH: Joi.string().default('/media/pi/135A-E15F2/prints'),
         ORIGINAL_PATH: Joi.string().default('/media/pi/135A-E15F2/originals'),
         PREVIEW_PATH: Joi.string().default('/media/pi/135A-E15F2/previews'),
+        DELETED_PATH: Joi.string().default('/media/pi/135A-E15F2/deleted'),
       }),
       validationOptions: {
         allowUnknown: true,
@@ -60,7 +61,7 @@ import { CustomizationsModule } from './customizations.module';
       ],
     }),
     PhotoModule,
-    CustomizationsModule,
+    ThemesModule,
   ],
   controllers: [AppController],
   providers: [CommandService],

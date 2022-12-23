@@ -2,7 +2,7 @@
 import HomeTitle from "@/components/HomeTitle.vue";
 import useTheme from "@/composables/useTheme";
 
-const { people, wallpaperImage } = useTheme();
+const { people, selectedTheme } = useTheme();
 if (people.value.length < 2) {
   throw new Error("You need to have at least 2 people in the theme");
 }
@@ -15,7 +15,11 @@ const splittedFirstName = firstPerson.firstName.split("");
 const splittedSecondName = secondPerson.firstName.split("");
 </script>
 <template>
-  <img class="image" :src="'/wallpaper/' + wallpaperImage" alt="event image" />
+  <img
+    class="image"
+    :src="'/wallpaper/' + selectedTheme.wallpaperImage"
+    alt="event image"
+  />
   <HomeTitle class="home__title">
     <p>
       <span

@@ -15,25 +15,29 @@ function handleClick() {
   router.push("/countdown");
 }
 
-const { wallpaper, wallpaperImage, topic } = useTheme();
+const { selectedTheme } = useTheme();
 </script>
 
 <template>
   <div class="home" @click="handleClick" ref="homeComponent">
     <div class="home__wallpaper-container">
       <img
-        v-if="wallpaper"
+        v-if="selectedTheme.wallpaper"
         class="home__wallpaper"
-        :src="'/wallpaper/' + wallpaperImage"
+        :src="'/wallpaper/' + selectedTheme.wallpaperImage"
         alt="event image"
       />
     </div>
     <div class="home__content">
       <div class="home__image-wrapper">
-        <template v-if="!wallpaper">
-          <WeddingIntro v-if="topic === 'wedding'"></WeddingIntro>
-          <ChristmasIntro v-else-if="topic === 'christmas'"></ChristmasIntro>
-          <BirthdayIntro v-if="topic === 'birthday'"></BirthdayIntro>
+        <template v-if="!selectedTheme.wallpaper">
+          <WeddingIntro v-if="selectedTheme.topic === 'wedding'"></WeddingIntro>
+          <ChristmasIntro
+            v-else-if="selectedTheme.topic === 'christmas'"
+          ></ChristmasIntro>
+          <BirthdayIntro
+            v-if="selectedTheme.topic === 'birthday'"
+          ></BirthdayIntro>
         </template>
       </div>
       <div class="home__footer">

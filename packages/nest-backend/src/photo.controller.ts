@@ -12,7 +12,7 @@ export class PhotoController {
 
   @Post()
   async take(): Promise<{ id: string }> {
-    console.debug('[PhotoController][take]')
+    console.debug('[PhotoController][take]');
 
     const eventName = this.configService.get<string>('EVENT_NAME');
     const timestamp = Date.now();
@@ -24,17 +24,21 @@ export class PhotoController {
     const pathToOriginalPhoto = `${pathToOriginalsFolder}/${originalName}`;
 
     try {
-      console.debug('[PhotoController][take] take pathToOriginalPhoto',pathToOriginalPhoto)
+      console.debug(
+        '[PhotoController][take] take pathToOriginalPhoto',
+        pathToOriginalPhoto,
+      );
       await this.photoService.take(pathToOriginalPhoto);
 
-      const pathToPreviewFolder = this.configService.get<string>('PREVIEW_PATH');
+      const pathToPreviewFolder =
+        this.configService.get<string>('PREVIEW_PATH');
       const previewName = `${id}.webp`;
       const pathToPreviewPhoto = `${pathToPreviewFolder}/${previewName}`;
       await sharp(pathToOriginalPhoto)
-        .resize({ width: 1728  })
+        .resize({ width: 1728 })
         .toFile(pathToPreviewPhoto);
     } catch (error) {
-      console.error('[PhotoController][take] resize print',error)
+      console.error('[PhotoController][take] resize print', error);
     }
 
     return { id };
@@ -42,32 +46,34 @@ export class PhotoController {
 
   @Post('/print')
   async print(@Body('id') id: string): Promise<void> {
-    console.debug('[PhotoController][print] id',id)
+    console.debug('[PhotoController][print] id', id);
 
-    const pathToOriginalsFolder = this.configService.get<string>('ORIGINAL_PATH');
+    const pathToOriginalsFolder =
+      this.configService.get<string>('ORIGINAL_PATH');
     const originalName = `${id}.jpg`;
     const pathToOriginalPhoto = `${pathToOriginalsFolder}/${originalName}`;
 
     const pathToPrintFolder = this.configService.get<string>('PRINT_PATH');
     const printName = `${id}.jpg`;
     const pathToPrintPhoto = `${pathToPrintFolder}/${printName}`;
-    await sharp(pathToOriginalPhoto).resize({ width: 1728 }).toFile(pathToPrintPhoto);
+    await sharp(pathToOriginalPhoto)
+      .resize({ width: 1728 })
+      .toFile(pathToPrintPhoto);
 
-    setTimeout(async ()=>{
+    setTimeout(async () => {
       await this.photoService.print(pathToPrintPhoto);
-    },2000)
-
+    }, 2000);
   }
 
   @Get()
   getAll(): { ids: string[] } {
-    console.debug('[PhotoController][getAll]')
+    console.debug('[PhotoController][getAll]');
     return this.photoService.getAll();
   }
 
   @Delete()
   remove(@Body('id') id: string) {
-    console.debug('[PhotoController][remove] id',id)
+    console.debug('[PhotoController][remove] id', id);
     this.photoService.remove(id);
   }
 }
