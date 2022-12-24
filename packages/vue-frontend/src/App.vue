@@ -2,6 +2,7 @@
 import useAppData from "./composables/useAppData";
 import useNavigation from "./composables/useNavigation";
 import useTheme from "./composables/useTheme";
+import useCheck from "./composables/useCheck";
 
 const { init: initApp } = useAppData();
 initApp();
@@ -11,6 +12,9 @@ initTheme();
 
 const { init: initNavigation } = useNavigation();
 initNavigation();
+
+const { init: initCheck } = useCheck();
+initCheck();
 </script>
 
 <template>

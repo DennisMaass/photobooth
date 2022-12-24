@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import { watch, ref } from "vue";
 import useTheme from "../composables/useTheme";
 import BaseButton from "@/components/BaseButton.vue";
 import ButtonBar from "@/components/ButtonBar.vue";
 import CameraIcon from "@/components/icons/CameraIcon.vue";
 import { useRouter } from "vue-router";
-
+import useCheck from "@/composables/useCheck";
 import WeddingIntro from "@/components/WeddingIntro.vue";
 import ChristmasIntro from "@/components/ChristmasIntro.vue";
 import BirthdayIntro from "@/components/BirthdayIntro.vue";
@@ -16,10 +17,13 @@ function handleClick() {
 }
 
 const { selectedTheme } = useTheme();
+
+const { status } = useCheck();
 </script>
 
 <template>
-  <div class="home" @click="handleClick" ref="homeComponent">
+  <div v-if="status !== 'ready'">{{ status }}</div>
+  <div v-else class="home" @click="handleClick" ref="homeComponent">
     <div class="home__wallpaper-container">
       <img
         v-if="selectedTheme.wallpaper"

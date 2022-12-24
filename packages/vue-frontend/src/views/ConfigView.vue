@@ -24,7 +24,6 @@ function handleReset() {
 <template>
   <div class="config-view">
     <h1>Config</h1>
-    <button @click="handleReset">zurücksetzen</button>
     <div>
       <h2>Theme</h2>
       <div class="theme-selector">
@@ -69,6 +68,7 @@ function handleReset() {
         <input type="checkbox" v-model="animationEnabled" />
       </div>
     </div>
+    <button @click="handleReset">zurücksetzen</button>
     <div class="config-view__footer">
       <ButtonBar justify-content="space-between">
         <template #left>
