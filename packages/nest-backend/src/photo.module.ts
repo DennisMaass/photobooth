@@ -3,10 +3,11 @@ import { PhotoController } from './photo.controller';
 import { PhotoService } from './photo.service';
 import { CommandService } from './command.service';
 import { ConfigModule } from '@nestjs/config';
+import { PhotoGateway } from './photo.gateway';
 
 @Module({
   imports: [ConfigModule],
   controllers: [PhotoController],
-  providers: [PhotoService, CommandService],
+  providers: [PhotoService, CommandService, PhotoGateway],
 })
 export class PhotoModule {}

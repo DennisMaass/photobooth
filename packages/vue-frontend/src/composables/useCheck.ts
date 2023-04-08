@@ -1,8 +1,11 @@
 import { ref, watch } from "vue";
 import { useIntervalFn } from "@vueuse/core";
+import { ofetch } from "ofetch";
+
+type Status = "booting" | "ready" | "error";
 
 const backendAvailable = ref(false);
-const status = ref("booting");
+const status = ref<Status>("booting");
 const interval = ref(500);
 export default () => {
   function init() {
@@ -35,13 +38,9 @@ export default () => {
   async function checkAvailibility(): Promise<any> {
     const BASE_URL = `${import.meta.env.VITE_BACKEND}`;
 
-    const response = await fetch(`${BASE_URL}/health`, {
+    return await ofetch(`${BASE_URL}/health`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
     });
-    return await response.json();
   }
 
   return {

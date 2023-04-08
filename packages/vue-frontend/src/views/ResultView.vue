@@ -10,15 +10,47 @@ import CameraIcon from "@/components/icons/CameraIcon.vue";
 import FramedImage from "@/components/FramedImage.vue";
 import useConfig from "@/composables/useAppData";
 import useTheme from "@/composables/useTheme";
+import usePrinter from "@/composables/usePrinter";
+import useNotification from "@/composables/useNotification";
 
 const props = defineProps({
   imageId: { type: String, required: true },
 });
 
 const router = useRouter();
-const { print, remove } = usePhotos();
-function handlePrint() {
-  print(props.imageId);
+const { remove } = usePhotos();
+const { print } = usePrinter();
+const { fire } = useNotification();
+
+async function handlePrint() {
+  const status = await print(props.imageId);
+  if (status.code === "ready") {
+    fire({
+      icon: "success",
+      title: "Druck gestartet",
+      text: "Dauert ca. 30 Sekunden",
+      showConfirmButton: false,
+      timer: 3000,
+    });
+  } else if (status.code === "busy") {
+    fire({
+      icon: "info",
+      title: "Druckt gerade",
+      text: "Versuche es bitte später nochmal",
+      timer: 10000,
+    });
+  } else if (status.code === "error") {
+    fire({
+      icon: "error",
+      title: "Papier oder Farbpatrone leer",
+      text: "bitte wechseln",
+    });
+  } else {
+    fire({
+      icon: "error",
+      title: "Es ist ein Fehler aufgetreten",
+    });
+  }
   router.push("/");
 }
 function handleRemove() {

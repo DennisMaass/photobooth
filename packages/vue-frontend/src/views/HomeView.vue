@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { watch, ref } from "vue";
 import useTheme from "../composables/useTheme";
 import BaseButton from "@/components/BaseButton.vue";
 import ButtonBar from "@/components/ButtonBar.vue";

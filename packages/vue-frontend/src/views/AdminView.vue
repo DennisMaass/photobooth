@@ -3,10 +3,17 @@ import BaseButton from "@/components/BaseButton.vue";
 import useAppData from "../composables/useAppData";
 
 const { version, width, height, enabledPrinter, wakelockActive } = useAppData();
+
+function tooglePrinter() {
+  enabledPrinter.value = !enabledPrinter.value;
+}
 </script>
 <template>
   <h1>Admin</h1>
-  <div>enabledPrinter: {{ enabledPrinter }}</div>
+  <button @click="tooglePrinter">
+    <span v-if="enabledPrinter">disable Printer</span>
+    <span v-else>enable Printer</span>
+  </button>
 
   <div>
     <BaseButton to="/setup">setup</BaseButton>

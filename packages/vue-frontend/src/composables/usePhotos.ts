@@ -1,57 +1,47 @@
+import { ofetch } from "ofetch";
+
 type PhotoService = {
-  print: (id: string) => void;
   remove: (id: string) => void;
   getAll: () => Promise<{ ids: string[] }>;
   take: () => Promise<{ id: string }>;
 };
 
-export function usePhotos(): PhotoService {
-  const BASE_URL = `${import.meta.env.VITE_BACKEND}/photos`;
+type PhotoIdList = {
+  ids: string[];
+};
 
-  async function take(): Promise<{ id: string }> {
-    const response = await fetch(`${BASE_URL}/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    return await response.json();
+type PhotoId = {
+  id: string;
+};
+
+//TODO: HTTP für handy https für tablet
+export function usePhotos(https = true): PhotoService {
+  let BASE_URL = `${import.meta.env.VITE_BACKEND_HTTP}/photos`;
+  if (https) {
+    BASE_URL = `${import.meta.env.VITE_BACKEND}/photos`;
   }
 
-  async function print(id: string) {
-    const data = { id };
-    await fetch(`${BASE_URL}/print`, {
+  async function take(): Promise<PhotoId> {
+    return await ofetch(`${BASE_URL}/`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
     });
   }
 
   async function remove(id: string) {
     const data = { id };
-    await fetch(`${BASE_URL}`, {
+    await ofetch(`${BASE_URL}`, {
       method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+      body: data,
     });
   }
 
-  async function getAll(): Promise<{ ids: [string] }> {
-    const response = await fetch(`${BASE_URL}/`, {
+  async function getAll(): Promise<PhotoIdList> {
+    return await ofetch(`${BASE_URL}/`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
     });
-    return await response.json();
   }
 
   return {
-    print,
     remove,
     getAll,
     take,

@@ -3,6 +3,7 @@ import useAppData from "./composables/useAppData";
 import useNavigation from "./composables/useNavigation";
 import useTheme from "./composables/useTheme";
 import useCheck from "./composables/useCheck";
+import useNetwork from "./composables/useNetwork";
 
 const { init: initApp } = useAppData();
 initApp();
@@ -15,6 +16,9 @@ initNavigation();
 
 const { init: initCheck } = useCheck();
 initCheck();
+
+const { connect } = useNetwork();
+connect();
 </script>
 
 <template>

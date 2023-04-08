@@ -3,13 +3,19 @@ import BaseButton from "@/components/BaseButton.vue";
 import ButtonBar from "@/components/ButtonBar.vue";
 import { Icon } from "@iconify/vue/dist/offline";
 import { computed, onMounted, ref } from "vue";
+import { Lazy, Navigation } from "swiper";
 import { usePhotos } from "@/composables/usePhotos";
+import usePrinter from "@/composables/usePrinter";
 import { Swiper, SwiperSlide } from "swiper/vue";
 
 import "swiper/css";
+import "swiper/css/lazy";
+import "swiper/css/navigation";
 
 import { useRouter } from "vue-router";
 import useAppData from "@/composables/useAppData";
+
+const modules = ref([Lazy, Navigation]);
 
 const allIds = ref<string[]>([]);
 onMounted(async () => {
@@ -39,7 +45,7 @@ const onIndexChanged = () => {
 };
 
 const router = useRouter();
-const { print } = usePhotos();
+const { print } = usePrinter();
 function handlePrint() {
   print(activeId.value);
 }
@@ -65,12 +71,15 @@ const { enabledPrinter } = useAppData();
       <swiper
         :slides-per-view="1"
         :space-between="10"
+        :lazy="true"
+        :modules="modules"
+        :navigation="true"
         @swiper="onSwiper"
         @activeIndexChange="onIndexChanged"
         :initial-slide="initialSlide"
       >
-        <swiper-slide v-for="photo in allPhotos">
-          <img class="gallery__image" :src="photo" alt="" loading="lazy" />
+        <swiper-slide v-for="photo in allPhotos" :key="photo">
+          <img class="swiper-lazy gallery__image" :data-src="photo" alt="" />
         </swiper-slide>
       </swiper>
     </div>

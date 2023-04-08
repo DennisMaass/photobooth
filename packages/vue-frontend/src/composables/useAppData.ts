@@ -6,7 +6,7 @@ const { width, height } = useWindowSize();
 
 const version = 6;
 
-const enabledPrinter = useLocalStorage("enabledPrinter", false);
+const enabledPrinter = useLocalStorage("enabledPrinter", true);
 
 const { isActive, request } = useWakeLock();
 

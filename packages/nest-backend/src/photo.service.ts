@@ -3,6 +3,11 @@ import { CommandService } from './command.service';
 import { ConfigService } from '@nestjs/config';
 import { readdirSync, copyFileSync, promises, existsSync } from 'fs';
 
+export type PrinterStatusCode = 'ready' | 'busy' | 'error';
+export type PrinterStatus = {
+  code: PrinterStatusCode;
+  message: string;
+};
 @Injectable()
 export class PhotoService {
   private mock = false;
@@ -107,6 +112,33 @@ export class PhotoService {
       await this.commandService.exec(print);
     } catch (error) {
       console.error('[PhotoService][take] error', error);
+    }
+  }
+
+  //TODO: read the needed information and transform in js
+  async getPrinterState(): Promise<PrinterStatus> {
+    try {
+      const plainStatus = await this.commandService.exec('lpstat -p');
+
+      return {
+        code: 'ready',
+        message: plainStatus,
+      };
+    } catch (e) {
+      console.error(e);
+      return {
+        code: 'error',
+        message: 'error',
+      };
+    }
+  }
+
+  //TODO: read the needed information and transform in js
+  async getPrinterJobs() {
+    try {
+      return await this.commandService.exec('lpstat -o');
+    } catch (e) {
+      return 'error';
     }
   }
 }

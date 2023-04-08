@@ -6,7 +6,8 @@ import * as Joi from 'joi';
 import { PhotoModule } from './photo.module';
 import { AppController } from './app.controller';
 import { ThemesModule } from './themes.module';
-
+import { ConnectionHandler } from './ConnectionHandler';
+import { RealtimeService } from './realtime.service';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -64,6 +65,6 @@ import { ThemesModule } from './themes.module';
     ThemesModule,
   ],
   controllers: [AppController],
-  providers: [CommandService],
+  providers: [CommandService, ConnectionHandler, RealtimeService],
 })
 export class AppModule {}

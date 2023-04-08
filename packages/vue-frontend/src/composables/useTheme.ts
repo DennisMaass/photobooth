@@ -6,6 +6,7 @@ import { type Container, tsParticles } from "tsparticles-engine";
 import { confetti } from "@/particleOptions";
 import { loadFull } from "tsparticles";
 import { useRoute } from "vue-router";
+import { ofetch } from "ofetch";
 
 type Theme = {
   id: string;
@@ -145,14 +146,9 @@ export default (): UseTheme => {
 
   async function getThemes() {
     /*  const BASE_URL = `${import.meta.env.VITE_BACKEND}/themes`;
-    const response = await fetch(`${BASE_URL}/`, {
+    return await ofetch(`${BASE_URL}/`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    return await response.json(); */
+    });*/
 
     return [
       {
