@@ -1,6 +1,6 @@
 {
   "name": "@photobooth/root",
-  "packageManager": "yarn@3.2.1",
+  "packageManager": "pnpm@7.31.0",
   "private": true,
   "workspaces": [
     "packages/*"
