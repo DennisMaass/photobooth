@@ -128,6 +128,11 @@ export class PhotoService {
           code: 'ready',
           message: plainStatus,
         };
+      } else if (plainStatus.includes('kann nicht lokalisiet werden')) {
+        return {
+          code: 'error',
+          message: plainStatus,
+        };
       }
 
       return {
