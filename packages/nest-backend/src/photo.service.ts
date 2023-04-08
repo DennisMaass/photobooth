@@ -115,13 +115,23 @@ export class PhotoService {
     }
   }
 
-  //TODO: read the needed information and transform in js
   async getPrinterState(): Promise<PrinterStatus> {
     try {
       const plainStatus = await this.commandService.exec('lpstat -p');
+      if (plainStatus.includes('druckt jetzt')) {
+        return {
+          code: 'busy',
+          message: plainStatus,
+        };
+      } else if (plainStatus.includes('ist im Leerlauf')) {
+        return {
+          code: 'ready',
+          message: plainStatus,
+        };
+      }
 
       return {
-        code: 'ready',
+        code: 'error',
         message: plainStatus,
       };
     } catch (e) {
