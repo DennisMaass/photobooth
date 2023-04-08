@@ -28,7 +28,7 @@ async function handlePrint() {
     fire({
       icon: "success",
       title: "Druck gestartet",
-      text: "Dauert ca. 30 Sekunden",
+      text: "Dauert ca. 1 Minute und 30 Sekunden",
       showConfirmButton: false,
       timer: 3000,
     });

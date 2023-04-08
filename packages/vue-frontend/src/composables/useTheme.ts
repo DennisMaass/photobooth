@@ -152,6 +152,21 @@ export default (): UseTheme => {
 
     return [
       {
+        id: "communion_1",
+        name: "Kommunion",
+        topic: "communion",
+        wallpaper: true,
+        wallpaperImage: "kommunion.jpeg",
+        animation: null,
+        textColor: "#2c3e50",
+        baseButtonBackground: "#DAA861",
+        baseButtonBackgroundActive: "#DAA861",
+        backgroundColor: "transparent",
+        fotoTextFont: "Rushtick",
+        headerColor: "light",
+        fotoText: "Frohe Kommunion",
+      },
+      {
         id: "christmas_1",
         name: "Weihnachten",
         topic: "christmas",
