@@ -18,7 +18,7 @@ import { RealtimeService } from './realtime.service';
         ORIGINAL_PATH: Joi.string().default('/media/pi/135A-E15F2/originals'),
         PREVIEW_PATH: Joi.string().default('/media/pi/135A-E15F2/previews'),
         DELETED_PATH: Joi.string().default('/media/pi/135A-E15F2/deleted'),
-        USER_DATA_PATH: Joi.string().default('~/user-data'),
+        USER_DATA_PATH: Joi.string().default('/home/pi/user-data'),
       }),
       validationOptions: {
         allowUnknown: true,
