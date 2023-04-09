@@ -1,8 +1,5 @@
 #custom
-/prints
-/originals
-/previews
-/deleted
+/test-data/*
 /secrets
 
 # compiled output
