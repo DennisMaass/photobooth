@@ -13,7 +13,14 @@ export class ThemesController {
     const userDataPath = this.configService.get<string>('USER_DATA_PATH');
     const themesPath = `${userDataPath}/themes.json`;
     if (!existsSync(themesPath)) {
-      copyFileSync('./assets/defaultThemes.json', themesPath);
+      console.info('No themes found, copying default themes');
+
+      const defaultThemes = './assets/defaultThemes.json';
+      if (existsSync(defaultThemes)) {
+        copyFileSync(defaultThemes, themesPath);
+      } else {
+        console.error('No default themes found');
+      }
     }
     try {
       const themeFile = readFileSync(`${userDataPath}/themes.json`, {
