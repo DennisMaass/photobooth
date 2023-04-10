@@ -4,6 +4,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
 import { PhotoModule } from './photo.module';
+import { PrinterModule } from './printer.module';
 import { AppController } from './app.controller';
 import { ThemesModule } from './themes.module';
 import { ConnectionHandler } from './ConnectionHandler';
@@ -63,6 +64,7 @@ import { RealtimeService } from './realtime.service';
       ],
     }),
     PhotoModule,
+    PrinterModule,
     ThemesModule,
   ],
   controllers: [AppController],

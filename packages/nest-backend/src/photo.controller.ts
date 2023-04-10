@@ -3,8 +3,6 @@ import { PhotoService } from './photo.service';
 import { ConfigService } from '@nestjs/config';
 import * as sharp from 'sharp';
 
-import type { PrinterStatus } from './photo.service';
-
 @Controller('photos')
 export class PhotoController {
   constructor(
@@ -44,36 +42,6 @@ export class PhotoController {
     }
 
     return { id };
-  }
-
-  @Post('/print')
-  async print(@Body('id') id: string): Promise<PrinterStatus> {
-    console.debug('[PhotoController][print] id', id);
-
-    const status = await this.photoService.getPrinterState();
-    console.debug('[PhotoController][print] status', status);
-
-    if (status.code !== 'ready') {
-      return status;
-    }
-
-    const pathToOriginalsFolder =
-      this.configService.get<string>('ORIGINAL_PATH');
-    const originalName = `${id}.jpg`;
-    const pathToOriginalPhoto = `${pathToOriginalsFolder}/${originalName}`;
-
-    const pathToPrintFolder = this.configService.get<string>('PRINT_PATH');
-    const printName = `${id}.jpg`;
-    const pathToPrintPhoto = `${pathToPrintFolder}/${printName}`;
-    await sharp(pathToOriginalPhoto)
-      .resize({ width: 1728 })
-      .toFile(pathToPrintPhoto);
-
-    setTimeout(async () => {
-      await this.photoService.print(pathToPrintPhoto);
-    }, 2000);
-
-    return status;
   }
 
   @Get()

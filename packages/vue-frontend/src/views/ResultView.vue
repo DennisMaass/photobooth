@@ -11,7 +11,6 @@ import FramedImage from "@/components/FramedImage.vue";
 import useConfig from "@/composables/useAppData";
 import useTheme from "@/composables/useTheme";
 import usePrinter from "@/composables/usePrinter";
-import useNotification from "@/composables/useNotification";
 
 const props = defineProps({
   imageId: { type: String, required: true },
@@ -20,38 +19,12 @@ const props = defineProps({
 const router = useRouter();
 const { remove } = usePhotos();
 const { print } = usePrinter();
-const { fire } = useNotification();
 
-async function handlePrint() {
+async function handlePrint(): Promise<void> {
   const status = await print(props.imageId);
   if (status.code === "ready") {
-    fire({
-      icon: "success",
-      title: "Druck gestartet",
-      text: "Dauert ca. 1 Minute und 30 Sekunden",
-      showConfirmButton: false,
-      timer: 3000,
-    });
-  } else if (status.code === "busy") {
-    fire({
-      icon: "info",
-      title: "Druckt gerade",
-      text: "Versuche es bitte später nochmal",
-      timer: 10000,
-    });
-  } else if (status.code === "error") {
-    fire({
-      icon: "error",
-      title: "Papier oder Farbpatrone leer",
-      text: "bitte wechseln",
-    });
-  } else {
-    fire({
-      icon: "error",
-      title: "Es ist ein Fehler aufgetreten",
-    });
+    router.push("/");
   }
-  router.push("/");
 }
 function handleRemove() {
   remove(props.imageId);
