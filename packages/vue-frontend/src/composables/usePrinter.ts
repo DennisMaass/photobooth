@@ -13,9 +13,10 @@ export type PrinterStatus = {
   message: string;
 };
 
+const lastPrint = ref<Date | null>(null);
+
 export default (): UsePrinter => {
   const { fire } = useNotification();
-  const lastPrint = ref<Date | null>(null);
 
   const BASE_URL = `${import.meta.env.VITE_BACKEND}/printer`;
 
