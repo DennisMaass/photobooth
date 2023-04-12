@@ -162,9 +162,9 @@ export default (): UseTheme => {
         baseButtonBackground: "#DAA861",
         baseButtonBackgroundActive: "#DAA861",
         backgroundColor: "transparent",
-        fotoTextFont: "Rushtick",
+        fotoTextFont: "Fira Sans",
         headerColor: "light",
-        fotoText: "Frohe Kommunion",
+        fotoText: "Nele's Kommunion",
       },
       {
         id: "christmas_1",
