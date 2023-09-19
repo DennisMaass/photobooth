@@ -1,6 +1,4 @@
-# setup new event
-
-## cleanup old event
+# setup new event (cleanup old event)
 
 1. check if pictures of the original folder are saved
 2. delete old pictures out of every folder
@@ -36,8 +34,12 @@
 1. goto frontend project "cd packages/vue-frontend/"
 1. execute "./tools/deploy.sh"
 
-# deploy new frontend
+# deploy new backend
 
 1. push sourcecode
 1. goto backend project "cd packages/nest-backend/"
 1. execute "./tools/deploy.sh"
+
+# reboot
+
+

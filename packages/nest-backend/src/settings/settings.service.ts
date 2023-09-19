@@ -1,4 +1,5 @@
 import { ConfigService } from '@nestjs/config';
+import { Injectable } from '@nestjs/common';
 import { readUser, writeUser } from 'rc9';
 import { consola } from 'consola';
 
@@ -6,7 +7,7 @@ import type { UserSettings } from './user-settings.type';
 import type { SystemSettings } from './system-settings.type';
 
 
-
+@Injectable()
 export class SettingsService {
   userSettings: UserSettings;
   defaultConfig: UserSettings = {
@@ -24,7 +25,7 @@ export class SettingsService {
     },
   };
 
-  constructor(private configService: ConfigService) {
+  constructor(private readonly configService: ConfigService) {
     this.userSettings = readUser('user.conf');
 
     if (!this.userSettings.global) {
