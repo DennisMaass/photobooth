@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
 import { PhotoService } from './photo.service';
 import { ConfigService } from '@nestjs/config';
 import * as sharp from 'sharp';
+import { consola } from "consola";
 
 @Controller('photos')
 export class PhotoController {
@@ -12,7 +13,7 @@ export class PhotoController {
 
   @Post()
   async take(): Promise<{ id: string }> {
-    console.debug('[PhotoController][take]');
+    consola.debug('[PhotoController][take]');
 
     const eventName = this.configService.get<string>('EVENT_NAME');
     const timestamp = Date.now();
@@ -24,8 +25,8 @@ export class PhotoController {
     const pathToOriginalPhoto = `${pathToOriginalsFolder}/${originalName}`;
 
     try {
-      console.debug(
-        '[PhotoController][take] take pathToOriginalPhoto',
+      consola.debug(
+        '[PhotoController][take] pathToOriginalPhoto',
         pathToOriginalPhoto,
       );
       await this.photoService.take(pathToOriginalPhoto);
@@ -38,7 +39,7 @@ export class PhotoController {
         .resize({ width: 1728 })
         .toFile(pathToPreviewPhoto);
     } catch (error) {
-      console.error('[PhotoController][take] resize print', error);
+      consola.error('[PhotoController][take] resize print', error);
     }
 
     return { id };
@@ -46,13 +47,13 @@ export class PhotoController {
 
   @Get()
   getAll(): { ids: string[] } {
-    console.debug('[PhotoController][getAll]');
+    consola.debug('[PhotoController][getAll]');
     return this.photoService.getAll();
   }
 
   @Delete()
   remove(@Body('id') id: string) {
-    console.debug('[PhotoController][remove] id', id);
+    consola.debug('[PhotoController][remove] id', id);
     this.photoService.remove(id);
   }
 }

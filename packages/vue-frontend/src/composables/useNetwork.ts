@@ -1,5 +1,12 @@
 import { ref } from "vue";
 import type { Ref } from "vue";
+import { destr } from "destr";
+
+
+type SocketEvent = {
+  event: string;
+  data: any;
+};
 
 type UseNetwork = {
   isOnline: Ref<boolean>;
@@ -36,7 +43,7 @@ export default (): UseNetwork => {
     };
 
     socket.onmessage = (message) => {
-      const event = JSON.parse(message.data);
+      const event = destr<SocketEvent>(message.data);
 
       const listener = eventListeners.get(event.event);
       if (listener) {

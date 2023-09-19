@@ -3,8 +3,9 @@ import { Icon } from "@iconify/vue/dist/offline";
 import BaseButton from "@/components/BaseButton.vue";
 import ButtonBar from "@/components/ButtonBar.vue";
 import { onMounted, ref } from "vue";
-import QRCode from "qrcode";
+import { renderSVG } from "uqr";
 import { useRouter } from "vue-router";
+import { consola } from "consola";
 
 const wifiQR = ref();
 const imageQR = ref();
@@ -13,13 +14,13 @@ const props = defineProps({
   imageId: { type: String, required: true },
 });
 
-const generateQR = async (text: string) => {
+async function generateQR(text: string) {
   try {
-    return await QRCode.toDataURL(text);
+    return await renderSVG(text);
   } catch (err) {
-    console.error(err);
+    consola.error(err);
   }
-};
+}
 
 //const imageUrl = `http://fotobox.local/pd/${props.imageId}`;
 const galleryUrl = `http://fotobox.local/gd`;

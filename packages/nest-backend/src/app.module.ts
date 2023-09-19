@@ -3,12 +3,13 @@ import { CommandService } from './command.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
-import { PhotoModule } from './photo.module';
-import { PrinterModule } from './printer.module';
+import { PhotoModule } from './photos/photo.module';
+import { PrinterModule } from './printer/printer.module';
 import { AppController } from './app.controller';
-import { ThemesModule } from './themes.module';
+import { ThemesModule } from './themes/themes.module';
 import { ConnectionHandler } from './ConnectionHandler';
 import { RealtimeService } from './realtime.service';
+import { SettingsModule } from './settings/settings.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -66,6 +67,7 @@ import { RealtimeService } from './realtime.service';
     PhotoModule,
     PrinterModule,
     ThemesModule,
+    SettingsModule,
   ],
   controllers: [AppController],
   providers: [CommandService, ConnectionHandler, RealtimeService],

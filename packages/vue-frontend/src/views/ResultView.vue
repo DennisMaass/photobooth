@@ -1,16 +1,16 @@
 <script lang="ts" setup>
+import { computed, onBeforeUnmount } from "vue";
+import { useRouter } from "vue-router";
 import BaseButton from "@/components/BaseButton.vue";
 import ButtonBar from "@/components/ButtonBar.vue";
 import BinIcon from "@/components/icons/BinIcon.vue";
 import { Icon } from "@iconify/vue/dist/offline";
-import { usePhotos } from "@/composables/usePhotos";
-import { computed, onBeforeUnmount } from "vue";
-import { useRouter } from "vue-router";
+import { usePhotos } from "@/composables/usePhotos.js";
 import CameraIcon from "@/components/icons/CameraIcon.vue";
 import FramedImage from "@/components/FramedImage.vue";
-import useConfig from "@/composables/useAppData";
-import useTheme from "@/composables/useTheme";
-import usePrinter from "@/composables/usePrinter";
+import useConfig from "@/composables/useAppData.js";
+import useThemes from "@/composables/useThemes.js";
+import usePrinter from "@/composables/usePrinter.js";
 
 const props = defineProps({
   imageId: { type: String, required: true },
@@ -52,14 +52,14 @@ function handleDownload() {
 }
 
 const { enabledPrinter } = useConfig();
-const { selectedTheme } = useTheme();
+const { selectedTheme } = useThemes();
 </script>
 
 <template>
   <div class="result">
     <div class="result__image-wrapper">
       <FramedImage
-        :date="selectedTheme.topic === 'wedding' ? '13.08.2022' : ''"
+        :date="selectedTheme.topic === 'wedding' ? '22.09.2023' : ''"
       >
         <img class="result__photo" :src="imageUrl" alt="taken photo" />
       </FramedImage>

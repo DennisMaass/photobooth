@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import BaseButton from "@/components/BaseButton.vue";
-import useTheme from "../composables/useTheme";
+import useThemes from "@/composables/useThemes";
 import { Icon } from "@iconify/vue/dist/offline";
 import ButtonBar from "@/components/ButtonBar.vue";
 
@@ -9,11 +9,11 @@ const {
   addEmptyPerson,
   removeLastPerson,
   company,
-  changeTheme,
+  setTheme,
   themes,
   selectedTheme,
   animationEnabled,
-} = useTheme();
+} = useThemes();
 
 function handleReset() {
   localStorage.clear();
@@ -30,7 +30,7 @@ function handleReset() {
         <div
           v-for="theme of themes"
           :key="theme.name"
-          @click="changeTheme(theme)"
+          @click="setTheme(theme.id)"
           class="theme-selector__theme"
           :class="{
             'theme-selector__theme--active': theme.name === selectedTheme.name,

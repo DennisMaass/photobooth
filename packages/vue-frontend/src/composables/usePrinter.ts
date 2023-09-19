@@ -1,6 +1,7 @@
 import { ref } from "vue";
 import { ofetch } from "ofetch";
 import useNotification from "@/composables/useNotification";
+import useNetwork from "@/composables/useNetwork";
 
 export type UsePrinter = {
   print: (id: string) => Promise<PrinterStatus>;
@@ -17,6 +18,7 @@ const lastPrint = ref<Date | null>(null);
 
 export default (): UsePrinter => {
   const { fire } = useNotification();
+  const { send } = useNetwork();
 
   const BASE_URL = `${import.meta.env.VITE_BACKEND}/printer`;
 
@@ -28,6 +30,8 @@ export default (): UsePrinter => {
   }
 
   async function print(id: string): Promise<PrinterStatus> {
+    send("print", { id });
+
     const status = await ofetch(`${BASE_URL}/print`, {
       method: "POST",
       body: { id },
@@ -81,7 +85,7 @@ export default (): UsePrinter => {
     } else if (status.code === "off") {
       fire({
         icon: "error",
-        title: "Druckt ist aus",
+        title: "Drucker ist aus!",
         text: "Bitte anschalten",
         timer: 10000,
       });

@@ -1,33 +1,40 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { PrinterService } from './printer.service';
 import { ConfigService } from '@nestjs/config';
-import * as sharp from 'sharp';
 
 import type { PrinterStatus } from './printer.service';
+import SharpPhotoManipulationService from '../photoManipulation/sharpPhotoManipulation.service.js';
+import SharpFileHandlingService from '../filehandling/sharpFileHandling.service.js';
+import { consola } from "consola";
 
 @Controller('printer')
 export class PrinterController {
   constructor(
     private readonly printerService: PrinterService,
+    private readonly fileHandlingService: SharpFileHandlingService,
+    private readonly photoManipulationService: SharpPhotoManipulationService,
     private configService: ConfigService,
   ) {}
 
   @Get('/state')
   async getPrinterState(): Promise<PrinterStatus> {
-    console.debug('[PhotoController][getPrinterState]');
+    consola.debug('[PhotoController][getPrinterState]');
 
     const status = await this.printerService.getPrinterState();
-    console.debug('[PhotoController][getPrinterState] status', status);
+    consola.debug('[PhotoController][getPrinterState] status', status);
 
     return status;
   }
 
   @Post('/print')
-  async print(@Body('id') id: string): Promise<PrinterStatus> {
-    console.debug('[PhotoController][print] id', id);
+  async print(
+    @Body('id') id: string,
+    @Body('withWatermark') withWatermark = true,
+  ): Promise<PrinterStatus> {
+    consola.debug('[PhotoController][print] id', id);
 
     const status = await this.printerService.getPrinterState();
-    console.debug('[PhotoController][print] status', status);
+    consola.debug('[PhotoController][print] status', status);
 
     if (status.code !== 'ready') {
       return status;
@@ -41,9 +48,19 @@ export class PrinterController {
     const pathToPrintFolder = this.configService.get<string>('PRINT_PATH');
     const printName = `${id}.jpg`;
     const pathToPrintPhoto = `${pathToPrintFolder}/${printName}`;
-    await sharp(pathToOriginalPhoto)
-      .resize({ width: 1728 })
-      .toFile(pathToPrintPhoto);
+
+    let dataToPrint = await this.photoManipulationService.resize(
+      pathToOriginalPhoto,
+      1728,
+    );
+    if (withWatermark) {
+      consola.debug('[PhotoController][print] withWatermark', withWatermark);
+      dataToPrint = await this.photoManipulationService.addWatermark(
+        dataToPrint,
+        './assets/watermark.png',
+      );
+    }
+    await this.fileHandlingService.toFile(pathToPrintPhoto, dataToPrint);
 
     setTimeout(async () => {
       await this.printerService.print(pathToPrintPhoto);

@@ -4,9 +4,16 @@ import { SSLApp, App, us_listen_socket_close } from 'uWebSockets.js';
 import { Observable, fromEvent, EMPTY } from 'rxjs';
 import { mergeMap, filter } from 'rxjs/operators';
 import * as events from 'events';
-import { ConnectionHandler } from './ConnectionHandler';
+import { destr } from "destr";
+import { ConnectionHandler } from './ConnectionHandler.js';
 
-import type { TemplatedApp } from 'uWebSockets.js';
+import type { TemplatedApp, us_listen_socket } from 'uWebSockets.js';
+
+
+type SocketEvent = {
+  event: string;
+  data: any;
+};
 
 type ICreateServerArgs = {
   port: number;
@@ -21,7 +28,7 @@ export class UWebSocketAdapter
   implements WebSocketAdapter<TemplatedApp, any, any>
 {
   private instance: TemplatedApp = null;
-  private listenSocket: string = null;
+  private listenSocket: us_listen_socket = null;
   private port: number;
   protected httpServer: any;
   private callbacks = [];
@@ -30,11 +37,9 @@ export class UWebSocketAdapter
 
   constructor(
     private app: INestApplicationContext,
-    args?: ICreateServerArgs | ICreateServerSecureArgs,
+    args?: ICreateServerSecureArgs,
   ) {
     this.port = args.port;
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     if (args.sslKey) {
       this.instance = UWebSocketAdapter.buildSSLApp(
         args as ICreateServerSecureArgs,
@@ -107,7 +112,7 @@ export class UWebSocketAdapter
     process: (data: any) => Observable<any>,
   ): Observable<any> {
     const stringMessageData = Buffer.from(buffer.message).toString('utf-8');
-    const message = JSON.parse(stringMessageData);
+    const message = destr<SocketEvent>(stringMessageData);
     const messageHandler = handlers.find(
       (handler) => handler.message === message.event,
     );
@@ -125,9 +130,9 @@ export class UWebSocketAdapter
 
   create(): TemplatedApp {
     if (!this.listenSocket) {
-      this.instance.listen(this.port, (token) => {
-        if (token) {
-          this.listenSocket = token;
+      this.instance.listen(this.port, (listenSocket) => {
+        if (listenSocket) {
+          this.listenSocket = listenSocket;
           this.instance;
         } else {
           console.error("Can't start listening...");

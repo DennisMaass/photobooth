@@ -1,6 +1,7 @@
 import { onMounted } from "vue";
 import { useWindowSize, useLocalStorage, useWakeLock } from "@vueuse/core";
 import type { RemovableRef } from "@vueuse/core";
+import { consola } from "consola";
 
 const { width, height } = useWindowSize();
 
@@ -25,9 +26,9 @@ export default (): UseAppData => {
       if (!isActive.value) {
         try {
           await request("screen");
-          console.debug("[App] wakelock requested");
+          consola.debug("[App] wakelock requested");
         } catch (error) {
-          console.error("[App] useWakeLock", error);
+          consola.error("[App] useWakeLock", error);
         }
       }
     });

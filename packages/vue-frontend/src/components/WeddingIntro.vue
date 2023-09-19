@@ -1,18 +1,21 @@
 <script lang="ts" setup>
 import HomeTitle from "@/components/HomeTitle.vue";
-import useTheme from "@/composables/useTheme";
+import useThemes from "@/composables/useThemes";
 
-const { people, selectedTheme } = useTheme();
-if (people.value.length < 2) {
-  throw new Error("You need to have at least 2 people in the theme");
-}
+const { people, selectedTheme } = useThemes();
+
 const firstPerson = people.value[0];
 const secondPerson = people.value[1];
-if (!firstPerson.firstName || !secondPerson.firstName) {
-  throw new Error("You need to have a first name for each person");
+
+let splittedFirstName: Array<string> = [];
+let splittedSecondName: Array<string> = [];
+
+if (firstPerson?.firstName) {
+  splittedFirstName = firstPerson.firstName.split("");
 }
-const splittedFirstName = firstPerson.firstName.split("");
-const splittedSecondName = secondPerson.firstName.split("");
+if (secondPerson?.firstName) {
+  splittedSecondName = secondPerson.firstName.split("");
+}
 </script>
 <template>
   <img
@@ -22,10 +25,7 @@ const splittedSecondName = secondPerson.firstName.split("");
   />
   <HomeTitle class="home__title">
     <p>
-      <span
-        class="ml3"
-        style="font-family: Rushtick, sans-serif; font-size: 45px"
-      >
+      <span class="name-letter ml3">
         <span
           class="letter"
           v-for="(letter, index) in splittedFirstName"
@@ -35,21 +35,11 @@ const splittedSecondName = secondPerson.firstName.split("");
         </span>
       </span>
       <br />
-      <span
-        class="ml3"
-        style="
-          font-family: MsMadi, sans-serif;
-          font-size: 33px;
-          color: hsl(30, 25%, 53%);
-        "
-      >
+      <span class="and-letter ml3">
         <span class="letter">&amp;</span>
       </span>
       <br />
-      <span
-        class="ml3"
-        style="font-family: Rushtick, sans-serif; font-size: 45px"
-      >
+      <span class="name-letter ml3">
         <span
           class="letter"
           v-for="(letter, index) in splittedSecondName"
@@ -61,3 +51,17 @@ const splittedSecondName = secondPerson.firstName.split("");
     </p>
   </HomeTitle>
 </template>
+
+<style>
+.and-letter {
+  font-family: var(--and-letter-font), sans-serif;
+  font-size: var(--and-letter-size);
+  color: var(--and-letter-color);
+}
+
+.name-letter {
+  font-family: var(--name-letter-font), sans-serif;
+  font-size: var(--name-letter-size);
+  color: var(--name-letter-color);
+}
+</style>

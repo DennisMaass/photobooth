@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { CommandService } from './command.service';
+import { CommandService } from '../command.service';
 import { ConfigService } from '@nestjs/config';
+import { consola } from "consola";
 
 export type PrinterStatusCode = 'ready' | 'busy' | 'error' | 'off';
 export type PrinterStatus = {
@@ -20,9 +21,9 @@ export class PrinterService {
   }
 
   async print(path): Promise<void> {
-    console.debug('[PhotoService][print] path', path);
+    consola.debug('[PhotoService][print] path', path);
     if (this.mock) {
-      console.debug('[PhotoService][print] mock is active');
+      consola.debug('[PhotoService][print] mock is active');
       return;
     }
     const print = `lp -o landscape ${path}`;
@@ -30,11 +31,18 @@ export class PrinterService {
     try {
       await this.commandService.exec(print);
     } catch (error) {
-      console.error('[PhotoService][take] error', error);
+      consola.error('[PhotoService][take] error', error);
     }
   }
 
   async getPrinterState(): Promise<PrinterStatus> {
+    if (this.mock) {
+      return {
+        code: 'ready',
+        message: 'mock is active',
+      };
+    }
+    
     try {
       const plainStatus = await this.commandService.exec('lpstat -p');
       if (plainStatus.includes('kann nicht lokalisiet werden')) {
@@ -59,7 +67,7 @@ export class PrinterService {
         message: plainStatus,
       };
     } catch (e) {
-      console.error(e);
+      consola.error(e);
       return {
         code: 'error',
         message: 'error',

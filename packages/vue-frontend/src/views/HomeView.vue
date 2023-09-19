@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import useTheme from "../composables/useTheme";
+import useThemes from "@/composables/useThemes";
 import BaseButton from "@/components/BaseButton.vue";
 import ButtonBar from "@/components/ButtonBar.vue";
 import CameraIcon from "@/components/icons/CameraIcon.vue";
@@ -15,7 +15,7 @@ function handleClick() {
   router.push("/countdown");
 }
 
-const { selectedTheme } = useTheme();
+const { selectedTheme } = useThemes();
 
 const { status } = useCheck();
 </script>

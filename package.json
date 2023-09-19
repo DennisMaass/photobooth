@@ -1,6 +1,6 @@
 {
   "name": "@photobooth/root",
-  "packageManager": "pnpm@7.31.0",
+  "packageManager": "pnpm@7.33.6",
   "private": true,
   "workspaces": [
     "packages/*"

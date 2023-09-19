@@ -40,3 +40,10 @@ body {
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'Alex Brush';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Alex Brush'), url('@/assets/fonts/alex-brush.regular.woff') format('woff');
+}

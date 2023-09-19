@@ -1,6 +1,50 @@
 {
   "themes": [
     {
+      "id": "wedding_2",
+      "name": "Hochzeit 2",
+      "topic": "wedding",
+      "wallpaper": false,
+      "wallpaperImage": "wedding_2.webp",
+      "animation": null,
+      "textColor": "#2c3e50",
+      "baseButtonBackground": "#DAA520",
+      "baseButtonBackgroundActive": "#DAA520",
+      "backgroundColor": "transparent",
+      "fotoTextFont": "Fira Sans",
+      "headerColor": "light",
+      "custom": {
+        "andLetterSize": "45px",
+        "andLetterColor": "#daa520",
+        "andLetterFont": "MsMadi",
+        "nameLetterSize":"63px",
+        "nameLetterColor":"#000",
+        "nameLetterFont": "Alex Brush"
+      }
+    },
+    {
+      "id": "wedding_1",
+      "name": "Hochzeit 1",
+      "topic": "wedding",
+      "wallpaper": false,
+      "wallpaperImage": "boho_frame_square.jpg",
+      "animation": null,
+      "textColor": "#2c3e50",
+      "baseButtonBackground": "#a58769",
+      "baseButtonBackgroundActive": "#b8a189",
+      "backgroundColor": "transparent",
+      "fotoTextFont": "Fira Sans",
+      "headerColor": "light",
+      "custom": {
+        "andLetterSize": "33px",
+        "andLetterColor": "#B39980",
+        "andLetterFont": "MsMadi",
+        "nameLetterSize":"45px",
+        "nameLetterColor":"#000",
+        "nameLetterFont":"Rushtick"
+      }
+    },
+    {
       "id": "christmas_1",
       "name": "Weihnachten",
       "topic": "christmas",
@@ -13,21 +57,8 @@
       "backgroundColor": "transparent",
       "fotoTextFont": "Rushtick",
       "headerColor": "light",
-      "fotoText": "Frohe Weihnachten"
-    },
-    {
-      "id": "wedding_1",
-      "name": "Hochzeit",
-      "topic": "wedding",
-      "wallpaper": false,
-      "wallpaperImage": "boho_frame_square.jpg",
-      "animation": null,
-      "textColor": "#2c3e50",
-      "baseButtonBackground": "#a58769",
-      "baseButtonBackgroundActive": "#b8a189",
-      "backgroundColor": "transparent",
-      "fotoTextFont": "Fira Sans",
-      "headerColor": "light"
+      "fotoText": "Frohe Weihnachten",
+      "custom": {}
     },
     {
       "id": "newyear_1",
@@ -41,7 +72,8 @@
       "baseButtonBackgroundActive": "#DAA861",
       "backgroundColor": "transparent",
       "fotoTextFont": "Rushtick",
-      "headerColor": "black"
+      "headerColor": "black",
+      "custom": {}
     },
     {
       "id": "birthday_1",
@@ -55,22 +87,24 @@
       "baseButtonBackgroundActive": "#DAA861",
       "backgroundColor": "transparent",
       "fotoTextFont": "NothernLight",
-      "headerColor": "light"
+      "headerColor": "light",
+      "custom": {}
     },
     {
       "id": "communion_1",
       "name": "Kommunion",
       "topic": "communion",
       "wallpaper": true,
-      "wallpaperImage": "????",
+      "wallpaperImage": "kommunion.jpeg",
       "animation": null,
       "textColor": "#2c3e50",
       "baseButtonBackground": "#DAA861",
       "baseButtonBackgroundActive": "#DAA861",
       "backgroundColor": "transparent",
-      "fotoTextFont": "Rushtick",
+      "fotoTextFont": "Fira Sans",
       "headerColor": "light",
-      "fotoText": "????"
+      "fotoText": "${firstName}'s Kommunion",
+      "custom": {}
     }
   ]
 }

@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CommandService } from './command.service';
+import { CommandService } from '../command.service';
 import { ConfigService } from '@nestjs/config';
 import { readdirSync, copyFileSync, promises, existsSync } from 'fs';
+import { consola } from "consola";
 
 @Injectable()
 export class PhotoService {
@@ -15,9 +16,9 @@ export class PhotoService {
   }
 
   async take(path): Promise<void> {
-    console.debug('[PhotoService][take] path', path);
+    consola.debug('[PhotoService][take] path', path);
     if (this.mock) {
-      console.debug('[PhotoService][take] mock is active');
+      consola.debug('[PhotoService][take] mock is active');
       copyFileSync('./assets/mock.webp', path);
       return;
     }
@@ -27,7 +28,7 @@ export class PhotoService {
     try {
       await this.commandService.exec(takePhoto);
     } catch (error) {
-      console.error('[PhotoService][take] error', error);
+      consola.error('[PhotoService][take] error', error);
     }
   }
 
@@ -39,13 +40,13 @@ export class PhotoService {
     const ids = orignals.map((original) => {
       return original.slice(0, -4);
     });
-    console.debug('[PhotoService][getAll] ids', ids);
+    consola.debug('[PhotoService][getAll] ids', ids);
 
     return { ids };
   }
 
   async remove(id: string): Promise<void> {
-    console.debug('[PhotoService][remove] id', id);
+    consola.debug('[PhotoService][remove] id', id);
     const deleteRequests = [];
 
     const pathToOriginalsFolder =
@@ -65,7 +66,7 @@ export class PhotoService {
         deleteRequests.push(request0);
       }
     } catch (error) {
-      console.error(error);
+      consola.error(error);
     }
 
     const pathToPrintFolder = this.configService.get<string>('PRINT_PATH');
@@ -77,7 +78,7 @@ export class PhotoService {
         deleteRequests.push(request1);
       }
     } catch (error) {
-      console.error(error);
+      consola.error(error);
     }
 
     const pathToPreviewFolder = this.configService.get<string>('PREVIEW_PATH');
@@ -89,7 +90,7 @@ export class PhotoService {
         deleteRequests.push(request2);
       }
     } catch (error) {
-      console.error(error);
+      consola.error(error);
     }
 
     await Promise.all(deleteRequests);

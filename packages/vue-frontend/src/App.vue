@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import useAppData from "./composables/useAppData";
 import useNavigation from "./composables/useNavigation";
-import useTheme from "./composables/useTheme";
+import useThemes from "./composables/useThemes";
 import useCheck from "./composables/useCheck";
+import useNetwork from "./composables/useNetwork";
 
 const { init: initApp } = useAppData();
 initApp();
 
-const { init: initTheme } = useTheme();
+const { init: initTheme } = useThemes();
 initTheme();
 
 const { init: initNavigation } = useNavigation();
@@ -15,6 +16,9 @@ initNavigation();
 
 const { init: initCheck } = useCheck();
 initCheck();
+
+const { connect } = useNetwork();
+connect();
 </script>
 
 <template>

@@ -1,5 +1,6 @@
 import type { Ref } from "vue";
 import { ref } from "vue";
+import { consola } from "consola";
 
 type CameraService = {
   stream: Ref<MediaStream | null>;
@@ -15,16 +16,16 @@ export function useCamera(): CameraService {
       audio: false,
       video: true,
     };
-    console.debug("[useCamera][start] constraints", constraints);
+    consola.debug("[useCamera][start] constraints", constraints);
     stream.value = await navigator.mediaDevices.getUserMedia(constraints);
     return stream.value;
   }
 
   function stop() {
-    console.debug("[useCamera][stop]");
+    consola.debug("[useCamera][stop]");
     const camTracks = stream.value?.getTracks();
     if (!camTracks) {
-      console.debug("[useCamera][stop] no camTracks to stop");
+      consola.debug("[useCamera][stop] no camTracks to stop");
       return;
     }
 

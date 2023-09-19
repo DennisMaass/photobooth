@@ -12,13 +12,13 @@
 
 <script lang="ts" setup>
 import { computed } from "vue";
-import useTheme from "@/composables/useTheme";
+import useThemes from "@/composables/useThemes.js";
 
 const props = defineProps({
   date: { type: String },
 });
 
-const { selectedTheme } = useTheme();
+const { selectedTheme } = useThemes();
 const fotoTextFont = computed(() => selectedTheme.value.fotoTextFont);
 </script>
 

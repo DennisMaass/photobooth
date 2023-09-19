@@ -1,4 +1,4 @@
-import { onMounted, ref, watch, computed, type Ref } from "vue";
+import { onMounted, ref, watch, computed } from "vue";
 import { useLocalStorage, useCssVar, type RemovableRef } from "@vueuse/core";
 import Snowflakes from "magic-snowflakes";
 import { Fireworks } from "fireworks-js";
@@ -7,6 +7,9 @@ import { confetti } from "@/particleOptions";
 import { loadFull } from "tsparticles";
 import { useRoute } from "vue-router";
 import { ofetch } from "ofetch";
+import { consola } from "consola";
+
+import type { ComputedRef, Ref } from "vue";
 
 type Theme = {
   id: string;
@@ -22,6 +25,9 @@ type Theme = {
   fotoTextFont: string;
   headerColor: string;
   fotoText?: string;
+  custom: {
+    [key: string]: string;
+  }
 };
 
 type Person = {
@@ -30,7 +36,8 @@ type Person = {
 };
 
 const people = useLocalStorage<Person[]>("people", [
-  { firstName: "", lastName: "" },
+  { firstName: "Victoria", lastName: "" },
+  { firstName: "Thomas", lastName: "" },
 ]);
 const company = useLocalStorage("company", "");
 const fotoText = useLocalStorage("fotoText", "");
@@ -72,29 +79,31 @@ const animationEnabled = useLocalStorage("animationEnabled", false);
   },
 }; */
 
-const themes = ref<Theme[]>([]);
+const themes = ref<Array<Theme>>([]);
 
-const selectedTheme = ref();
+const selectedThemeId = ref("wedding_2");
+const selectedTheme = computed(() => themes.value.find((t) => t.id === selectedThemeId.value) || themes.value[0]);
 
 const snowflakes: Ref<Snowflakes | undefined> = ref();
 const fireworks: Ref<Fireworks | undefined> = ref();
 const particles: Ref<Container | undefined> = ref();
 
-type UseTheme = {
+type UseThemes = {
   save: () => void;
   init: () => void;
   addEmptyPerson: () => void;
   removeLastPerson: () => void;
-  changeTheme: (theme: Theme) => void;
-  people: RemovableRef<Person[]>;
+  setTheme: (is: string) => void;
+  people: RemovableRef<Array<Person>>;
   company: RemovableRef<string>;
-  themes: RemovableRef<Theme[]>;
-  selectedTheme: RemovableRef<Theme>;
-  fotoText: RemovableRef<string>;
+  themes: RemovableRef<Array<Theme>>;
+  selectedTheme: ComputedRef<Theme>;
+  selectedThemeId: Ref<string>;
   animationEnabled: RemovableRef<boolean>;
+  fotoText: RemovableRef<string>;
 };
 
-export default (): UseTheme => {
+export default (): UseThemes => {
   function addEmptyPerson() {
     people.value.push({ firstName: "", lastName: "" });
   }
@@ -107,124 +116,76 @@ export default (): UseTheme => {
     //TODO: implement request
   }
 
-  function findTheme(name: string) {
-    return themes.value.find((t) => t.name === name);
+  function findTheme(id: string) {
+    return themes.value.find((t) => t.id === id);
   }
 
-  function changeTheme(theme: Theme) {
-    const themeObj = findTheme(theme.name);
+  function setCssVars(theme: Theme) {
+    const body = ref(document.querySelector("body"));
+
+    const textColorVar = useCssVar("--text-color", body);
+    const baseButtonBackgroundActiveCSS = useCssVar(
+      "--base-button-background-active",
+      body
+    );
+    const baseButtonBackgroundCSS = useCssVar("--base-button-background", body);
+    const backgroundColorVar = useCssVar("--background-color", body);
+
+    document.documentElement.dataset.theme = theme.headerColor;
+    textColorVar.value = theme.textColor;
+    backgroundColorVar.value = theme.backgroundColor;
+    baseButtonBackgroundCSS.value = theme.baseButtonBackground;
+    baseButtonBackgroundActiveCSS.value = theme.baseButtonBackgroundActive;
+
+    if(theme.custom.andLetterSize){
+      const andLetterSizeVar = useCssVar("--and-letter-size", body);
+      andLetterSizeVar.value = theme.custom.andLetterSize;
+      const andLetterColorVar = useCssVar("--and-letter-color", body);
+      andLetterColorVar.value = theme.custom.andLetterColor;
+      const andLetterFontVar = useCssVar("--and-letter-font", body);
+      andLetterFontVar.value = theme.custom.andLetterFont;
+
+      const nameLetterSizeVar = useCssVar("--name-letter-size", body);
+      nameLetterSizeVar.value = theme.custom.nameLetterSize;
+      const nameLetterColorVar = useCssVar("--name-letter-color", body);
+      nameLetterColorVar.value = theme.custom.nameLetterColor;
+      const nameLetterFontVar = useCssVar("--name-letter-font", body);
+      nameLetterFontVar.value = theme.custom.nameLetterFont;
+    }
+  }
+
+  function setTheme(id: string) {
+    consola.log("[useThemes][setTheme] id", id)
+
+    const themeObj = findTheme(id);
     if (!themeObj) {
-      console.error("theme not found");
+      consola.error("theme not found");
       return;
     }
-    selectedTheme.value = themeObj;
+
+    // post to backend /settings/user
+    const BASE_URL = `${import.meta.env.VITE_BACKEND}`;
+    ofetch(`${BASE_URL}/settings/user`, {
+      method: "POST",
+      body: {id},
+    });
+
+    selectedThemeId.value = themeObj.id;
     animationEnabled.value = themeObj.animation !== undefined;
 
     if (!fotoText.value) {
       fotoText.value = themeObj.fotoText;
     }
-
-    const body = document.querySelector("body");
-    const el = ref(body);
-
-    const textColorVar = useCssVar("--text-color", el);
-    const baseButtonBackgroundActiveCSS = useCssVar(
-      "--base-button-background-active",
-      el
-    );
-    const baseButtonBackgroundCSS = useCssVar("--base-button-background", el);
-    const backgroundColorVar = useCssVar("--background-color", el);
-
-    document.documentElement.dataset.theme = themeObj.headerColor;
-    textColorVar.value = themeObj.textColor;
-    backgroundColorVar.value = themeObj.backgroundColor;
-    baseButtonBackgroundCSS.value = themeObj.baseButtonBackground;
-    baseButtonBackgroundActiveCSS.value = themeObj.baseButtonBackgroundActive;
+    setCssVars(themeObj)
   }
 
   const route = useRoute();
 
   async function getThemes() {
-    /*  const BASE_URL = `${import.meta.env.VITE_BACKEND}/themes`;
+    const BASE_URL = `${import.meta.env.VITE_BACKEND}/themes`;
     return await ofetch(`${BASE_URL}/`, {
       method: "GET",
-    });*/
-
-    return [
-      {
-        id: "communion_1",
-        name: "Kommunion",
-        topic: "communion",
-        wallpaper: true,
-        wallpaperImage: "kommunion.jpeg",
-        animation: null,
-        textColor: "#2c3e50",
-        baseButtonBackground: "#DAA861",
-        baseButtonBackgroundActive: "#DAA861",
-        backgroundColor: "transparent",
-        fotoTextFont: "Fira Sans",
-        headerColor: "light",
-        fotoText: "Nele's Kommunion",
-      },
-      {
-        id: "christmas_1",
-        name: "Weihnachten",
-        topic: "christmas",
-        wallpaper: true,
-        wallpaperImage: "christmas-light.jpg",
-        animation: "snowflakes",
-        textColor: "#2c3e50",
-        baseButtonBackground: "#DAA861",
-        baseButtonBackgroundActive: "#DAA861",
-        backgroundColor: "transparent",
-        fotoTextFont: "Rushtick",
-        headerColor: "light",
-        fotoText: "Frohe Weihnachten",
-      },
-
-      {
-        id: "wedding_1",
-        name: "Hochzeit",
-        topic: "wedding",
-        wallpaper: false,
-        wallpaperImage: "boho_frame_square.jpg",
-        animation: undefined,
-        textColor: "#2c3e50",
-        baseButtonBackground: "#a58769",
-        baseButtonBackgroundActive: "#b8a189",
-        backgroundColor: "transparent",
-        fotoTextFont: "Fira Sans",
-        headerColor: "light",
-      },
-      {
-        id: "newyear_1",
-        name: "Silvester",
-        topic: "new-years-eve",
-        wallpaper: true,
-        wallpaperImage: "newyear_1.jpg",
-        animation: "fireworks",
-        textColor: "#2c3e50",
-        baseButtonBackground: "#DAA861",
-        baseButtonBackgroundActive: "#DAA861",
-        backgroundColor: "transparent",
-        fotoTextFont: "Rushtick",
-        headerColor: "black",
-      },
-      {
-        id: "birthday_1",
-        name: "Geburtstag",
-        topic: "birthday",
-        wallpaper: true,
-        wallpaperImage: "birthday-1-klein.webp",
-        animation: "confetti",
-        textColor: "#2c3e50",
-        baseButtonBackground: "#DAA861",
-        baseButtonBackgroundActive: "#DAA861",
-        backgroundColor: "transparent",
-        fotoTextFont: "NothernLight",
-        headerColor: "light",
-      },
-    ];
+    });
   }
 
   async function init() {
@@ -239,16 +200,16 @@ export default (): UseTheme => {
     });
 
     themes.value = await getThemes();
-    selectedTheme.value = themes.value[0];
+    selectedThemeId.value = themes.value[0].id;
 
     watch(
-      selectedTheme,
+      selectedThemeId,
       (newVal) => {
         if (!newVal) {
-          console.error("newVal is null");
+          consola.error("selectedThemeId is null");
           return;
         }
-        changeTheme(newVal);
+        setTheme(newVal);
       },
       { immediate: true }
     );
@@ -283,7 +244,7 @@ export default (): UseTheme => {
       ) as HTMLElement;
 
       if (!themeAnimationLayer) {
-        console.error("themeAnimationLayer is null");
+        consola.error("themeAnimationLayer is null");
         return;
       }
 
@@ -313,7 +274,7 @@ export default (): UseTheme => {
         route.name === "Config" ||
         route.name === "Download"
       ) {
-        const animation = selectedTheme.value.animation;
+        const animation = selectedTheme.value?.animation;
 
         if (
           !animationEnabled.value ||
@@ -340,8 +301,9 @@ export default (): UseTheme => {
     init,
     addEmptyPerson,
     removeLastPerson,
-    changeTheme,
+    setTheme,
     selectedTheme,
+    selectedThemeId,
     animationEnabled,
     themes,
     people,

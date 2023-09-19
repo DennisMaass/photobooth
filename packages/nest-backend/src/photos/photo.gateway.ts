@@ -6,6 +6,7 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { TemplatedApp } from 'uWebSockets.js';
+import { consola } from "consola";
 
 @UseInterceptors(ClassSerializerInterceptor)
 @WebSocketGateway(8099, { path: '/ws' })
@@ -14,9 +15,9 @@ export class PhotoGateway {
   public server: TemplatedApp;
 
   @SubscribeMessage('takePhoto')
-  async handleFlowStepSoundNotification(
+  async handleTakePhoto(
     @ConnectedSocket() socket: any,
   ): Promise<void> {
-    console.log('takePhoto', socket.id);
+    consola.log('[PhotoGateway][handleTakePhoto]', socket.id);
   }
 }

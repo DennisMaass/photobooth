@@ -1,15 +1,18 @@
 import { ref, watch } from "vue";
 import { useIntervalFn } from "@vueuse/core";
 import { ofetch } from "ofetch";
+import { consola } from "consola";
 
 type Status = "booting" | "ready" | "error";
 
 const backendAvailable = ref(false);
 const status = ref<Status>("booting");
 const interval = ref(500);
+
 export default () => {
+
   function init() {
-    console.debug("[useCheck][init]");
+    consola.debug("[useCheck][init]");
 
     useIntervalFn(async () => {
       try {

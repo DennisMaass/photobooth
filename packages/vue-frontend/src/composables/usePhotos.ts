@@ -1,4 +1,5 @@
 import { ofetch } from "ofetch";
+import useNetwork from "@/composables/useNetwork";
 
 type PhotoService = {
   remove: (id: string) => void;
@@ -14,14 +15,18 @@ type PhotoId = {
   id: string;
 };
 
-//TODO: HTTP für handy https für tablet
+//TODO: HTTP for phone https for tablet
 export function usePhotos(https = true): PhotoService {
   let BASE_URL = `${import.meta.env.VITE_BACKEND_HTTP}/photos`;
   if (https) {
     BASE_URL = `${import.meta.env.VITE_BACKEND}/photos`;
   }
 
+  const { send } = useNetwork();
+
   async function take(): Promise<PhotoId> {
+    send("takePhoto");
+
     return await ofetch(`${BASE_URL}/`, {
       method: "POST",
     });

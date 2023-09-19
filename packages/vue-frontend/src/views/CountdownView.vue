@@ -3,6 +3,7 @@ import { onBeforeUnmount, onMounted, ref, toRefs, watch } from "vue";
 import { useRouter } from "vue-router";
 import { usePhotos } from "@/composables/usePhotos";
 import { useCamera } from "@/composables/useCamera";
+import { consola } from "consola";
 
 const props = defineProps({
   counterTime: { type: Number, default: 5 },
@@ -38,7 +39,7 @@ async function startCountDownTimer() {
           params: { imageId: photoInfo.id },
         });
       } catch (error) {
-        console.error(error);
+        consola.error(error);
         router.push("/");
       }
     }
