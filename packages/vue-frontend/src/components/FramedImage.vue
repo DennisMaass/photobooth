@@ -2,9 +2,8 @@
   <div class="framed-image">
     <slot></slot>
     <div class="framed-image__sub-title">
-        <span class="framed-image__name">Victoria</span>
+        <span class="framed-image__name">Victoria & Thomas</span>
       <div v-if="date" class="framed-image__date">{{ date }}</div>
-        <span class="framed-image__name">Thomas</span>
     </div>
   </div>
 </template>
@@ -38,12 +37,9 @@ const fotoTextFont = computed(() => selectedTheme.value.fotoTextFont);
   &__sub-title {
     position: absolute;
     left: 50%;
-    bottom: 15px;
+    bottom: 8px;
     transform: translateX(-50%);
     font-size: 26px;
-    display: flex;
-    gap: 2rem;
-    align-items: center;
   }
 
   &__name,
