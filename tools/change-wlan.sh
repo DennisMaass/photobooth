@@ -1,11 +1,14 @@
 #!/bin/bash
 
+
+ssh pi@fotobox.local "sudo wpa_cli -i wlan0 select_network $1"
+
 # raspi-webgui
-# ssh pi@fotobox.local 'sudo wpa_cli -i wlan0 select_network 0'
+# ssh pi@fotobox.local "sudo wpa_cli -i wlan0 select_network 0"
 
 # Livebox
 #ssh pi@fotobox.local 'sudo wpa_cli -i wlan0 select_network 1'
 
 # Luna
- ssh pi@fotobox.local 'sudo wpa_cli -i wlan0 select_network 2'
+# ssh pi@fotobox.local 'sudo wpa_cli -i wlan0 select_network 2'
 

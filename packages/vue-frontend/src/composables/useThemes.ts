@@ -164,11 +164,11 @@ export default (): UseThemes => {
     }
 
     // post to backend /settings/user
-    const BASE_URL = `${import.meta.env.VITE_BACKEND}`;
-    ofetch(`${BASE_URL}/settings/user`, {
-      method: "POST",
-      body: {id},
-    });
+    // const BASE_URL = `${import.meta.env.VITE_BACKEND}`;
+    // ofetch(`${BASE_URL}/settings/user`, {
+    //   method: "POST",
+    //   body: {id},
+    // });
 
     selectedThemeId.value = themeObj.id;
     animationEnabled.value = themeObj.animation !== undefined;
