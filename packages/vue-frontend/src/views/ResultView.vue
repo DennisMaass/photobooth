@@ -19,9 +19,10 @@ const props = defineProps({
 const router = useRouter();
 const { remove } = usePhotos();
 const { print } = usePrinter();
+const { selectedTheme,printWithWatermark } = useThemes();
 
 async function handlePrint(): Promise<void> {
-  const status = await print(props.imageId);
+  const status = await print(props.imageId, printWithWatermark.value);
   if (status.code === "ready") {
     router.push("/");
   }
@@ -52,7 +53,7 @@ function handleDownload() {
 }
 
 const { enabledPrinter } = useConfig();
-const { selectedTheme } = useThemes();
+
 </script>
 
 <template>

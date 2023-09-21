@@ -43,6 +43,7 @@ const company = useLocalStorage("company", "");
 const fotoText = ref("")
 const animationEnabled = useLocalStorage("animationEnabled", false);
 const fontAnimationEnabled = useLocalStorage("fontAnimationEnabled", true);
+const printWithWatermark = useLocalStorage("printWithWatermark", true);
 
 /* const newThemeType = {
   id: "wedding1",
@@ -102,6 +103,7 @@ type UseThemes = {
   selectedThemeId: Ref<string>;
   animationEnabled: RemovableRef<boolean>;
   fontAnimationEnabled: RemovableRef<boolean>;
+  printWithWatermark: RemovableRef<boolean>;
   fotoText: RemovableRef<string>;
 };
 
@@ -311,6 +313,7 @@ export default (): UseThemes => {
     selectedThemeId,
     animationEnabled,
     fontAnimationEnabled,
+    printWithWatermark,
     themes,
     people,
     company,

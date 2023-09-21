@@ -4,7 +4,7 @@ import useNotification from "@/composables/useNotification";
 import useNetwork from "@/composables/useNetwork";
 
 export type UsePrinter = {
-  print: (id: string) => Promise<PrinterStatus>;
+  print: (id: string, withWatermark:boolean) => Promise<PrinterStatus>;
   getState: () => Promise<PrinterStatus>;
 };
 
@@ -29,12 +29,15 @@ export default (): UsePrinter => {
     return status;
   }
 
-  async function print(id: string): Promise<PrinterStatus> {
-    send("print", { id });
+  async function print(
+    id: string,
+    withWatermark = true
+  ): Promise<PrinterStatus> {
+    send("print", { id, withWatermark });
 
     const status = await ofetch(`${BASE_URL}/print`, {
       method: "POST",
-      body: { id },
+      body: { id, withWatermark },
     });
 
     const intepretedStatus = status;

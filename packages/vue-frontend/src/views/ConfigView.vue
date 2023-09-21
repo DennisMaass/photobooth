@@ -13,7 +13,8 @@ const {
   themes,
   selectedTheme,
   animationEnabled,
-  fontAnimationEnabled
+  fontAnimationEnabled,
+  printWithWatermark
 } = useThemes();
 
 function handleReset() {
@@ -71,6 +72,10 @@ function handleReset() {
       <div>
         <label>fontAnimation</label>
         <input type="checkbox" v-model="fontAnimationEnabled" />
+      </div>
+      <div>
+        <label>printWithWatermark</label>
+        <input type="checkbox" v-model="printWithWatermark" />
       </div>
     </div>
     <button @click="handleReset">zurücksetzen</button>

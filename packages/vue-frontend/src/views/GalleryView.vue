@@ -6,6 +6,7 @@ import { computed, onMounted, ref } from "vue";
 import { Lazy, Navigation } from "swiper";
 import { usePhotos } from "@/composables/usePhotos";
 import usePrinter from "@/composables/usePrinter";
+import useThemes from "@/composables/useThemes";
 import { Swiper, SwiperSlide } from "swiper/vue";
 
 import "swiper/css";
@@ -46,8 +47,10 @@ const onIndexChanged = () => {
 
 const router = useRouter();
 const { print } = usePrinter();
+const { printWithWatermark } = useThemes();
+
 function handlePrint() {
-  print(activeId.value);
+  print(activeId.value, printWithWatermark.value);
 }
 
 function handleDownload() {
