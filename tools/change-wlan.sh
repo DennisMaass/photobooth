@@ -7,5 +7,5 @@
 #ssh pi@fotobox.local 'sudo wpa_cli -i wlan0 select_network 1'
 
 # Luna
-ssh pi@fotobox.local 'sudo wpa_cli -i wlan0 select_network 2'
+ ssh pi@fotobox.local 'sudo wpa_cli -i wlan0 select_network 2'
 

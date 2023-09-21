@@ -10,7 +10,7 @@ import { consola } from "consola";
 const wifiQR = ref();
 const imageQR = ref();
 
-const props = defineProps({
+defineProps({
   imageId: { type: String, required: true },
 });
 
@@ -50,7 +50,7 @@ function handleBack() {
       </div>
 
       <div>
-        <img :src="wifiQR" alt="qr-code" class="download__qr" />
+        <div class="download__qr" v-html="wifiQR"></div>
         <div class="download__manuell">
           <div>SSID: raspi-webgui</div>
           <div>Passwort: ChangeMe</div>
@@ -66,7 +66,7 @@ function handleBack() {
       </div>
 
       <div>
-        <img :src="imageQR" alt="qr-code" class="download__qr" />
+        <div class="download__qr" v-html="imageQR"></div>
         <div>
           <div>{{ galleryUrl }}</div>
         </div>

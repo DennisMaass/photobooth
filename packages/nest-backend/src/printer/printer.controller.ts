@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import type { PrinterStatus } from './printer.service';
 import SharpPhotoManipulationService from '../photoManipulation/sharpPhotoManipulation.service.js';
 import SharpFileHandlingService from '../filehandling/sharpFileHandling.service.js';
-import { consola } from "consola";
+import { consola } from 'consola';
 
 @Controller('printer')
 export class PrinterController {
@@ -53,11 +53,14 @@ export class PrinterController {
       pathToOriginalPhoto,
       1728,
     );
+    consola.debug('[PhotoController][print] withWatermark', withWatermark);
     if (withWatermark) {
-      consola.debug('[PhotoController][print] withWatermark', withWatermark);
+      const userDataPath = this.configService.get<string>('USER_DATA_PATH');
+      const pathToWatermark = `${userDataPath}/watermark.png`;
+
       dataToPrint = await this.photoManipulationService.addWatermark(
         dataToPrint,
-        './assets/watermark.png',
+        pathToWatermark,
       );
     }
     await this.fileHandlingService.toFile(pathToPrintPhoto, dataToPrint);
