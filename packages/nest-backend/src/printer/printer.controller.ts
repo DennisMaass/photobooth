@@ -51,7 +51,7 @@ export class PrinterController {
 
     let dataToPrint = await this.photoManipulationService.resize(
       pathToOriginalPhoto,
-      864,
+      1728,
     );
     consola.debug('[PhotoController][print] withWatermark', withWatermark);
     if (withWatermark) {
