@@ -1,14 +1,14 @@
 #!/bin/bash
 
-# Schritt 1: Lokales Frontend bauen
-echo "Build local front end..."
+# Schritt 1:
+echo "Build local frontend..."
 pnpm build-only
 
-# Schritt 2: SSH-Verbindung zum Raspberry Pi aufbauen und den Ordner /var/www/html/* löschen
+# Schritt 2:
 echo "Connect to Raspberry Pi and delete the folder /var/www/html/*..."
 ssh pi@fotobox.local 'sudo rm -rf /var/www/html/*'
 
-# Schritt 3: Den lokalen Ordner ./dist/* auf den Raspberry Pi in den Ordner /var/www/html/ kopieren
+# Schritt 3:
 echo "Copy ./dist/* to the Raspberry Pi..."
 scp -r ./dist/* pi@fotobox.local:/var/www/html/
 

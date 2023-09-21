@@ -35,12 +35,12 @@ type Person = {
   lastName: string;
 };
 
-const people = useLocalStorage<Person[]>("people", [
+const people = ref<Person[]>([
   { firstName: "Victoria", lastName: "" },
   { firstName: "Thomas", lastName: "" },
 ]);
 const company = useLocalStorage("company", "");
-const fotoText = useLocalStorage("fotoText", "");
+const fotoText = ref("")
 const animationEnabled = useLocalStorage("animationEnabled", false);
 
 /* const newThemeType = {

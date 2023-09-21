@@ -36,10 +36,17 @@
 
 # deploy new backend
 
-1. push sourcecode
+1. ensure latest sourcecode is pushed
+1. change wlan of the photobooth to one with internet (needed because of dependency install)
 1. goto backend project "cd packages/nest-backend/"
 1. execute "./tools/deploy.sh"
 
 # reboot
 
+1. goto project root
+1. execute "./tools/reboot.sh"
 
+# clean up disk space
+
+- "du -h | sort -h" to check folder
+- delete usb stick ".Trashes" folder

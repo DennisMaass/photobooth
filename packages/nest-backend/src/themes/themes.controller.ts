@@ -26,7 +26,22 @@ export class ThemesController {
     this.initThemes();
   }
 
-  initThemes(): void {
+  @Get('/')
+  getThemes() {
+    return this.themes;
+  }
+
+  @Get('/current')
+  getCurrentTheme() {
+    return this.themes.find((theme) => theme.name === this.currenThemeId);
+  }
+
+  @Post('/current')
+  setTheme(id: string) {
+    this.currenThemeId = id;
+  }
+
+  private initThemes(): void {
     const userDataPath = this.configService.get<string>('USER_DATA_PATH');
     const themesPath = `${userDataPath}/themes.json`;
     if (!existsSync(themesPath)) {
@@ -47,26 +62,6 @@ export class ThemesController {
     } catch (e) {
       consola.error(e);
     }
-  }
-
-  @Post('/')
-  addTheme(theme: any) {
-    consola.debug('[ThemesController][addTheme] theme', theme);
-  }
-
-  @Get('/')
-  getThemes() {
-    return this.themes;
-  }
-
-  @Get('/current')
-  getCurrentTheme() {
-    return this.themes.find((theme) => theme.name === this.currenThemeId);
-  }
-
-  @Post('/current')
-  setTheme(id: string) {
-    this.currenThemeId = id;
   }
 
 }
