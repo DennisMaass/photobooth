@@ -2,7 +2,7 @@
 import HomeTitle from "@/components/HomeTitle.vue";
 import useThemes from "@/composables/useThemes";
 
-const { people, selectedTheme } = useThemes();
+const { people, selectedTheme, fontAnimationEnabled } = useThemes();
 
 const firstPerson = people.value[0];
 const secondPerson = people.value[1];
@@ -24,7 +24,7 @@ if (secondPerson?.firstName) {
     alt="event image"
   />
   <HomeTitle class="home__title">
-    <p>
+    <div v-if="fontAnimationEnabled">
       <span class="name-letter ml3">
         <span
           class="letter"
@@ -48,7 +48,20 @@ if (secondPerson?.firstName) {
           {{ letter }}
         </span>
       </span>
-    </p>
+    </div>
+    <div v-else>
+      <div class="name-letter">
+        {{firstPerson.firstName}}
+      </div>
+      <br />
+      <span class="and-letter">
+        <span>&amp;</span>
+      </span>
+      <br />
+      <div class="name-letter">
+        {{secondPerson.firstName}}
+      </div>
+    </div>
   </HomeTitle>
 </template>
 
@@ -63,5 +76,11 @@ if (secondPerson?.firstName) {
   font-family: var(--name-letter-font), sans-serif;
   font-size: var(--name-letter-size);
   color: var(--name-letter-color);
+}
+
+.letter {
+  display: inline-block;
+  opacity: 0;
+  letter-spacing: -8px;
 }
 </style>

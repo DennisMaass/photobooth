@@ -50,6 +50,7 @@ const fotoTextFont = computed(() => selectedTheme.value.fotoTextFont);
   &__date {
     font-size: 22px;
     line-height: 1.2;
+    font-family: Rushtick, sans-serif;
   }
 
   &__separator {

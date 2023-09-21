@@ -14,10 +14,10 @@ onMounted(() => {
     .timeline({ loop: true })
     .add({
       targets: ".ml3 .letter",
-      opacity: [0, 1],
-      easing: "easeInOutQuad",
-      duration: 2250,
-      delay: (el: HTMLElement, i: number) => 150 * (i + 1),
+      opacity: [.0, 1],
+      easing: "easeOutExpo",
+      duration: 15,
+      delay: (el: HTMLElement, i: number) => 100 * (i + 1),
     })
     .add({
       targets: ".ml3",
@@ -33,7 +33,6 @@ onMounted(() => {
 .home-title {
   font-family: "sans-serif";
   font-size: 40px;
-  letter-spacing: -8px;
 }
 
 .letter {

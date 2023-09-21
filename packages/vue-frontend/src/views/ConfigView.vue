@@ -13,6 +13,7 @@ const {
   themes,
   selectedTheme,
   animationEnabled,
+  fontAnimationEnabled
 } = useThemes();
 
 function handleReset() {
@@ -66,6 +67,10 @@ function handleReset() {
       <div>
         <label>animation</label>
         <input type="checkbox" v-model="animationEnabled" />
+      </div>
+      <div>
+        <label>fontAnimation</label>
+        <input type="checkbox" v-model="fontAnimationEnabled" />
       </div>
     </div>
     <button @click="handleReset">zurücksetzen</button>

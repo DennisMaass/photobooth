@@ -42,6 +42,7 @@ const people = ref<Person[]>([
 const company = useLocalStorage("company", "");
 const fotoText = ref("")
 const animationEnabled = useLocalStorage("animationEnabled", false);
+const fontAnimationEnabled = useLocalStorage("fontAnimationEnabled", true);
 
 /* const newThemeType = {
   id: "wedding1",
@@ -100,6 +101,7 @@ type UseThemes = {
   selectedTheme: ComputedRef<Theme>;
   selectedThemeId: Ref<string>;
   animationEnabled: RemovableRef<boolean>;
+  fontAnimationEnabled: RemovableRef<boolean>;
   fotoText: RemovableRef<string>;
 };
 
@@ -171,9 +173,12 @@ export default (): UseThemes => {
     // });
 
     selectedThemeId.value = themeObj.id;
-    animationEnabled.value = themeObj.animation !== undefined;
 
-    if (!fotoText.value) {
+    if(animationEnabled.value && !themeObj.animation){
+      animationEnabled.value = false
+    }
+
+    if (!fotoText.value && themeObj.fotoText) {
       fotoText.value = themeObj.fotoText;
     }
     setCssVars(themeObj)
@@ -305,6 +310,7 @@ export default (): UseThemes => {
     selectedTheme,
     selectedThemeId,
     animationEnabled,
+    fontAnimationEnabled,
     themes,
     people,
     company,
