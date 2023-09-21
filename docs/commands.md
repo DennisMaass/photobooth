@@ -25,6 +25,7 @@
 2. save them somethere
 
 # change wlan
+
 1. login to "raspi-webgui" wlan
 1. call ""./tools/change-wlan.sh"
 1. switch to choosen wlan
