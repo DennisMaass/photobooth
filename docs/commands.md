@@ -5,7 +5,7 @@
     1. script
         1. start photobooth
         2. connect to same wlan
-        3. execute cleanup script
+        3. execute "./tools/clean-images" script
     1. usb stick
         1. pull usb stick while box is switched off
         2. connect with pc
@@ -27,8 +27,14 @@
 # change wlan
 
 1. login to "raspi-webgui" wlan
-1. call ""./tools/change-wlan.sh"
+1. call "./tools/change-wlan.sh NUMBER"
 1. switch to choosen wlan
+
+## NUMBER
+
+- raspi-webgui = 0
+- Livebox = 1
+- Luna = 2
 
 # deploy new frontend
 
@@ -51,3 +57,10 @@
 
 - "du -h | sort -h" to check folder
 - delete usb stick ".Trashes" folder
+
+# connect to raspberry
+
+1. login to "raspi-webgui" wlan
+1. open a terminal
+1. execute "ssh <pi@fotobox.local>"
+1. type password

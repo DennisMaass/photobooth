@@ -41,10 +41,9 @@ export default () => {
   async function checkAvailibility(): Promise<any> {
     const BASE_URL = `${import.meta.env.VITE_BACKEND}`;
 
-    return await ofetch(`${BASE_URL}/health`, {
-      method: "GET",
-    });
+    return await ofetch(`${BASE_URL}/health`);
   }
+  
 
   return {
     init,

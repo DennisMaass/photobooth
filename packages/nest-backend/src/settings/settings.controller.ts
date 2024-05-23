@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { SettingsService } from './settings.service';
 import { consola } from 'consola';
 
@@ -20,8 +20,7 @@ export class SettingsController {
   }
 
   @Post('/user')
-  setUserSettings(userSettings: UserSettings) {
-    consola.debug('[SettingsController][setUserSettings] userSettings', userSettings);
+  setUserSettings(@Body()userSettings: UserSettings) {
     this.settingsService.setUserSettings(userSettings);
   }
 }

@@ -1,13 +1,13 @@
 <mxfile host="65bd71144e">
     <diagram id="bg_41D5jeugq3SWy1JiE" name="Page-1">
-        <mxGraphModel dx="2948" dy="2728" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="600" dy="748" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
                 <mxCell id="120" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="1169.5" y="1480" width="323" height="250" as="geometry"/>
                 </mxCell>
-                <mxCell id="258" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="258" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="1196.5" y="1500" width="273.5" height="160" as="geometry"/>
                 </mxCell>
                 <mxCell id="167" value="" style="edgeStyle=none;html=1;" parent="1" source="136" target="135" edge="1">
@@ -37,9 +37,6 @@
                 </mxCell>
                 <mxCell id="104" value="Others" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
                     <mxGeometry x="2226.5" y="760" width="30" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="106" value="/home" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-                    <mxGeometry x="1300" y="860" width="60" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="107" value="/event" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
                     <mxGeometry x="2216.5" y="860" width="60" height="30" as="geometry"/>
@@ -362,14 +359,23 @@
                         <mxPoint x="800" y="1470" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="257" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#66B2FF;fontColor=#66B2FF;" vertex="1" parent="1">
+                <mxCell id="257" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#66B2FF;fontColor=#66B2FF;" parent="1" vertex="1">
                     <mxGeometry x="1216" y="930" width="230" height="140" as="geometry"/>
                 </mxCell>
-                <mxCell id="259" value="themable picture with text" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#66B2FF;" vertex="1" parent="1">
+                <mxCell id="259" value="themable picture with text" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#66B2FF;" parent="1" vertex="1">
                     <mxGeometry x="1271" y="985" width="120" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="260" value="&lt;meta charset=&quot;utf-8&quot;&gt;&lt;span style=&quot;font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;themable text&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;fontColor=#66B2FF;fontStyle=0" vertex="1" parent="1">
+                <mxCell id="260" value="&lt;meta charset=&quot;utf-8&quot;&gt;&lt;span style=&quot;font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;themable text&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;fontColor=#66B2FF;fontStyle=0" parent="1" vertex="1">
                     <mxGeometry x="1295.5" y="1630" width="94.5" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="261" value="ResultView" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="1290" y="1450" width="80" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="262" value="CountdownView" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="1301.5" y="1170" width="110" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="263" value="HomeView /home" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="1281.5" y="870" width="120" height="30" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

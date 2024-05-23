@@ -4,10 +4,10 @@ import ButtonBar from "@/components/ButtonBar.vue";
 import { Icon } from "@iconify/vue/dist/offline";
 import { computed, onMounted, ref } from "vue";
 import { Lazy, Navigation } from "swiper";
-import { usePhotos } from "@/composables/usePhotos";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import usePhotos from "@/composables/usePhotos";
 import usePrinter from "@/composables/usePrinter";
 import useThemes from "@/composables/useThemes";
-import { Swiper, SwiperSlide } from "swiper/vue";
 
 import "swiper/css";
 import "swiper/css/lazy";
@@ -71,18 +71,12 @@ const { enabledPrinter } = useAppData();
 <template>
   <div class="gallery">
     <div class="gallery__slider" v-if="initialSlide">
-      <swiper
-        :slides-per-view="1"
-        :space-between="10"
-        :lazy="true"
-        :modules="modules"
-        :navigation="true"
-        @swiper="onSwiper"
-        @activeIndexChange="onIndexChanged"
-        :initial-slide="initialSlide"
-      >
+      <swiper :slides-per-view="1" :space-between="10" :lazy="true" :modules="modules" :navigation="true"
+        @swiper="onSwiper" @activeIndexChange="onIndexChanged" :initial-slide="initialSlide">
         <swiper-slide v-for="photo in allPhotos" :key="photo">
-          <img class="swiper-lazy gallery__image" :data-src="photo" alt="" />
+          <div class="flex flex-col h-full justify-center">
+            <img class="swiper-lazy" :data-src="photo" alt="" />
+          </div>
         </swiper-slide>
       </swiper>
     </div>
@@ -93,20 +87,10 @@ const { enabledPrinter } = useAppData();
             <Icon icon="mdi:home" color="white" width="42px" height="42px" />
           </BaseButton>
           <BaseButton v-if="enabledPrinter" @click="handlePrint">
-            <Icon
-              icon="fluent:print-20-filled"
-              color="white"
-              width="42px"
-              height="42px"
-            />
+            <Icon icon="fluent:print-20-filled" color="white" width="42px" height="42px" />
           </BaseButton>
           <BaseButton @click="handleDownload">
-            <Icon
-              icon="mdi:tray-arrow-down"
-              color="white"
-              width="42px"
-              height="42px"
-            />
+            <Icon icon="mdi:tray-arrow-down" color="white" width="42px" height="42px" />
           </BaseButton>
         </template>
       </ButtonBar>
@@ -119,7 +103,7 @@ const { enabledPrinter } = useAppData();
   flex-direction: column;
   padding: 20px;
 
-  > * + * {
+  >*+* {
     margin-top: 3rem;
   }
 
@@ -129,11 +113,6 @@ const { enabledPrinter } = useAppData();
       height: calc(100vh - 3rem - 90px - 40px);
       overflow: hidden;
     }
-  }
-
-  &__image {
-    height: 100%;
-    width: auto;
   }
 }
 </style>

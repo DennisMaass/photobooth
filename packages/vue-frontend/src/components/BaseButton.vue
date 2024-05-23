@@ -1,8 +1,8 @@
 <template>
-  <RouterLink v-if="to" class="base-button normalize" :to="to">
+  <RouterLink v-if="to" class="flex items-center justify-center h-[4.5rem] w-[4.5rem] bg-[color:var(--base-button-background)] p-4 rounded-full active:bg-[color:var(--base-button-background-active)] hover:bg-[color:var(--base-button-background-active)]" :to="to">
     <slot></slot>
   </RouterLink>
-  <button v-else class="base-button normalize">
+  <button v-else class="flex items-center justify-center h-[4.5rem] w-[4.5rem] bg-[color:var(--base-button-background)] p-4 rounded-full">
     <slot></slot>
   </button>
 </template>
@@ -12,21 +12,3 @@ defineProps({
   to: { type: String, default: "" },
 });
 </script>
-
-<style lang="scss">
-.base-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 4.5rem;
-  width: 4.5rem;
-  border-radius: 50%;
-  background-color: var(--base-button-background);
-  padding: 1rem;
-
-  &:hover,
-  &:active {
-    background-color: var(--base-button-background-active);
-  }
-}
-</style>

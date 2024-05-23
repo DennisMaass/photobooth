@@ -3,11 +3,6 @@ import { ofetch } from "ofetch";
 import useNotification from "@/composables/useNotification";
 import useNetwork from "@/composables/useNetwork";
 
-export type UsePrinter = {
-  print: (id: string, withWatermark:boolean) => Promise<PrinterStatus>;
-  getState: () => Promise<PrinterStatus>;
-};
-
 export type PrinterStatusCode = "ready" | "busy" | "error" | "off";
 export type PrinterStatus = {
   code: PrinterStatusCode;
@@ -16,16 +11,14 @@ export type PrinterStatus = {
 
 const lastPrint = ref<Date | null>(null);
 
-export default (): UsePrinter => {
+export default () => {
   const { fire } = useNotification();
   const { send } = useNetwork();
 
   const BASE_URL = `${import.meta.env.VITE_BACKEND}/printer`;
 
   async function getState(): Promise<PrinterStatus> {
-    const status = await ofetch(`${BASE_URL}/state`, {
-      method: "GET",
-    });
+    const status = await ofetch(`${BASE_URL}/state`);
     return status;
   }
 

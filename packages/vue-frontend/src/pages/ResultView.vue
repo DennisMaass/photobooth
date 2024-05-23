@@ -5,7 +5,7 @@ import BaseButton from "@/components/BaseButton.vue";
 import ButtonBar from "@/components/ButtonBar.vue";
 import BinIcon from "@/components/icons/BinIcon.vue";
 import { Icon } from "@iconify/vue/dist/offline";
-import { usePhotos } from "@/composables/usePhotos.js";
+import usePhotos from "@/composables/usePhotos.js";
 import CameraIcon from "@/components/icons/CameraIcon.vue";
 import FramedImage from "@/components/FramedImage.vue";
 import useConfig from "@/composables/useAppData.js";
@@ -19,7 +19,7 @@ const props = defineProps({
 const router = useRouter();
 const { remove } = usePhotos();
 const { print } = usePrinter();
-const { selectedTheme,printWithWatermark } = useThemes();
+const { selectedTheme, printWithWatermark } = useThemes();
 
 async function handlePrint(): Promise<void> {
   const status = await print(props.imageId, printWithWatermark.value);
@@ -37,7 +37,7 @@ const imageUrl = computed(
 );
 
 const timerID = setTimeout(() => {
-  router.push("/");
+  // router.push("/");
 }, 60000);
 
 onBeforeUnmount(() => {
@@ -59,9 +59,7 @@ const { enabledPrinter } = useConfig();
 <template>
   <div class="result">
     <div class="result__image-wrapper">
-      <FramedImage
-        :date="selectedTheme.topic === 'wedding' ? '22.09.2023' : ''"
-      >
+      <FramedImage :date="selectedTheme.topic === 'wedding' ? '31.05.2024' : ''">
         <img class="result__photo" :src="imageUrl" alt="taken photo" />
       </FramedImage>
     </div>
@@ -73,20 +71,10 @@ const { enabledPrinter } = useConfig();
       </template>
       <template #middle>
         <BaseButton @click="handleDownload">
-          <Icon
-            icon="mdi:tray-arrow-down"
-            color="white"
-            width="42px"
-            height="42px"
-          />
+          <Icon icon="mdi:tray-arrow-down" color="white" width="42px" height="42px" />
         </BaseButton>
         <BaseButton v-if="enabledPrinter" @click="handlePrint">
-          <Icon
-            icon="fluent:print-20-filled"
-            color="white"
-            width="42px"
-            height="42px"
-          />
+          <Icon icon="fluent:print-20-filled" color="white" width="42px" height="42px" />
         </BaseButton>
         <BaseButton @click="handleRemove">
           <BinIcon width="30px" height="30px" />
@@ -112,9 +100,10 @@ const { enabledPrinter } = useConfig();
   display: flex;
   flex-direction: column;
 
-  > * + * {
+  >*+* {
     margin-top: 3rem;
   }
+
   &__back-wrapper {
     display: flex;
     justify-content: flex-end;

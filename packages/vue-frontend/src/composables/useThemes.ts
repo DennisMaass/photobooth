@@ -8,38 +8,13 @@ import { loadFull } from "tsparticles";
 import { useRoute } from "vue-router";
 import { ofetch } from "ofetch";
 import { consola } from "consola";
+import useSettings from "@/composables/useSettings";
 
-import type { ComputedRef, Ref } from "vue";
+import type { Ref } from "vue";
+import type { Person } from "@/types/person.type";
+import type { Theme } from "@/types/theme.type";
 
-type Theme = {
-  id: string;
-  name: string;
-  topic: string;
-  wallpaper: boolean;
-  wallpaperImage: string;
-  animation?: string;
-  textColor: string;
-  backgroundColor: string;
-  baseButtonBackground: string;
-  baseButtonBackgroundActive: string;
-  fotoTextFont: string;
-  headerColor: string;
-  fotoText?: string;
-  custom: {
-    [key: string]: string;
-  }
-};
-
-type Person = {
-  firstName: string;
-  lastName: string;
-};
-
-const people = ref<Person[]>([
-  { firstName: "Victoria", lastName: "" },
-  { firstName: "Thomas", lastName: "" },
-]);
-const company = useLocalStorage("company", "");
+const company = ref("")
 const fotoText = ref("")
 const animationEnabled = useLocalStorage("animationEnabled", false);
 const fontAnimationEnabled = useLocalStorage("fontAnimationEnabled", true);
@@ -83,41 +58,34 @@ const printWithWatermark = useLocalStorage("printWithWatermark", true);
 
 const themes = ref<Array<Theme>>([]);
 
-const selectedThemeId = ref("wedding_2");
-const selectedTheme = computed(() => themes.value.find((t) => t.id === selectedThemeId.value) || themes.value[0]);
-
 const snowflakes: Ref<Snowflakes | undefined> = ref();
 const fireworks: Ref<Fireworks | undefined> = ref();
 const particles: Ref<Container | undefined> = ref();
 
-type UseThemes = {
-  save: () => void;
-  init: () => void;
-  addEmptyPerson: () => void;
-  removeLastPerson: () => void;
-  setTheme: (is: string) => void;
-  people: RemovableRef<Array<Person>>;
-  company: RemovableRef<string>;
-  themes: RemovableRef<Array<Theme>>;
-  selectedTheme: ComputedRef<Theme>;
-  selectedThemeId: Ref<string>;
-  animationEnabled: RemovableRef<boolean>;
-  fontAnimationEnabled: RemovableRef<boolean>;
-  printWithWatermark: RemovableRef<boolean>;
-  fotoText: RemovableRef<string>;
-};
+export default () => {
+  const { setUserSettings, userSettings } = useSettings();
 
-export default (): UseThemes => {
-  function addEmptyPerson() {
-    people.value.push({ firstName: "", lastName: "" });
+  const selectedThemeId = computed(() => userSettings.value.global.selectedTheme);
+  const selectedTheme = computed(() => themes.value.find((t) => t.id === selectedThemeId.value) || themes.value[0]);
+
+  const people = computed(() => userSettings.value.themes.global.people);
+
+  function removePerson(person: Person) {
+    const newPeople = people.value.filter((p) => p.firstName !== person.firstName || p.lastName !== person.lastName);
+
+    const newUserSettings = { ...userSettings.value };
+    newUserSettings.themes.global.people = newPeople
+    setUserSettings(newUserSettings);
   }
 
-  function removeLastPerson() {
-    people.value.pop();
+  function addPerson(person: Person) {
+    const newUserSettings = { ...userSettings.value };
+    newUserSettings.themes.global.people.push(person);
+    setUserSettings(userSettings.value);
   }
 
-  function save() {
-    //TODO: implement request
+  function setCompany(value: string) {
+    company.value = value;
   }
 
   function findTheme(id: string) {
@@ -125,7 +93,7 @@ export default (): UseThemes => {
   }
 
   function setCssVars(theme: Theme) {
-    const body = ref(document.querySelector("body"));
+    const body = document.querySelector("body")
 
     const textColorVar = useCssVar("--text-color", body);
     const baseButtonBackgroundActiveCSS = useCssVar(
@@ -141,7 +109,7 @@ export default (): UseThemes => {
     baseButtonBackgroundCSS.value = theme.baseButtonBackground;
     baseButtonBackgroundActiveCSS.value = theme.baseButtonBackgroundActive;
 
-    if(theme.custom.andLetterSize){
+    if (theme.custom.andLetterSize) {
       const andLetterSizeVar = useCssVar("--and-letter-size", body);
       andLetterSizeVar.value = theme.custom.andLetterSize;
       const andLetterColorVar = useCssVar("--and-letter-color", body);
@@ -159,40 +127,31 @@ export default (): UseThemes => {
   }
 
   function setTheme(id: string) {
-    consola.log("[useThemes][setTheme] id", id)
-
     const themeObj = findTheme(id);
     if (!themeObj) {
       consola.error("theme not found");
       return;
     }
 
-    // post to backend /settings/user
-    // const BASE_URL = `${import.meta.env.VITE_BACKEND}`;
-    // ofetch(`${BASE_URL}/settings/user`, {
-    //   method: "POST",
-    //   body: {id},
-    // });
+    userSettings.value.global.selectedTheme = themeObj.id;
+    setUserSettings(userSettings.value);
 
-    selectedThemeId.value = themeObj.id;
-
-    if(animationEnabled.value && !themeObj.animation){
+    if (animationEnabled.value && !themeObj.animation) {
       animationEnabled.value = false
     }
 
     if (!fotoText.value && themeObj.fotoText) {
       fotoText.value = themeObj.fotoText;
     }
+    consola.info("setTheme", themeObj);
     setCssVars(themeObj)
   }
 
   const route = useRoute();
 
-  async function getThemes() {
+  async function getThemes(): Promise<Array<Theme>> {
     const BASE_URL = `${import.meta.env.VITE_BACKEND}/themes`;
-    return await ofetch(`${BASE_URL}/`, {
-      method: "GET",
-    });
+    return await ofetch(`${BASE_URL}/`);
   }
 
   async function init() {
@@ -207,18 +166,21 @@ export default (): UseThemes => {
     });
 
     themes.value = await getThemes();
-    selectedThemeId.value = themes.value[0].id;
 
     watch(
-      selectedThemeId,
+      userSettings,
       (newVal) => {
         if (!newVal) {
-          consola.error("selectedThemeId is null");
           return;
         }
-        setTheme(newVal);
-      },
-      { immediate: true }
+
+        const newSelectedTheme = newVal.global.selectedTheme
+        if (newSelectedTheme !== selectedThemeId.value) {
+          setTheme(newSelectedTheme);
+        }
+
+        setCssVars(selectedTheme.value);
+      }
     );
 
     const currentAnimation = computed(() => {
@@ -304,10 +266,7 @@ export default (): UseThemes => {
   }
 
   return {
-    save,
     init,
-    addEmptyPerson,
-    removeLastPerson,
     setTheme,
     selectedTheme,
     selectedThemeId,
@@ -316,7 +275,10 @@ export default (): UseThemes => {
     printWithWatermark,
     themes,
     people,
+    removePerson,
+    addPerson,
     company,
+    setCompany,
     fotoText,
   };
 };

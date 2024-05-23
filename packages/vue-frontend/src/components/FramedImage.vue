@@ -2,7 +2,7 @@
   <div class="framed-image">
     <slot></slot>
     <div class="framed-image__sub-title">
-        <span class="framed-image__name">Victoria & Thomas</span>
+      <span class="framed-image__name">Selina & Dennis</span>
       <div v-if="date" class="framed-image__date">{{ date }}</div>
     </div>
   </div>

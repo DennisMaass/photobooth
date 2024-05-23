@@ -13,14 +13,14 @@ type Theme = {
   }
 }
 
-type Defaults=  {
+type Defaults = {
   themes: Array<Theme>;
 };
 
 @Controller('themes')
 export class ThemesController {
   themes = [];
-  currenThemeId = 'wedding_1';
+  currenThemeId = 'weeding_3';
 
   constructor(private configService: ConfigService) {
     this.initThemes();
@@ -33,7 +33,8 @@ export class ThemesController {
 
   @Get('/current')
   getCurrentTheme() {
-    return this.themes.find((theme) => theme.name === this.currenThemeId);
+    const current = this.themes.find((theme) => theme.id === this.currenThemeId);
+    return current.id
   }
 
   @Post('/current')

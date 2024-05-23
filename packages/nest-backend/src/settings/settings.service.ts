@@ -15,7 +15,7 @@ export class SettingsService {
       counter: 5,
       showPreview: true,
       printerEnabled: true,
-      selectedTheme: 'wedding_2',
+      selectedTheme: 'weeding_3',
     },
     themes: {
       global: {
@@ -51,6 +51,9 @@ export class SettingsService {
   }
 
   setUserSettings(userSettings: UserSettings) {
+    if (!userSettings) {
+      return
+    }
     this.userSettings = userSettings;
     writeUser(this.userSettings, 'user.conf');
   }

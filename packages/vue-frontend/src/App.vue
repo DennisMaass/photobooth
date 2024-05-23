@@ -1,15 +1,21 @@
 <script setup lang="ts">
+import { onMounted } from "vue";
+
 import useAppData from "./composables/useAppData";
 import useNavigation from "./composables/useNavigation";
 import useThemes from "./composables/useThemes";
 import useCheck from "./composables/useCheck";
 import useNetwork from "./composables/useNetwork";
+import useSettings from "./composables/useSettings";
 
 const { init: initApp } = useAppData();
 initApp();
 
 const { init: initTheme } = useThemes();
 initTheme();
+
+const { init: initSettings } = useSettings();
+initSettings();
 
 const { init: initNavigation } = useNavigation();
 initNavigation();
@@ -22,7 +28,7 @@ connect();
 </script>
 
 <template>
-  <div id="theme-animation-layer" class="theme-animation-layer"></div>
+  <div id="theme-animation-layer" class="fixed inset-0 z-50 pointer-events-none"></div>
   <RouterView />
 </template>
 
@@ -33,16 +39,6 @@ connect();
 
 :root[data-theme="light"] {
   color-scheme: light;
-}
-
-.theme-animation-layer {
-  pointer-events: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1000;
 }
 
 * {

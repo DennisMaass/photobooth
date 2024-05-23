@@ -1,6 +1,5 @@
 import { onMounted } from "vue";
 import { useWindowSize, useLocalStorage, useWakeLock } from "@vueuse/core";
-import type { RemovableRef } from "@vueuse/core";
 import { consola } from "consola";
 
 const { width, height } = useWindowSize();
@@ -11,16 +10,7 @@ const enabledPrinter = useLocalStorage("enabledPrinter", true);
 
 const { isActive, request } = useWakeLock();
 
-type UseAppData = {
-  init: () => void;
-  width: RemovableRef<number>;
-  height: RemovableRef<number>;
-  version: number;
-  enabledPrinter: RemovableRef<boolean>;
-  wakelockActive: RemovableRef<boolean>;
-};
-
-export default (): UseAppData => {
+export default () => {
   function init() {
     onMounted(async () => {
       if (!isActive.value) {

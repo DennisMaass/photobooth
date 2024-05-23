@@ -7,55 +7,61 @@ const router = createRouter({
       name: "Home",
       path: "/home",
       alias: "/",
-      component: () => import("@/views/HomeView.vue"),
+      component: () => import("@/pages/HomeView.vue"),
     },
     {
       name: "Countdown",
       path: "/countdown",
-      component: () => import("@/views/CountdownView.vue"),
+      component: () => import("@/pages/CountdownView.vue"),
     },
     {
       name: "Result",
       path: "/result/:imageId",
-      component: () => import("@/views/ResultView.vue"),
+      component: () => import("@/pages/ResultView.vue"),
       props: true,
     },
     {
       name: "Gallery",
       path: "/gallery",
-      component: () => import("@/views/GalleryView.vue"),
+      component: () => import("@/pages/GalleryView.vue"),
     },
     {
       name: "Download",
       path: "/download/:imageId",
-      component: () => import("@/views/DownloadView.vue"),
+      component: () => import("@/pages/DownloadView.vue"),
       props: true,
     },
     {
       name: "PictureDownload",
       path: "/pd/:imageId",
-      component: () => import("@/views/PictureDownloadView.vue"),
+      component: () => import("@/pages/PictureDownloadView.vue"),
     },
     {
       name: "GalleryDownload",
       path: "/gd/",
-      component: () => import("@/views/GalleryDownloadView.vue"),
+      component: () => import("@/pages/GalleryDownloadView.vue"),
     },
     {
       name: "Admin",
       path: "/admin",
-      component: () => import("@/views/AdminView.vue"),
+      component: () => import("@/pages/AdminView.vue"),
     },
     {
       name: "Config",
       path: "/config",
-      component: () => import("@/views/ConfigView.vue"),
+      component: () => import("@/pages/ConfigView.vue"),
     },
     {
       name: "Setup",
       path: "/setup",
 
-      component: () => import("@/views/SetupView.vue"),
+      component: () => import("@/pages/SetupView.vue"),
+    },
+    {
+      name: "Health",
+      path: "/health",
+
+      component: () => import("@/pages/HealthView.vue"),
     },
   ],
 });

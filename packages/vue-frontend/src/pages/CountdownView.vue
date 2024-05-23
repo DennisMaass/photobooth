@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { onBeforeUnmount, onMounted, ref, toRefs, watch } from "vue";
 import { useRouter } from "vue-router";
-import { usePhotos } from "@/composables/usePhotos";
-import { useCamera } from "@/composables/useCamera";
 import { consola } from "consola";
+import usePhotos from "@/composables/usePhotos";
+import useCamera from "@/composables/useCamera";
 
 const props = defineProps({
   counterTime: { type: Number, default: 5 },
@@ -94,45 +94,16 @@ async function initializeCamera() {
 </script>
 
 <template>
-  <div class="countdown">
-    <div class="countdown__media-wrapper">
-      <video ref="videoTag" autoplay class="countdown__video"></video>
+  <div class="countdown relative h-screen max-h-screen">
+    <div class="countdown__media-wrapper relative h-full">
+      <video ref="videoTag" autoplay
+        class="countdown__video absolute inset-0 h-full w-full object-cover -scale-x-100"></video>
     </div>
 
-    <div v-if="!isLoading" class="countdown__time">
+    <div v-if="!isLoading"
+      class="countdown__time absolute text-white right-1/2 top-1/2 translate-x-1/2 -translate-y-1/2 text-[10rem]">
       <span v-if="remainingTime > 0">{{ remainingTime }}</span>
       <span v-if="text">{{ text }}</span>
     </div>
   </div>
 </template>
-
-<style lang="scss">
-.countdown {
-  position: relative;
-  height: 100vh;
-  max-height: 100vh;
-
-  &__media-wrapper {
-    position: relative;
-    height: 100%;
-  }
-
-  &__video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%; //auto
-    object-fit: cover;
-  }
-
-  &__time {
-    position: absolute;
-    top: 50%;
-    right: 50%;
-    transform: translate(50%, -50%);
-    color: white;
-    font-size: 10rem;
-  }
-}
-</style>

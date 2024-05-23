@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref } from "vue";
-import { usePhotos } from "@/composables/usePhotos";
 import { Lazy, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
+import usePhotos from "@/composables/usePhotos";
 
 import "swiper/css";
 import "swiper/css/lazy";
@@ -36,18 +36,10 @@ const onSwiper = (sw: any) => {
     <h1>Foto auf dein Smartphone herunterladen</h1>
     <p>Drücke lange auf das Foto um es zu speichern</p>
     <div class="gallery__slider" v-if="initialSlide">
-      <swiper
-        :slidesPerView="1"
-        :centeredSlides="true"
-        :lazy="true"
-        :modules="modules"
-        :navigation="true"
-        :spaceBetween="10"
-        @swiper="onSwiper"
-        :initial-slide="initialSlide"
-      >
+      <swiper :slidesPerView="1" :centeredSlides="true" :lazy="true" :modules="modules" :navigation="true"
+        :spaceBetween="10" @swiper="onSwiper" :initial-slide="initialSlide">
         <swiper-slide v-for="photo in allPhotos">
-          <img class="swiper-lazy gallery__image" :data-src="photo" alt="" />
+          <img class="swiper-lazy object-cover block h-full w-full" :data-src="photo" alt="" />
         </swiper-slide>
       </swiper>
     </div>
@@ -59,7 +51,7 @@ const onSwiper = (sw: any) => {
   flex-direction: column;
   padding: 20px;
 
-  > * + * {
+  >*+* {
     margin-top: 3rem;
   }
 
@@ -75,12 +67,6 @@ const onSwiper = (sw: any) => {
     justify-content: center;
     align-items: center;
     width: 80%;
-  }
-  &__image {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
   }
 }
 </style>

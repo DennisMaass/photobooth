@@ -1,16 +1,9 @@
-import type { Ref } from "vue";
 import { ref } from "vue";
 import { consola } from "consola";
 
-type CameraService = {
-  stream: Ref<MediaStream | null>;
-  start: () => Promise<MediaStream>;
-  stop: () => void;
-};
-
 const stream = ref<MediaStream | null>(null);
 
-export function useCamera(): CameraService {
+export default () => {
   async function start(): Promise<MediaStream> {
     const constraints = {
       audio: false,

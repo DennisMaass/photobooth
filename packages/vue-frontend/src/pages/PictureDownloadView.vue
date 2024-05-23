@@ -3,18 +3,13 @@
     <h1>Foto auf dein Smartphone herunterladen</h1>
     <p>Drücke lange auf das Foto um es zu speichern</p>
     <div>
-      <img
-        class="picture-download__image"
-        :src="originalImageUrl"
-        alt="photo"
-      />
+      <img class="picture-download__image" :src="originalImageUrl" alt="photo" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { computed } from "vue";
-
 import { useRoute } from "vue-router";
 
 const route = useRoute();

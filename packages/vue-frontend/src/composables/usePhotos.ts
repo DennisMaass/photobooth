@@ -1,12 +1,6 @@
 import { ofetch } from "ofetch";
 import useNetwork from "@/composables/useNetwork";
 
-type PhotoService = {
-  remove: (id: string) => void;
-  getAll: () => Promise<{ ids: string[] }>;
-  take: () => Promise<{ id: string }>;
-};
-
 type PhotoIdList = {
   ids: string[];
 };
@@ -16,7 +10,7 @@ type PhotoId = {
 };
 
 //TODO: HTTP for phone https for tablet
-export function usePhotos(https = true): PhotoService {
+export default (https = true) => {
   let BASE_URL = `${import.meta.env.VITE_BACKEND_HTTP}/photos`;
   if (https) {
     BASE_URL = `${import.meta.env.VITE_BACKEND}/photos`;
@@ -41,9 +35,7 @@ export function usePhotos(https = true): PhotoService {
   }
 
   async function getAll(): Promise<PhotoIdList> {
-    return await ofetch(`${BASE_URL}/`, {
-      method: "GET",
-    });
+    return await ofetch(`${BASE_URL}/`);
   }
 
   return {

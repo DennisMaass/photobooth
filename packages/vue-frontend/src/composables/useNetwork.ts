@@ -1,5 +1,4 @@
 import { ref } from "vue";
-import type { Ref } from "vue";
 import { destr } from "destr";
 
 
@@ -8,19 +7,11 @@ type SocketEvent = {
   data: any;
 };
 
-type UseNetwork = {
-  isOnline: Ref<boolean>;
-  send: (event: string, data?: any) => void;
-  connect: () => void;
-  disconnect: () => void;
-  on: (event: string, callback: (data: any) => void) => void;
-};
-
 let socket: WebSocket | null = null;
 const BASE_URL = `${import.meta.env.VITE_BACKEND_WS}/ws`;
 const eventListeners = new Map();
 
-export default (): UseNetwork => {
+export default () => {
   const isOnline = ref(true);
 
   function on(event: string, callback: (data: any) => void) {

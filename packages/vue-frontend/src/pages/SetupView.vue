@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import BaseButton from "@/components/BaseButton.vue";
-import { useCamera } from "@/composables/useCamera";
 import { onBeforeUnmount, onMounted, ref, watch } from "vue";
+import BaseButton from "@/components/BaseButton.vue";
+import useCamera from "@/composables/useCamera";
 
 const { start, stop, stream } = useCamera();
 start();
