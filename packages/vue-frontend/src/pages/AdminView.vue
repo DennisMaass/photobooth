@@ -19,6 +19,7 @@ function tooglePrinter() {
     <BaseButton to="/setup">setup</BaseButton>
     <BaseButton to="/gallery">Gallery</BaseButton>
     <BaseButton to="/home">Home</BaseButton>
+    <BaseButton to="/config">Config</BaseButton>
   </div>
 
   <div>wakelock: {{ wakelockActive }}</div>

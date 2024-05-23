@@ -109,7 +109,7 @@ export default () => {
     baseButtonBackgroundCSS.value = theme.baseButtonBackground;
     baseButtonBackgroundActiveCSS.value = theme.baseButtonBackgroundActive;
 
-    if (theme.custom.andLetterSize) {
+    if (theme.custom?.andLetterSize) {
       const andLetterSizeVar = useCssVar("--and-letter-size", body);
       andLetterSizeVar.value = theme.custom.andLetterSize;
       const andLetterColorVar = useCssVar("--and-letter-color", body);
@@ -180,7 +180,7 @@ export default () => {
         }
 
         setCssVars(selectedTheme.value);
-      }
+      }, { immediate: true }
     );
 
     const currentAnimation = computed(() => {

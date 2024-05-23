@@ -64,3 +64,7 @@
 1. open a terminal
 1. execute "ssh <pi@fotobox.local>"
 1. type password
+
+# reset themes with default-themes
+
+1. execute "./tools/reset-to-default-themes.sh"

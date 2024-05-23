@@ -23,9 +23,10 @@ const { status } = useCheck();
 <template>
   <div v-if="status !== 'ready'">{{ status }}</div>
   <div v-else class="home" @click="handleClick" ref="homeComponent">
-    <div class="home__wallpaper-container">
+    <div class="home__wallpaper-container"  v-if="selectedTheme.wallpaper">
+      <WeddingIntro v-if="selectedTheme.topic === 'wedding'"></WeddingIntro>
       <img
-        v-if="selectedTheme.wallpaper"
+       v-else
         class="home__wallpaper"
         :src="'/wallpaper/' + selectedTheme.wallpaperImage"
         alt="event image"

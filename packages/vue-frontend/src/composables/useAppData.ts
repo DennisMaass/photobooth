@@ -4,7 +4,7 @@ import { consola } from "consola";
 
 const { width, height } = useWindowSize();
 
-const version = 6;
+const version = "23.05.2024";
 
 const enabledPrinter = useLocalStorage("enabledPrinter", true);
 

@@ -26,21 +26,21 @@ body {
 
 @font-face {
   font-family: 'MsMadi';
-  src:  url('@/assets/fonts/MsMadi-Regular.woff2') format('woff2');
+  src: url('@/assets/fonts/MsMadi-Regular.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'NothernLight';
-  src:  url('@/assets/fonts/NorthernLights-Script.ttf') format('opentype');
+  src: url('@/assets/fonts/NorthernLights-Script.ttf') format('opentype');
 }
 
 @font-face {
   font-family: 'Rushtick';
-  src:  url('@/assets/fonts/rushtick/Rushtick.ttf.woff') format('woff'),
-        url('@/assets/fonts/rushtick/Rushtick.ttf.svg#Rushtick') format('svg'),
-        url('@/assets/fonts/rushtick/Rushtick.ttf.eot');
+  src: url('@/assets/fonts/rushtick/Rushtick.ttf.woff') format('woff'),
+    url('@/assets/fonts/rushtick/Rushtick.ttf.svg#Rushtick') format('svg'),
+    url('@/assets/fonts/rushtick/Rushtick.ttf.eot');
   font-weight: normal;
   font-style: normal;
 }
@@ -50,4 +50,9 @@ body {
   font-style: normal;
   font-weight: normal;
   src: local('Alex Brush'), url('@/assets/fonts/alex-brush.regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Hello Honey';
+  src: url('@/assets/fonts/Hello-Honey/hello honey.ttf') format('opentype');
 }
