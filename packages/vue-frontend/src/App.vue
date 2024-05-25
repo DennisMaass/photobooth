@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
-
 import useAppData from "./composables/useAppData";
 import useNavigation from "./composables/useNavigation";
 import useThemes from "./composables/useThemes";

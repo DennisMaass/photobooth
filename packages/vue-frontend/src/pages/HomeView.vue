@@ -1,17 +1,15 @@
 <script setup lang="ts">
+import { Icon } from "@iconify/vue/dist/offline";
 import useThemes from "@/composables/useThemes";
 import BaseButton from "@/components/BaseButton.vue";
 import ButtonBar from "@/components/ButtonBar.vue";
-import CameraIcon from "@/components/icons/CameraIcon.vue";
 import { useRouter } from "vue-router";
 import useCheck from "@/composables/useCheck";
 import WeddingIntro from "@/components/WeddingIntro.vue";
-import ChristmasIntro from "@/components/ChristmasIntro.vue";
-import BirthdayIntro from "@/components/BirthdayIntro.vue";
 
 const router = useRouter();
 
-function handleClick() {
+function gotoCountdownView() {
   router.push("/countdown");
 }
 
@@ -22,33 +20,23 @@ const { status } = useCheck();
 
 <template>
   <div v-if="status !== 'ready'">{{ status }}</div>
-  <div v-else class="home" @click="handleClick" ref="homeComponent">
-    <div class="home__wallpaper-container"  v-if="selectedTheme.wallpaper">
+  <div v-else class="home" @click="gotoCountdownView" ref="homeComponent">
+    <div class="home__wallpaper-container" v-if="selectedTheme.wallpaper">
       <WeddingIntro v-if="selectedTheme.topic === 'wedding'"></WeddingIntro>
-      <img
-       v-else
-        class="home__wallpaper"
-        :src="'/wallpaper/' + selectedTheme.wallpaperImage"
-        alt="event image"
-      />
+      <img class="home__wallpaper" :src="'/wallpaper/' + selectedTheme.wallpaperImage" alt="event image" />
     </div>
     <div class="home__content">
       <div class="home__image-wrapper">
         <template v-if="!selectedTheme.wallpaper">
           <WeddingIntro v-if="selectedTheme.topic === 'wedding'"></WeddingIntro>
-          <ChristmasIntro
-            v-else-if="selectedTheme.topic === 'christmas'"
-          ></ChristmasIntro>
-          <BirthdayIntro
-            v-if="selectedTheme.topic === 'birthday'"
-          ></BirthdayIntro>
+          <img class="home__wallpaper" :src="'/wallpaper/' + selectedTheme.wallpaperImage" alt="event image" />
         </template>
       </div>
       <div class="home__footer">
         <ButtonBar>
           <template #middle>
             <BaseButton to="/countdown">
-              <CameraIcon />
+              <Icon icon="mdi:camera" color="white" width="30px" height="30px" />
             </BaseButton>
           </template>
         </ButtonBar>
@@ -59,7 +47,7 @@ const { status } = useCheck();
 <style lang="scss">
 .home {
   &__content {
-    > * + * {
+    >*+* {
       margin-top: 3rem;
     }
 

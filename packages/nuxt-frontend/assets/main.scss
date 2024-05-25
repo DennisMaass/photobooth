@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+}
+
+.normalize {
+  appearance: none;
+  font: inherit;
+  margin: 0;
+  padding: 0;
+  background: none;
+  color: inherit;
+  border: 0;
+  text-align: inherit;
+  cursor: pointer;
+}
+
+
+@font-face {
+  font-family: "Fira Sans";
+  src: url(@/assets/fonts/FiraSans-Bold.ttf);
+}
+
+@font-face {
+  font-family: 'MsMadi';
+  src: url('@/assets/fonts/MsMadi-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NothernLight';
+  src: url('@/assets/fonts/NorthernLights-Script.ttf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Rushtick';
+  src: url('@/assets/fonts/rushtick/Rushtick.ttf.woff') format('woff'),
+    url('@/assets/fonts/rushtick/Rushtick.ttf.svg#Rushtick') format('svg'),
+    url('@/assets/fonts/rushtick/Rushtick.ttf.eot');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Alex Brush';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Alex Brush'), url('@/assets/fonts/alex-brush.regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Hello Honey';
+  src: url('@/assets/fonts/Hello-Honey/hello honey.ttf') format('opentype');
+}

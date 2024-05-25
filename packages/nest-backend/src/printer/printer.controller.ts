@@ -14,7 +14,7 @@ export class PrinterController {
     private readonly fileHandlingService: SharpFileHandlingService,
     private readonly photoManipulationService: SharpPhotoManipulationService,
     private configService: ConfigService,
-  ) {}
+  ) { }
 
   @Get('/state')
   async getPrinterState(): Promise<PrinterStatus> {
@@ -29,7 +29,7 @@ export class PrinterController {
   @Post('/print')
   async print(
     @Body('id') id: string,
-    @Body('withWatermark') withWatermark = true,
+    @Body('withWatermark') withWatermark = false,
   ): Promise<PrinterStatus> {
     consola.debug('[PhotoController][print] id', id);
 

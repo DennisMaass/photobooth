@@ -11,7 +11,7 @@ export default () => {
       body,
       () => {
         if (route.name === "Home") {
-          router.push({ name: "Config" });
+          router.push({ name: "Admin" });
         }
       },
       { delay: 3000 }

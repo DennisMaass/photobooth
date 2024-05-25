@@ -15,14 +15,27 @@ function tooglePrinter() {
     <span v-else>enable Printer</span>
   </button>
 
-  <div>
-    <BaseButton to="/setup">setup</BaseButton>
-    <BaseButton to="/gallery">Gallery</BaseButton>
-    <BaseButton to="/home">Home</BaseButton>
-    <BaseButton to="/config">Config</BaseButton>
-  </div>
-
   <div>wakelock: {{ wakelockActive }}</div>
   <div>version: {{ version }}</div>
   <div>window size: {{ width }} x {{ height }}</div>
+
+  <ButtonBar justify-content="space-between">
+    <template #left>
+      <BackButton />
+    </template>
+    <template #middle>
+      <BaseButton to="/setup">
+        <Icon icon="mdi:play" color="white" width="30px" height="30px" />
+      </BaseButton>
+      <BaseButton to="/gallery">
+        <Icon icon="mdi:image" color="white" width="30px" height="30px" />
+      </BaseButton>
+      <BaseButton to="/config">
+        <Icon icon="mdi:cog" color="white" width="30px" height="30px" />
+      </BaseButton>
+      <BaseButton to="/home">
+        <Icon icon="mdi:home" color="white" width="42px" height="42px" />
+      </BaseButton>
+    </template>
+  </ButtonBar>
 </template>

@@ -20,9 +20,9 @@ const {
   printWithWatermark
 } = useThemes();
 
-function addNewPerson(){
+function addNewPerson() {
   addPerson(newPerson.value);
-  
+
   newPerson.value = {
     firstName: "",
     lastName: "",
@@ -48,7 +48,8 @@ function handleReset() {
       <div>
         <h2>Theme</h2>
         <div class="theme-selector">
-          <div v-for="theme of themes" :key="theme.name" @click="setTheme(theme.id)" class="theme-selector__theme" :class="{
+          <div v-for="theme of themes" :key="theme.name" @click="setTheme(theme.id)" class="theme-selector__theme"
+            :class="{
             'theme-selector__theme--active': theme.name === selectedTheme.name,
           }">
             {{ theme.name }}
@@ -120,13 +121,20 @@ function handleReset() {
     <div class="config-view__footer">
       <ButtonBar justify-content="space-between">
         <template #left>
-          <BaseButton to="/" class="result__back">
-            <Icon icon="mdi:home" color="white" width="42px" height="42px" />
-          </BaseButton>
+          <BackButton />
         </template>
-        <template #right>
+        <template #middle>
+          <BaseButton to="/setup">
+            <Icon icon="mdi:play" color="white" width="30px" height="30px" />
+          </BaseButton>
           <BaseButton to="/gallery">
             <Icon icon="mdi:image" color="white" width="30px" height="30px" />
+          </BaseButton>
+          <BaseButton to="/admin">
+            admin
+          </BaseButton>
+          <BaseButton to="/home">
+            <Icon icon="mdi:home" color="white" width="42px" height="42px" />
           </BaseButton>
         </template>
       </ButtonBar>
