@@ -5,6 +5,7 @@ import BaseButton from "@/components/BaseButton.vue";
 import useThemes from "@/composables/useThemes";
 import { Icon } from "@iconify/vue/dist/offline";
 import ButtonBar from "@/components/ButtonBar.vue";
+import BackButton from "@/components/BackButton.vue";
 
 const {
   people,

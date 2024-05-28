@@ -1,5 +1,8 @@
 <script lang="ts" setup>
+import { Icon } from "@iconify/vue/dist/offline";
+import ButtonBar from "@/components/ButtonBar.vue";
 import BaseButton from "@/components/BaseButton.vue";
+import BackButton from "@/components/BackButton.vue";
 import useAppData from "../composables/useAppData";
 
 const { version, width, height, enabledPrinter, wakelockActive } = useAppData();
