@@ -18,7 +18,7 @@ const company = ref("")
 const fotoText = ref("")
 const animationEnabled = useLocalStorage("animationEnabled", false);
 const fontAnimationEnabled = useLocalStorage("fontAnimationEnabled", true);
-const printWithWatermark = useLocalStorage("printWithWatermark", true);
+const printWithWatermark = useLocalStorage("printWithWatermark", false);
 
 /* const newThemeType = {
   id: "wedding1",

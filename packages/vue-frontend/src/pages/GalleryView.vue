@@ -2,7 +2,7 @@
 import BaseButton from "@/components/BaseButton.vue";
 import ButtonBar from "@/components/ButtonBar.vue";
 import { Icon } from "@iconify/vue/dist/offline";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { Lazy, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import usePhotos from "@/composables/usePhotos";
@@ -38,12 +38,6 @@ const onSwiper = (sw: any) => {
   swiperInstance.value = sw;
 };
 
-const onIndexChanged = () => {
-  if (!swiperInstance.value) {
-    return;
-  }
-  activeIndex.value = swiperInstance.value.activeIndex;
-};
 
 const router = useRouter();
 const { print } = usePrinter();
@@ -61,11 +55,23 @@ function handleDownload() {
   });
 }
 
-const activeIndex = ref(initialSlide.value);
+const activeIndex = ref(initialSlide.value - 1);
+
+watch(initialSlide, () => {
+  activeIndex.value = initialSlide.value - 1
+}, { immediate: true })
 
 const activeId = computed(() => allIds.value[activeIndex.value]);
 
 const { enabledPrinter } = useAppData();
+
+
+const onIndexChanged = () => {
+  if (!swiperInstance.value) {
+    return;
+  }
+  activeIndex.value = swiperInstance.value.activeIndex;
+};
 </script>
 
 <template>

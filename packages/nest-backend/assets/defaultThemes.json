@@ -9,7 +9,7 @@
       "animation": null,
       "textColor": "#B87333",
       "baseButtonBackground": "#526C67",
-      "baseButtonBackgroundActive": "#526C67",
+      "baseButtonBackgroundActive": "#90AD95",
       "backgroundColor": "transparent",
       "fotoTextFont": "Fira Sans",
       "fotoText": "${firstName} & ${secondName}",

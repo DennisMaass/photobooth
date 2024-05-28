@@ -1,7 +1,10 @@
 <script lang="ts" setup>
 import { onBeforeUnmount, onMounted, ref, watch } from "vue";
 import BaseButton from "@/components/BaseButton.vue";
+import BackButton from "@/components/BackButton.vue";
+import ButtonBar from "@/components/ButtonBar.vue";
 import useCamera from "@/composables/useCamera";
+import { Icon } from "@iconify/vue/dist/offline";
 
 const { start, stop, stream } = useCamera();
 start();
@@ -39,12 +42,26 @@ onBeforeUnmount(() => {
 });
 </script>
 <template>
+  <h1>Setup</h1>
   <video ref="videoTag" autoplay></video>
 
-  <div>
-    <BaseButton to="/setup">setup</BaseButton>
-    <BaseButton to="/gallery">Gallery</BaseButton>
-    <BaseButton to="/home">Home</BaseButton>
-    <BaseButton to="/admin">Admin</BaseButton>
-  </div>
+  <ButtonBar justify-content="space-between">
+    <template #left>
+      <BackButton />
+    </template>
+    <template #middle>
+      <BaseButton to="/config">
+        <Icon icon="mdi:cog" color="white" width="30px" height="30px" />
+      </BaseButton>
+      <BaseButton to="/gallery">
+        <Icon icon="mdi:image" color="white" width="30px" height="30px" />
+      </BaseButton>
+      <BaseButton to="/admin">
+        admin
+      </BaseButton>
+      <BaseButton to="/home">
+        <Icon icon="mdi:home" color="white" width="42px" height="42px" />
+      </BaseButton>
+    </template>
+  </ButtonBar>
 </template>

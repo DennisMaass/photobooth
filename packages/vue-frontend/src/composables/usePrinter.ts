@@ -24,7 +24,7 @@ export default () => {
 
   async function print(
     id: string,
-    withWatermark = true
+    withWatermark = false
   ): Promise<PrinterStatus> {
     send("print", { id, withWatermark });
 
