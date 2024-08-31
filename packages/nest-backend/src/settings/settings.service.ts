@@ -6,7 +6,6 @@ import { consola } from 'consola';
 import type { UserSettings } from './user-settings.type';
 import type { SystemSettings } from './system-settings.type';
 
-
 @Injectable()
 export class SettingsService {
   userSettings: UserSettings;
@@ -15,7 +14,7 @@ export class SettingsService {
       counter: 5,
       showPreview: true,
       printerEnabled: true,
-      selectedTheme: 'weeding_3',
+      selectedTheme: 'baby_1',
     },
     themes: {
       global: {
@@ -52,7 +51,7 @@ export class SettingsService {
 
   setUserSettings(userSettings: UserSettings) {
     if (!userSettings) {
-      return
+      return;
     }
     this.userSettings = userSettings;
     writeUser(this.userSettings, 'user.conf');

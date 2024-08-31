@@ -1,6 +1,23 @@
 {
   "themes": [
     {
+      "id": "baby_1",
+      "name": "Babyparty 1",
+      "topic": "baby",
+      "wallpaper": true,
+      "wallpaperImage": "baby_1.png",
+      "animation": null,
+      "textColor": "#526C67",
+      "baseButtonBackground": "#526C67",
+      "baseButtonBackgroundActive": "#90AD95",
+      "backgroundColor": "transparent",
+      "fotoTextFont": "Fira Sans",
+      "fotoText": "It's a boy",
+      "fotoDate": "${date}",
+      "headerColor": "light",
+      "custom": {}
+    },
+    {
       "id": "wedding_3",
       "name": "Hochzeit 3",
       "topic": "wedding",

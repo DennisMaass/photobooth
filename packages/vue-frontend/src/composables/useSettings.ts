@@ -8,7 +8,7 @@ const userSettings = ref<UserSettings>({
     counter: 5,
     showPreview: true,
     printerEnabled: true,
-    selectedTheme: 'weeding_3',
+    selectedTheme: 'baby_1',
   },
   themes: {
     global: {

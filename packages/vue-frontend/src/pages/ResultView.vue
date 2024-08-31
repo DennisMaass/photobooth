@@ -59,7 +59,7 @@ const { enabledPrinter } = useConfig();
 <template>
   <div class="result">
     <div class="result__image-wrapper">
-      <FramedImage :date="selectedTheme.topic === 'wedding' ? '31.05.2024' : ''">
+      <FramedImage :date="selectedTheme.topic === 'baby' ? '30.08.2024' : ''">
         <img class="result__photo" :src="imageUrl" alt="taken photo" />
       </FramedImage>
     </div>

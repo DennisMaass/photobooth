@@ -1,5 +1,5 @@
 import { onMounted, ref, watch, computed } from "vue";
-import { useLocalStorage, useCssVar, type RemovableRef } from "@vueuse/core";
+import { useLocalStorage, useCssVar } from "@vueuse/core";
 import Snowflakes from "magic-snowflakes";
 import { Fireworks } from "fireworks-js";
 import { type Container, tsParticles } from "tsparticles-engine";

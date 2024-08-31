@@ -1,13 +1,12 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { SettingsService } from './settings.service';
-import { consola } from 'consola';
 
 import type { UserSettings } from './user-settings.type';
 import type { SystemSettings } from './system-settings.type';
 
 @Controller('settings')
 export class SettingsController {
-  constructor(private readonly settingsService: SettingsService) {}
+  constructor(private readonly settingsService: SettingsService) { }
 
   @Get('/system')
   getSystemSettings(): SystemSettings {
@@ -20,7 +19,7 @@ export class SettingsController {
   }
 
   @Post('/user')
-  setUserSettings(@Body()userSettings: UserSettings) {
+  setUserSettings(@Body() userSettings: UserSettings) {
     this.settingsService.setUserSettings(userSettings);
   }
 }

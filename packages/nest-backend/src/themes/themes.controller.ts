@@ -20,7 +20,7 @@ type Defaults = {
 @Controller('themes')
 export class ThemesController {
   themes = [];
-  currenThemeId = 'weeding_3';
+  currenThemeId = 'baby_1';
 
   constructor(private configService: ConfigService) {
     this.initThemes();

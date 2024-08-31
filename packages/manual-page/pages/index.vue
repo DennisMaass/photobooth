@@ -7,7 +7,8 @@ Aufbau:
   - Mache die Tür mit dem Chip auf
   - Schraube den Blitz auf die Kamera
   - ⁠Mach die Kamera an
-  - ⁠Stell die Kamera richtig ein (gehe in den Automatik-Modus und mache ein Foto. Verändere den Ausschnitt der Kamera so, dass es einigermaßen mit der Preview des Tablets übereinstimmt)
+  - ⁠Stell die Kamera richtig ein (gehe in den Automatik-Modus und mache ein Foto.
+  Verändere den Ausschnitt der Kamera so, dass es einigermaßen mit der Preview des Tablets übereinstimmt)
   - Stelle den Drucker auf und stecke den aufgefüllten Papierlauf ein.
   - Mache das Tablet an (Drücke mit dem Stift oben rechts auf den Power-Knopf des Tablets)
   - ⁠Starte die App
