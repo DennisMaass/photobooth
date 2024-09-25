@@ -42,26 +42,60 @@ onBeforeUnmount(() => {
 });
 </script>
 <template>
-  <h1>Setup</h1>
-  <video ref="videoTag" autoplay></video>
-
-  <ButtonBar justify-content="space-between">
-    <template #left>
-      <BackButton />
-    </template>
-    <template #middle>
-      <BaseButton to="/config">
-        <Icon icon="mdi:cog" color="white" width="30px" height="30px" />
-      </BaseButton>
-      <BaseButton to="/gallery">
-        <Icon icon="mdi:image" color="white" width="30px" height="30px" />
-      </BaseButton>
-      <BaseButton to="/admin">
-        admin
-      </BaseButton>
-      <BaseButton to="/home">
-        <Icon icon="mdi:home" color="white" width="42px" height="42px" />
-      </BaseButton>
-    </template>
-  </ButtonBar>
+  <div class="setup-view">
+    <div class="setup-view__content">
+      <h1>Setup</h1>
+      <div class="setup-view__video-container">
+        <video ref="videoTag" autoplay class="setup-view__video"></video>
+      </div>
+    </div>
+    <div class="setup-view__footer">
+      <ButtonBar justify-content="space-between">
+        <template #left>
+          <BackButton />
+        </template>
+        <template #middle>
+          <BaseButton to="/config">
+            <Icon icon="mdi:theme" color="white" width="30px" height="30px" />
+          </BaseButton>
+          <BaseButton to="/gallery">
+            <Icon icon="mdi:image" color="white" width="30px" height="30px" />
+          </BaseButton>
+          <BaseButton to="/admin">
+            <Icon icon="mdi:account-lock" color="white" width="30px" height="30px" />
+          </BaseButton>
+          <BaseButton to="/home">
+            <Icon icon="mdi:home" color="white" width="42px" height="42px" />
+          </BaseButton>
+        </template>
+      </ButtonBar>
+    </div>
+  </div>
 </template>
+<style lang="scss">
+.setup-view {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-height: 100vh;
+
+  &__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__video-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__video {
+    height: 100%;
+    width: auto;
+  }
+}
+</style>

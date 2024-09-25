@@ -7,7 +7,11 @@ import cogIcon from "@iconify-icons/mdi/cog";
 import printIcon from "@iconify-icons/fluent/print-20-filled";
 import downloadIcon from "@iconify-icons/mdi/tray-arrow-down";
 import imageIcon from "@iconify-icons/mdi/image";
-import playIcon from "@iconify-icons/mdi/play";
+import plusIcon from "@iconify-icons/mdi/plus";
+import minusIcon from "@iconify-icons/mdi/minus";
+import themeIcon from "@iconify-icons/mdi/theme";
+import accountLockIcon from "@iconify-icons/mdi/account-lock";
+
 
 export default defineNuxtPlugin(nuxtApp => {
     addIcon("mdi:home", homeIcon);
@@ -17,5 +21,8 @@ export default defineNuxtPlugin(nuxtApp => {
     addIcon("mdi:image", imageIcon);
     addIcon("mdi:camera", cameraIcon);
     addIcon("mdi:cog", cogIcon);
-    addIcon("mdi:play", playIcon);
+    addIcon("mdi:plus", plusIcon);
+    addIcon("mdi:minus", minusIcon);
+    addIcon("mdi:theme", themeIcon);
+    addIcon("mdi:account-lock", accountLockIcon);
 })

@@ -10,7 +10,7 @@ export type UserSettings = {
   themes: {
     global: {
       animation: boolean;
-      date?: Date;
+      date?: string;
       people: Array<Person>;
       photoText?: string;
     };

@@ -1,17 +1,23 @@
 import { Controller, Get, Post } from '@nestjs/common';
 import { readFileSync, existsSync, copyFileSync } from 'fs';
 import { ConfigService } from '@nestjs/config';
-import { consola } from "consola";
-import { destr } from "destr";
-
+import { consola } from 'consola';
+import { destr } from 'destr';
 
 type Theme = {
+  id: string;
   name: string;
-  colors: {
-    primary: string;
-    secondary: string;
-  }
-}
+  topic: string;
+  animation: string;
+  textColor: string;
+  baseButtonBackground: string;
+  baseButtonBackgroundActive: string;
+  backgroundColor: string;
+  fotoTextFont: string;
+  fotoText: string;
+  headerColor: string;
+  custom: Record<string, string>;
+};
 
 type Defaults = {
   themes: Array<Theme>;
@@ -19,7 +25,7 @@ type Defaults = {
 
 @Controller('themes')
 export class ThemesController {
-  themes = [];
+  themes: Array<Theme> = [];
   currenThemeId = 'baby_1';
 
   constructor(private configService: ConfigService) {
@@ -34,7 +40,7 @@ export class ThemesController {
   @Get('/current')
   getCurrentTheme() {
     const current = this.themes.find((theme) => theme.id === this.currenThemeId);
-    return current.id
+    return current.id;
   }
 
   @Post('/current')
@@ -64,5 +70,4 @@ export class ThemesController {
       consola.error(e);
     }
   }
-
 }

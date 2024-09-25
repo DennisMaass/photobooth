@@ -1,124 +1,149 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 import BaseButton from "@/components/BaseButton.vue";
+import BaseInput from "@/components/BaseInput.vue";
 import useThemes from "@/composables/useThemes";
 import { Icon } from "@iconify/vue/dist/offline";
 import ButtonBar from "@/components/ButtonBar.vue";
 import BackButton from "@/components/BackButton.vue";
+import useSettings from "@/composables/useSettings";
 
 const {
-  people,
-  addPerson,
-  removePerson,
-  company,
-  setCompany,
   themes,
   selectedTheme,
   setTheme,
   animationEnabled,
   fontAnimationEnabled,
-  printWithWatermark
+  printWithWatermark,
 } = useThemes();
 
-function addNewPerson() {
-  addPerson(newPerson.value);
+const { userSettings, setUserSettings } = useSettings();
 
-  newPerson.value = {
-    firstName: "",
-    lastName: "",
-  }
+if (userSettings.value.themes.global.people.length < 2) {
+  userSettings.value.themes.global.people.push({ firstName: "", lastName: "" });
+  userSettings.value.themes.global.people.push({ firstName: "", lastName: "" });
 }
 
-const newPerson = ref({
-  firstName: "",
-  lastName: "",
-})
-
-function handleReset() {
-  localStorage.clear();
-  window.location.reload();
+function setPhototext(value: string) {
+  const newUserSettings = { ...userSettings.value };
+  newUserSettings.themes.global.photoText = value;
+  setUserSettings(newUserSettings);
 }
+
+function setDate(value: string) {
+  const newUserSettings = { ...userSettings.value };
+  newUserSettings.themes.global.date = value;
+  setUserSettings(newUserSettings);
+}
+
+const firstPerson = computed(() => userSettings.value.themes.global.people[0]);
+
+function setFirstPerson(firstName: string, lastName: string) {
+  const newUserSettings = { ...userSettings.value };
+  newUserSettings.themes.global.people[0].firstName = firstName;
+  newUserSettings.themes.global.people[0].lastName = lastName;
+  setUserSettings(newUserSettings);
+}
+const secondPerson = computed(() => userSettings.value.themes.global.people[1]);
+
+function setSecondPerson(firstName: string, lastName: string) {
+  const newUserSettings = { ...userSettings.value };
+  newUserSettings.themes.global.people[1].firstName = firstName;
+  newUserSettings.themes.global.people[1].lastName = lastName;
+  setUserSettings(newUserSettings);
+}
+
+const basepath = `${import.meta.env.VITE_BACKEND}/wallpaper`;
 </script>
 
 <template>
   <div class="config-view">
-    <h1>Config</h1>
+    <div class="config-view__content">
+      <h1>Konfiguration</h1>
 
-    <div class="space-y-6">
-      <div>
-        <h2>Theme</h2>
-        <div class="theme-selector">
-          <div v-for="theme of themes" :key="theme.name" @click="setTheme(theme.id)" class="theme-selector__theme"
-            :class="{
-            'theme-selector__theme--active': theme.name === selectedTheme.name,
-          }">
-            {{ theme.name }}
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <h2>Daten</h2>
-
+      <div class="space-y-6">
         <div>
-          <h3>People</h3>
-
-          <div class="space-y-4">
-            <div class="flex justify-center">
-              <div class="flex">
-                <label>first name</label>
-                <input type="text" placeholder="first name" v-model="newPerson.firstName" />
-                <label>last name</label>
-                <input type="text" placeholder="last name" v-model="newPerson.lastName" />
+          <h2>Themes</h2>
+          <div class="theme-selector">
+            <div v-for="theme of themes" :key="theme.name" @click="setTheme(theme.id)" class="theme-selector__theme"
+              :class="{
+                'theme-selector__theme--active': theme.name === selectedTheme.name,
+              }">
+              <h3>{{ theme.name }}</h3>
+              <div class="theme-selector__theme-image-container">
+                <img class="theme-selector__theme-image" :src="`${basepath}/${theme.wallpaperImage}`"
+                  alt="theme image" />
               </div>
-              <button @click="addNewPerson">+</button>
-            </div>
-
-            <div v-for="(person, index) of people" :key="index" class="flex justify-center">
-              <div class="flex space-x-3">
-                <label>first name:</label>
-                <div> {{ person.firstName }} </div>
-                <label>last name:</label>
-                <div> {{ person.lastName }} </div>
-              </div>
-              <button @click="removePerson(person)"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">-</button>
             </div>
           </div>
         </div>
 
         <div>
-          <h3>Company</h3>
-          <div class="space-y-4">
-            <div>
-              <label>name</label>
-              <input type="text" placeholder="company" v-model="company" />
-              <button @click="setCompany(company)">save</button>
+          <div>
+            <h3>Namen</h3>
+            <div class="space-y-4">
+              <div class="flex justify-center">
+                <div class="flex">
+                  <label>Vorname</label>
+                  <BaseInput type="text" @update:modelValue="setFirstPerson($event, firstPerson.lastName)"
+                    :modelValue="firstPerson.firstName" />
+                </div>
+                <div class="flex">
+                  <label>Nachname</label>
+                  <BaseInput type="text" @update:modelValue="setFirstPerson(firstPerson.firstName, $event)"
+                    :modelValue="firstPerson.lastName" />
+                </div>
+              </div>
+              <div class="flex justify-center">
+                <div class="flex">
+                  <label>Vorname</label>
+                  <BaseInput type="text" @update:modelValue="setSecondPerson($event, firstPerson.lastName)"
+                    :modelValue="secondPerson.firstName" />
+                </div>
+                <div class="flex">
+                  <label>Nachname</label>
+                  <BaseInput type="text" @update:modelValue="setSecondPerson(firstPerson.firstName, $event)"
+                    :modelValue="secondPerson.lastName" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3>Fotodaten</h3>
+            <div class="space-y-4">
+              <div class="flex justify-center">
+                <label>Foto untertitle 1</label>
+                <BaseInput type="text" @update:modelValue="setPhototext"
+                  :modelValue="userSettings.themes.global.photoText" />
+              </div>
+              <div class="flex justify-center">
+                <label>Foto untertitle 2</label>
+                <BaseInput type="text" @update:modelValue="setDate" :modelValue="userSettings.themes.global.date" />
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div>
-        <h2>Einstellungen</h2>
-        <div class="space-y-2">
-          <div class="space-x-2">
-            <label>animation</label>
-            <input type="checkbox" v-model="animationEnabled" />
-          </div>
-          <div class="space-x-2">
-            <label>fontAnimation</label>
-            <input type="checkbox" v-model="fontAnimationEnabled" />
-          </div>
-          <div class="space-x-2">
-            <label>printWithWatermark</label>
-            <input type="checkbox" v-model="printWithWatermark" />
+        <div>
+          <h2>Sonstiges</h2>
+          <div class="space-y-2">
+            <div class="space-x-2">
+              <label>Startbildschirm Animation</label>
+              <BaseInput type="checkbox" v-model="animationEnabled" />
+            </div>
+            <div class="space-x-2">
+              <label>Schrift Animation</label>
+              <BaseInput type="checkbox" v-model="fontAnimationEnabled" />
+            </div>
+            <div class="space-x-2">
+              <label>Wasserzeichen drucken</label>
+              <BaseInput type="checkbox" v-model="printWithWatermark" />
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <button @click="handleReset">zurücksetzen</button>
     <div class="config-view__footer">
       <ButtonBar justify-content="space-between">
         <template #left>
@@ -126,13 +151,13 @@ function handleReset() {
         </template>
         <template #middle>
           <BaseButton to="/setup">
-            <Icon icon="mdi:play" color="white" width="30px" height="30px" />
+            <Icon icon="mdi:cog" color="white" width="30px" height="30px" />
           </BaseButton>
           <BaseButton to="/gallery">
             <Icon icon="mdi:image" color="white" width="30px" height="30px" />
           </BaseButton>
           <BaseButton to="/admin">
-            admin
+            <Icon icon="mdi:account-lock" color="white" width="30px" height="30px" />
           </BaseButton>
           <BaseButton to="/home">
             <Icon icon="mdi:home" color="white" width="42px" height="42px" />
@@ -145,6 +170,13 @@ function handleReset() {
 <style lang="scss">
 .config-view {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &__content {
+    flex: 1;
+  }
 
   &__footer {
     margin-top: 30px;
@@ -164,6 +196,20 @@ function handleReset() {
     &--active {
       background-color: #ccc;
     }
+  }
+
+  &__theme-image-container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 180px;
+  }
+
+  &__theme-image {
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+    flex-grow: 0;
   }
 }
 </style>

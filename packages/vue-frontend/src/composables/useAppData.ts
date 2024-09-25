@@ -1,12 +1,10 @@
 import { onMounted } from "vue";
-import { useWindowSize, useLocalStorage, useWakeLock } from "@vueuse/core";
+import { useWindowSize, useWakeLock } from "@vueuse/core";
 import { consola } from "consola";
 
 const { width, height } = useWindowSize();
 
-const version = "23.05.2024";
-
-const enabledPrinter = useLocalStorage("enabledPrinter", true);
+const version = "24.09.2024";
 
 const { isActive, request } = useWakeLock();
 
@@ -30,6 +28,5 @@ export default () => {
     height,
     version,
     wakelockActive: isActive,
-    enabledPrinter,
   };
 };

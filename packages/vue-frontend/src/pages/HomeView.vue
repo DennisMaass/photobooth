@@ -16,6 +16,8 @@ function gotoCountdownView() {
 const { selectedTheme } = useThemes();
 
 const { status } = useCheck();
+
+const basepath = `${import.meta.env.VITE_BACKEND}/wallpaper`;
 </script>
 
 <template>
@@ -23,13 +25,13 @@ const { status } = useCheck();
   <div v-else class="home" @click="gotoCountdownView" ref="homeComponent">
     <div class="home__wallpaper-container" v-if="selectedTheme.wallpaper">
       <WeddingIntro v-if="selectedTheme.topic === 'wedding'"></WeddingIntro>
-      <img class="home__wallpaper" :src="'/wallpaper/' + selectedTheme.wallpaperImage" alt="event image" />
+      <img class="home__wallpaper" :src="`${basepath}/${selectedTheme.wallpaperImage}`" alt="event image" />
     </div>
     <div class="home__content">
       <div class="home__image-wrapper">
         <template v-if="!selectedTheme.wallpaper">
           <WeddingIntro v-if="selectedTheme.topic === 'wedding'"></WeddingIntro>
-          <img class="home__wallpaper" :src="'/wallpaper/' + selectedTheme.wallpaperImage" alt="event image" />
+          <img class="home__wallpaper" :src="`${basepath}/${selectedTheme.wallpaperImage}`" alt="event image" />
         </template>
       </div>
       <div class="home__footer">

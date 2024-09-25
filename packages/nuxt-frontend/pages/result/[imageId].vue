@@ -47,7 +47,7 @@ const { enabledPrinter } = useAppData();
 <template>
   <div class="result">
     <div class="result__image-wrapper">
-      <FramedImage :date="selectedTheme?.topic === 'wedding' ? '24.08.2024' : ''">
+      <FramedImage :date="selectedTheme?.topic === 'wedding' ? '31.08.2024' : ''">
         <img class="result__photo" :src="imageUrl" alt="taken photo" />
       </FramedImage>
     </div>

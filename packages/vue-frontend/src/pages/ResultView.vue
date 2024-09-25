@@ -8,7 +8,7 @@ import { Icon } from "@iconify/vue/dist/offline";
 import usePhotos from "@/composables/usePhotos.js";
 import CameraIcon from "@/components/icons/CameraIcon.vue";
 import FramedImage from "@/components/FramedImage.vue";
-import useConfig from "@/composables/useAppData.js";
+import useSettings from "@/composables/useSettings";
 import useThemes from "@/composables/useThemes.js";
 import usePrinter from "@/composables/usePrinter.js";
 
@@ -52,14 +52,14 @@ function handleDownload() {
   });
 }
 
-const { enabledPrinter } = useConfig();
+const { userSettings } = useSettings();
 
 </script>
 
 <template>
   <div class="result">
     <div class="result__image-wrapper">
-      <FramedImage :date="selectedTheme.topic === 'baby' ? '30.08.2024' : ''">
+      <FramedImage :date="selectedTheme.topic === 'baby' ? '31.08.2024' : ''">
         <img class="result__photo" :src="imageUrl" alt="taken photo" />
       </FramedImage>
     </div>
@@ -73,7 +73,7 @@ const { enabledPrinter } = useConfig();
         <BaseButton @click="handleDownload">
           <Icon icon="mdi:tray-arrow-down" color="white" width="42px" height="42px" />
         </BaseButton>
-        <BaseButton v-if="enabledPrinter" @click="handlePrint">
+        <BaseButton v-if="userSettings.global.printerEnabled" @click="handlePrint">
           <Icon icon="fluent:print-20-filled" color="white" width="42px" height="42px" />
         </BaseButton>
         <BaseButton @click="handleRemove">

@@ -14,7 +14,7 @@ import "swiper/css/lazy";
 import "swiper/css/navigation";
 
 import { useRouter } from "vue-router";
-import useAppData from "@/composables/useAppData";
+import useSettings from "@/composables/useSettings";
 
 const modules = ref([Lazy, Navigation]);
 
@@ -63,7 +63,7 @@ watch(initialSlide, () => {
 
 const activeId = computed(() => allIds.value[activeIndex.value]);
 
-const { enabledPrinter } = useAppData();
+const { userSettings } = useSettings();
 
 
 const onIndexChanged = () => {
@@ -92,7 +92,7 @@ const onIndexChanged = () => {
           <BaseButton to="/">
             <Icon icon="mdi:home" color="white" width="42px" height="42px" />
           </BaseButton>
-          <BaseButton v-if="enabledPrinter" @click="handlePrint">
+          <BaseButton v-if="userSettings.global.printerEnabled" @click="handlePrint">
             <Icon icon="fluent:print-20-filled" color="white" width="42px" height="42px" />
           </BaseButton>
           <BaseButton @click="handleDownload">

@@ -45,8 +45,8 @@ function handleReset() {
         <div class="theme-selector">
           <div v-for="theme of themes" :key="theme.name" @click="setTheme(theme.id)" class="theme-selector__theme"
             :class="{
-            'theme-selector__theme--active': theme.name === selectedTheme.name,
-          }">
+              'theme-selector__theme--active': theme.name === selectedTheme.name,
+            }">
             {{ theme.name }}
           </div>
         </div>

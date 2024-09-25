@@ -74,7 +74,7 @@ export default () => {
     const newPeople = people.value.filter((p) => p.firstName !== person.firstName || p.lastName !== person.lastName);
 
     const newUserSettings = { ...userSettings.value };
-    newUserSettings.themes.global.people = newPeople
+    newUserSettings.themes.global.people = newPeople;
     setUserSettings(newUserSettings);
   }
 
@@ -174,7 +174,7 @@ export default () => {
           return;
         }
 
-        const newSelectedTheme = newVal.global.selectedTheme
+        const newSelectedTheme = newVal.global.selectedTheme;
         if (newSelectedTheme !== selectedThemeId.value) {
           setTheme(newSelectedTheme);
         }

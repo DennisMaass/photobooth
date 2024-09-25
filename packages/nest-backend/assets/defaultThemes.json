@@ -13,7 +13,6 @@
       "backgroundColor": "transparent",
       "fotoTextFont": "Fira Sans",
       "fotoText": "It's a boy",
-      "fotoDate": "${date}",
       "headerColor": "light",
       "custom": {}
     },
@@ -30,7 +29,6 @@
       "backgroundColor": "transparent",
       "fotoTextFont": "Fira Sans",
       "fotoText": "${firstName} & ${secondName}",
-      "fotoDate": "${date}",
       "headerColor": "light",
       "custom": {
         "andLetterSize": "50px",

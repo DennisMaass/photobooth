@@ -2,19 +2,20 @@
   <div class="framed-image">
     <slot></slot>
     <div class="framed-image__sub-title">
-      <span class="framed-image__name">It's a boy</span>
-      <div v-if="date" class="framed-image__date">{{ date }}</div>
+      <span v-if="userSettings.themes.global.photoText" class="framed-image__name">{{
+        userSettings.themes.global.photoText}}</span>
+      <div v-if="userSettings.themes.global.date" class="framed-image__date">{{ userSettings.themes.global.date }}</div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { computed } from "vue";
-import useThemes from "@/composables/useThemes.js";
+import useThemes from "@/composables/useThemes";
+import useSettings from "@/composables/useSettings";
 
-defineProps({
-  date: { type: String },
-});
+
+const { userSettings } = useSettings();
 
 const { selectedTheme } = useThemes();
 const fotoTextFont = computed(() => selectedTheme.value.fotoTextFont);

@@ -1,5 +1,5 @@
 <template>
-  <div class="button-bar flex">
+  <div class="button-bar flex pt-6">
     <div>
       <slot name="left"></slot>
     </div>
