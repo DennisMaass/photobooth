@@ -52,7 +52,7 @@ import { join } from 'path';
           serveRoot: '/prints',
         },
         {
-          rootPath: join(__dirname, '../../', 'assets'),
+          rootPath: join(__dirname, '../', 'assets'),
           serveRoot: '/assets',
         },
       ],
