@@ -54,7 +54,7 @@ function setSecondPerson(firstName: string, lastName: string) {
   setUserSettings(newUserSettings);
 }
 
-const basepath = `${import.meta.env.VITE_BACKEND}/wallpaper`;
+const basepath = `${import.meta.env.VITE_BACKEND}/assets/wallpaper`;
 </script>
 
 <template>

@@ -17,7 +17,7 @@ const { selectedTheme } = useThemes();
 
 const { status } = useCheck();
 
-const basepath = `${import.meta.env.VITE_BACKEND}/wallpaper`;
+const basepath = `${import.meta.env.VITE_BACKEND}/assets/wallpaper`;
 </script>
 
 <template>

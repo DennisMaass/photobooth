@@ -10,6 +10,7 @@ import { ThemesModule } from './themes/themes.module';
 import { ConnectionHandler } from './ConnectionHandler';
 import { RealtimeService } from './realtime.service';
 import { SettingsModule } from './settings/settings.module';
+import { join } from 'path';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -42,25 +43,17 @@ import { SettingsModule } from './settings/settings.module';
           rootPath: configService.get<string>('ORIGINAL_PATH'),
           serveRoot: '/originals',
         },
-      ],
-    }),
-    ServeStaticModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => [
         {
           rootPath: configService.get<string>('PREVIEW_PATH'),
           serveRoot: '/previews',
         },
-      ],
-    }),
-    ServeStaticModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => [
         {
           rootPath: configService.get<string>('PRINT_PATH'),
           serveRoot: '/prints',
+        },
+        {
+          rootPath: join(__dirname, '../../', 'assets'),
+          serveRoot: '/assets',
         },
       ],
     }),
@@ -72,4 +65,4 @@ import { SettingsModule } from './settings/settings.module';
   controllers: [AppController],
   providers: [CommandService, ConnectionHandler, RealtimeService],
 })
-export class AppModule {}
+export class AppModule { }
