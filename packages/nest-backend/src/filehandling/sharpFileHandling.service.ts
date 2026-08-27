@@ -1,6 +1,7 @@
 import FileHandlingService from "./fileHandling.service.interface";
-import sharp from "sharp";
 import { Injectable } from '@nestjs/common';
+
+const sharp: typeof import("sharp")["default"] = require("sharp");
 
 @Injectable()
 export default class SharpFileHandlingService implements FileHandlingService {

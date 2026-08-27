@@ -1,6 +1,7 @@
-import sharp from 'sharp';
 import PhotoManipulationService from './photoManipulation.service.interface.js';
 import { Injectable } from '@nestjs/common';
+
+const sharp: typeof import('sharp')['default'] = require('sharp');
 
 @Injectable()
 export default class SharpPhotoManipulationService

@@ -1,8 +1,9 @@
 import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
 import { PhotoService } from './photo.service';
 import { ConfigService } from '@nestjs/config';
-import sharp from 'sharp';
 import { consola } from "consola";
+
+const sharp: typeof import('sharp')['default'] = require('sharp');
 
 @Controller('photos')
 export class PhotoController {
