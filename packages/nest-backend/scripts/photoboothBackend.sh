@@ -13,7 +13,7 @@ PID_DIR="$APP_DIR/pid"
 PID_FILE="$PID_DIR/$APP_NAME.pid"
 LOG_DIR="$APP_DIR/log"
 LOG_FILE="$LOG_DIR/$APP_NAME.log"
-NODE_EXEC="/home/pi/.nvm/versions/node/v16.18.0/bin/node"
+NODE_EXEC="/var/www/backend/photobooth/node_modules/.bin/node"
 
 ###############
 

@@ -1,4 +1,4 @@
-import * as sharp from 'sharp';
+import sharp from 'sharp';
 import PhotoManipulationService from './photoManipulation.service.interface.js';
 import { Injectable } from '@nestjs/common';
 

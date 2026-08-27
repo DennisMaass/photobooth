@@ -1,5 +1,5 @@
 import FileHandlingService from "./fileHandling.service.interface";
-import * as sharp from "sharp";
+import sharp from "sharp";
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
